@@ -22,4 +22,6 @@ public:
 public:
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
+
+	bool limitFPS = VSYNC;
 };
