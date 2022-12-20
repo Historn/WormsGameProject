@@ -32,6 +32,6 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true	//If it is FALSE game is limited to 60fps, if is TRUE it uses screen refresh rate
 #define FPS 60		//Change this value to set the FPS as you want
-#define TITLE "2D Physics Playground"
+#define TITLE "Worms Game"
 
 #endif //_GLOBALS_H
