@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULEINPUT_H
+#define _MODULEINPUT_H
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -41,3 +43,5 @@ private:
 	int mouse_x;
 	int mouse_y;
 };
+
+#endif

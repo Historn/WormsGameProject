@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULEPLAYER_H
+#define _MODULEPLAYER_H
+
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
@@ -26,3 +28,5 @@ public:
 public:
 
 };
+
+#endif

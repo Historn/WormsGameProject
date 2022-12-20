@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _APPLICATION_H
+#define _APPLICATION_H
 
 #include "p2List.h"
 #include "Globals.h"
@@ -12,6 +13,11 @@
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModuleSceneIntro.h"
+
+#include "PugiXml/src/pugixml.hpp"
+
+#define CONFIG_FILENAME		"config.xml"
+#define SAVE_STATE_FILENAME "save_game.xml"
 
 class Application
 {
@@ -44,3 +50,7 @@ private:
 
 	void AddModule(Module* mod);
 };
+
+extern Application* app;
+
+#endif // !_APPLICATION_H

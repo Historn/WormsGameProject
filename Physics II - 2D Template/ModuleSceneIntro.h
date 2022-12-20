@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULESCENEINTRO_H
+#define _MODULESCENEINTRO_H
+
 #include "Module.h"
 #include "Animation.h"
 #include "p2DynArray.h"
@@ -55,3 +57,5 @@ public:
 
 	uint player_lose_fx;
 };
+
+#endif

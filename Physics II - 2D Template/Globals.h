@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _GLOBALS_H
+#define _GLOBALS_H
+
 #include <windows.h>
 #include <stdio.h>
 
@@ -31,3 +33,5 @@ enum update_status
 #define VSYNC true	//If it is FALSE game is limited to 60fps, if is TRUE it uses screen refresh rate
 #define FPS 60		//Change this value to set the FPS as you want
 #define TITLE "2D Physics Playground"
+
+#endif //_GLOBALS_H

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULERENDER_H
+#define _MODULERENDER_H
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -25,3 +27,5 @@ public:
 
 	bool limitFPS = VSYNC;
 };
+
+#endif //MODULERENDER

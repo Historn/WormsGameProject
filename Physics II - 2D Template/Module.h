@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULE_H
+#define _MODULE_H
 
 class Application;
 
@@ -70,3 +71,5 @@ public:
 	}
 
 };
+
+#endif //_MODULE_H
