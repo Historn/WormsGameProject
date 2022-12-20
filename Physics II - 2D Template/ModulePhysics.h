@@ -30,7 +30,7 @@ enum class ColliderType {
 class PhysBody
 {
 public:
-	PhysBody() : listener(NULL), body(NULL), cType(ColliderType::UNKNOWN)
+	PhysBody() : /*listener(NULL),*//* body(NULL),*/ cType(ColliderType::UNKNOWN)
 	{}
 
 	void GetPosition(int& x, int& y) const;
@@ -40,8 +40,8 @@ public:
 
 public:
 	int width, height;
-	/*b2Body* body;
-	Entity* listener;*/
+	//b2Body* body;
+	//Entity* listener;
 	ColliderType cType;
 };
 

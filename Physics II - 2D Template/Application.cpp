@@ -31,6 +31,9 @@ Application::Application()
 	// Scenes
 	AddModule(scene_intro);
 	
+	// Entities
+	AddModule(entityManager);
+	
 	// Player
 	AddModule(player);
 }

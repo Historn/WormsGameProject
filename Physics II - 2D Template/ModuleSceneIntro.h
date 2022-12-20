@@ -8,11 +8,11 @@
 
 #define BOUNCER_TIME 200
 
-enum lightTypes
+enum LightTypes
 {
-	tiny,
-	medium,
-	big
+	TINY,
+	MEDIUM,
+	BIG
 };
 
 class ModuleSceneIntro;
@@ -22,9 +22,9 @@ struct Light
 	Light() : texture(NULL), on(false), fx(0)
 	{}
 
-	Light(ModuleSceneIntro* physics, int x, int y, lightTypes type);
+	Light(ModuleSceneIntro* physics, int x, int y, LightTypes type);
 
-	lightTypes type;
+	LightTypes type;
 	SDL_Texture* texture;
 	bool on;
 	uint fx;

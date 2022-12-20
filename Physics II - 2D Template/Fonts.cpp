@@ -25,7 +25,7 @@ int Fonts::Load(const char* texture_path, const char* characters, uint rows) {
 		return id;
 	}
 
-	SDL_Texture* tex = App->textures->Load(texture_path);
+	SDL_Texture* tex = app->textures->Load(texture_path);
 
 	if (tex == nullptr || strlen(characters) >= MAX_FONT_CHARS) {
 		LOG("Could not load font at %s with characters '%s'", texture_path, characters);
@@ -54,7 +54,7 @@ int Fonts::Load(const char* texture_path, const char* characters, uint rows) {
 	font.columns = fonts[id].totalLength / rows;
 
 	uint tex_w, tex_h;
-	App->textures->GetSize(tex, tex_w, tex_h);
+	app->textures->GetSize(tex, tex_w, tex_h);
 	font.char_w = tex_w / font.columns;
 	font.char_h = tex_h / font.rows;
 
@@ -65,7 +65,7 @@ int Fonts::Load(const char* texture_path, const char* characters, uint rows) {
 
 void Fonts::UnLoad(int font_id) {
 	if (font_id >= 0 && font_id < MAX_FONTS && fonts[font_id].texture != nullptr) {
-		App->textures->Unload(fonts[font_id].texture);
+		app->textures->Unload(fonts[font_id].texture);
 		fonts[font_id].texture = nullptr;
 		LOG("Successfully Unloaded BMP font_id %d", font_id);
 	}
@@ -100,7 +100,7 @@ void Fonts::BlitText(int x, int y, int font_id, const char* text) const {
 		spriteRect.x = spriteRect.w * (charIndex % font->columns);
 		spriteRect.y = spriteRect.h * (charIndex / font->columns);
 
-		App->renderer->Blit(font->texture, x, y, &spriteRect, SDL_FLIP_NONE, 0.0f, false);
+		app->renderer->Blit(font->texture, x, y, &spriteRect, SDL_FLIP_NONE, 0.0f, false);
 
 		// Advance the position where we blit the next character
 		x += spriteRect.w;

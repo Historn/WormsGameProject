@@ -1,5 +1,5 @@
-#ifndef _MODULEENTITYMANAGER_H
-#define _MODULEENTITYMANAGER_H
+#ifndef _ModuleEntityManager_H
+#define _ModuleEntityManager_H
 
 #include "Module.h"
 #include "Globals.h"
