@@ -44,4 +44,4 @@ private:
 	int mouse_y;
 };
 
-#endif
+#endif //MODULEINPUT
