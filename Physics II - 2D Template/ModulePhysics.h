@@ -2,6 +2,7 @@
 #define _MODULEPHYSISCS_H
 
 #include "Module.h"
+#include "Entity.h"
 #include "Globals.h"
 
 #define GRAVITY_X 0.0f
@@ -19,7 +20,7 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-enum class ColliderType {
+enum ColliderType {
 	UNKNOWN,
 	PLAYER1,
 	PLAYER2,

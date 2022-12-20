@@ -2,17 +2,16 @@
 
 Application::Application()
 {
-	renderer = new ModuleRender(this, true);
-	window = new ModuleWindow(this, true);
-	textures = new ModuleTextures(this, true);
-	input = new ModuleInput(this, true);
-	audio = new ModuleAudio(this, true);
-	entityManager = new ModuleEntityManager(this, true);
-	player = new ModulePlayer(this, true);
-	scene_intro = new ModuleSceneIntro(this, true);
-	fonts = new Fonts(this, true);
-	ui = new UI(this, true);
-	physics = new ModulePhysics(this, true);
+	renderer = new ModuleRender(this);
+	window = new ModuleWindow(this);
+	textures = new ModuleTextures(this);
+	input = new ModuleInput(this);
+	audio = new ModuleAudio(this);
+	scene_intro = new ModuleSceneIntro(this);
+	entityManager = new ModuleEntityManager(this);
+	fonts = new Fonts(this);
+	ui = new UI(this);
+	physics = new ModulePhysics(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -33,9 +32,6 @@ Application::Application()
 	
 	// Entities
 	AddModule(entityManager);
-	
-	// Player
-	AddModule(player);
 }
 
 Application::~Application()

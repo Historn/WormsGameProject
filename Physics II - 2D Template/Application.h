@@ -36,17 +36,16 @@ public:
 	ModuleTextures* textures;
 	ModuleInput* input;
 	ModuleAudio* audio;
-	ModuleEntityManager* entityManager;
-	ModulePlayer* player;
 	ModuleSceneIntro* scene_intro;
+	ModuleEntityManager* entityManager;
 	Fonts* fonts;
 	UI* ui;
 	ModulePhysics* physics;
 
 	// xml_document to store the config file and
 	// xml_node(s) to read specific branches of the xml
-	pugi::xml_document configFile;
-	pugi::xml_node configNode;
+	/*pugi::xml_document configFile;
+	pugi::xml_node configNode;*/
 
 private:
 

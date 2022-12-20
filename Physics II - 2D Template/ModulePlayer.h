@@ -1,7 +1,7 @@
 #ifndef _MODULEPLAYER_H
 #define _MODULEPLAYER_H
 
-#include "Module.h"
+#include "Entity.h"
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
@@ -15,14 +15,16 @@ struct Object
 	{}
 };
 
-class ModulePlayer : public Module
+class ModulePlayer : public Entity
 {
 public:
-	ModulePlayer(Application* app, bool start_enabled = true);
+	ModulePlayer();
 	virtual ~ModulePlayer();
 
 	bool Start();
+	update_status PreUpdate();
 	update_status Update();
+	update_status PostUpdate();
 	bool CleanUp();
 
 public:

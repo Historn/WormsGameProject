@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "SString.h"
 
+class PhysBody;
 
 enum class EntityType
 {
@@ -27,19 +28,19 @@ public:
 		return true;
 	}
 
-	virtual bool PreUpdate()
+	virtual update_status PreUpdate()
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
-	virtual bool Update()
+	virtual update_status Update()
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
-	virtual bool PostUpdate()
+	virtual update_status PostUpdate()
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
 	virtual bool CleanUp()
@@ -84,7 +85,7 @@ public:
 	SString name;
 	EntityType type;
 	bool active = true;
-	pugi::xml_node parameters;
+	//pugi::xml_node parameters;
 
 };
 
