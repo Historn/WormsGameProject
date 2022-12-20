@@ -51,6 +51,6 @@ private:
 	void AddModule(Module* mod);
 };
 
-extern Application* app;
+//extern Application* app;
 
 #endif // !_APPLICATION_H
