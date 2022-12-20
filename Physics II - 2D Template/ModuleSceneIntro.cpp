@@ -18,7 +18,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->renderer->camera.x = App->renderer->camera.y = 0;
+	app->renderer->camera.x = app->renderer->camera.y = 0;
 
 	return ret;
 }
