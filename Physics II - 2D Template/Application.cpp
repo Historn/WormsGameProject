@@ -7,6 +7,7 @@ Application::Application()
 	textures = new ModuleTextures(this, true);
 	input = new ModuleInput(this, true);
 	audio = new ModuleAudio(this, true);
+	entityManager = new ModuleEntityManager(this, true);
 	player = new ModulePlayer(this, true);
 	scene_intro = new ModuleSceneIntro(this, true);
 	fonts = new Fonts(this, true);

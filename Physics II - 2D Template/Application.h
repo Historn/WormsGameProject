@@ -15,6 +15,7 @@
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
+#include "ModuleEntityManager.h"
 #include "ModuleSceneIntro.h"
 #include "Fonts.h"
 #include "UI.h"
@@ -35,6 +36,7 @@ public:
 	ModuleTextures* textures;
 	ModuleInput* input;
 	ModuleAudio* audio;
+	ModuleEntityManager* entityManager;
 	ModulePlayer* player;
 	ModuleSceneIntro* scene_intro;
 	Fonts* fonts;
