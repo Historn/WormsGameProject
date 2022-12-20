@@ -4,6 +4,7 @@
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name.Create("ModuleRender");
 	renderer = NULL;
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;

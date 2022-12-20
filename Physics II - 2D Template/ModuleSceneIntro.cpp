@@ -6,6 +6,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name.Create("ModuleSceneIntro");
 	graphics = NULL;
 }
 
@@ -23,6 +24,14 @@ bool ModuleSceneIntro::Start()
 	return ret;
 }
 
+// Update: draw background
+update_status ModuleSceneIntro::Update()
+{
+
+
+	return UPDATE_CONTINUE;
+}
+
 // Load assets
 bool ModuleSceneIntro::CleanUp()
 {
@@ -31,10 +40,4 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-// Update: draw background
-update_status ModuleSceneIntro::Update()
-{
-	
 
-	return UPDATE_CONTINUE;
-}

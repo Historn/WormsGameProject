@@ -9,6 +9,8 @@ Application::Application()
 	audio = new ModuleAudio(this, true);
 	player = new ModulePlayer(this, true);
 	scene_intro = new ModuleSceneIntro(this, true);
+	fonts = new Fonts(this, true);
+	ui = new UI(this, true);
 	physics = new ModulePhysics(this, true);
 
 	// The order of calls is very important!
@@ -22,7 +24,9 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
-	
+	AddModule(fonts);
+	AddModule(ui);
+
 	// Scenes
 	AddModule(scene_intro);
 	

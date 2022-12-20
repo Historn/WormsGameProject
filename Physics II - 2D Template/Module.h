@@ -1,6 +1,12 @@
 #ifndef _MODULE_H
 #define _MODULE_H
 
+#include "SString.h"
+#include "Globals.h"
+
+#include "PugiXml/src/pugixml.hpp"
+
+
 class Application;
 
 class Module
@@ -69,6 +75,21 @@ public:
 	{ 
 		return true; 
 	}
+
+	// Create new virtual methods to LoadState / SaveState
+	virtual bool LoadState(pugi::xml_node&)
+	{
+		return true;
+	}
+
+	virtual bool SaveState(pugi::xml_node&)
+	{
+		return true;
+	}
+
+public:
+
+	SString name;
 
 };
 
