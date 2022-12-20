@@ -19,6 +19,32 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
+enum class ColliderType {
+	UNKNOWN,
+	PLAYER1,
+	PLAYER2,
+	FLOOR
+};
+
+// Small class to return to other modules to track position and rotation of physics bodies
+class PhysBody
+{
+public:
+	PhysBody() : listener(NULL), body(NULL), cType(ColliderType::UNKNOWN)
+	{}
+
+	void GetPosition(int& x, int& y) const;
+	float GetRotation() const;
+	bool Contains(int x, int y) const;
+	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
+
+public:
+	int width, height;
+	/*b2Body* body;
+	Entity* listener;*/
+	ColliderType cType;
+};
+
 class ModulePhysics : public Module
 {
 public:
