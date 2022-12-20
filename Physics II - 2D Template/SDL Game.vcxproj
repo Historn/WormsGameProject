@@ -70,7 +70,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Defs.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Fonts.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModuleEntityManager.h" />
     <ClInclude Include="ModulePhysics.h" />
@@ -85,9 +87,14 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="PerfTimer.h" />
+    <ClInclude Include="SString.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
@@ -99,6 +106,9 @@
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
