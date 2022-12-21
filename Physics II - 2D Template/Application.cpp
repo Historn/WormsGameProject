@@ -7,7 +7,9 @@ Application::Application()
 	textures = new ModuleTextures(this);
 	input = new ModuleInput(this);
 	audio = new ModuleAudio(this);
-	scene_intro = new ModuleSceneIntro(this);
+	fade = new FadeToBlack(this);
+	title_screen = new TitleScreen(this);
+	scene_intro = new ModuleSceneIntro(this, false);
 	entityManager = new ModuleEntityManager(this);
 	fonts = new Fonts(this);
 	ui = new UI(this);
@@ -24,10 +26,12 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(fade);
 	AddModule(fonts);
 	AddModule(ui);
 
 	// Scenes
+	AddModule(title_screen);
 	AddModule(scene_intro);
 	
 	// Entities

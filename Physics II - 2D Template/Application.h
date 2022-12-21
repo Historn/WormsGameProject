@@ -13,12 +13,16 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
+#include "FadeToBlack.h"
+#include "TitleScreen.h"
 #include "ModulePlayer.h"
 #include "ModulePhysics.h"
 #include "ModuleEntityManager.h"
 #include "ModuleSceneIntro.h"
 #include "Fonts.h"
 #include "UI.h"
+
+
 
 #include "PerfTimer.h"
 #include "Timer.h"
@@ -36,6 +40,8 @@ public:
 	ModuleTextures* textures;
 	ModuleInput* input;
 	ModuleAudio* audio;
+	FadeToBlack* fade;
+	TitleScreen* title_screen;
 	ModuleSceneIntro* scene_intro;
 	ModuleEntityManager* entityManager;
 	Fonts* fonts;

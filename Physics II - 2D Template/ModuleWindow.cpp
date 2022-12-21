@@ -89,3 +89,8 @@ void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
 }
+
+uint ModuleWindow::GetScale() const
+{
+	return scale;
+}

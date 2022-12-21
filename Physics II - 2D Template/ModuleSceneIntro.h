@@ -43,7 +43,7 @@ public:
 
 public:
 
-	SDL_Texture* graphics;
+	SDL_Texture* img;
 
 	SDL_Texture* tex_light_tiny;
 	SDL_Texture* tex_light_medium;

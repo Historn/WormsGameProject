@@ -7,7 +7,6 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("ModuleSceneIntro");
-	graphics = NULL;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -21,6 +20,8 @@ bool ModuleSceneIntro::Start()
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
+	img = app->textures->Load("Assets/Textures/mapExample.png");
+
 	return ret;
 }
 
@@ -29,6 +30,10 @@ update_status ModuleSceneIntro::Update()
 {
 
 
+
+
+	app->renderer->Blit(img, 0, 0, NULL);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -36,6 +41,8 @@ update_status ModuleSceneIntro::Update()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	app->textures->Unload(img);
 
 	return true;
 }
