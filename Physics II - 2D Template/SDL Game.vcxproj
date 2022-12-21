@@ -88,6 +88,8 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="pxBody.h" />
+    <ClInclude Include="pxWorld.h" />
     <ClInclude Include="SString.h" />
     <ClInclude Include="TitleScreen.h" />
     <ClInclude Include="UI.h" />
