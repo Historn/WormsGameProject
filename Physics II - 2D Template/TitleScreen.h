@@ -33,7 +33,7 @@ public:
 	bool CleanUp();
 
 public:
-	uint selectSFX = 0;
+	uint startSFX = 0;
 	SDL_Texture* img;
 
 private:

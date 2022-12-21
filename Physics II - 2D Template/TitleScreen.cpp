@@ -43,7 +43,7 @@ bool TitleScreen::Start()
 	app->audio->PlayMusic("Assets/Audio/Music/TitleScreen.ogg");
 	
 	//Load SFX
-	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
+	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
 
 	//Load tex
 	img = app->textures->Load("Assets/Textures/ExampleTitleScreen.png");
@@ -58,8 +58,8 @@ update_status TitleScreen::Update()
 	//Pass next screen
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");
-		app->fade->FadeBlack(app->title_screen, (Module*)app->scene_intro, 90);
-		app->audio->PlayFx(selectSFX);
+		app->fade->FadeBlack(this, (Module*)app->scene_intro, 100);
+		app->audio->PlayFx(startSFX);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
