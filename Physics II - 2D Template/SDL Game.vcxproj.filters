@@ -12,9 +12,6 @@
     <Filter Include="Header Files\Containers">
       <UniqueIdentifier>{97c4111e-b102-4ba8-9053-6f07ccbbe3d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{d1801692-0a4c-4b2d-95a3-e6d38655f29f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -82,12 +79,6 @@
     </ClInclude>
     <ClInclude Include="TitleScreen.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pxWorld.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="pxBody.h">
-      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
