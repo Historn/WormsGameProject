@@ -61,8 +61,8 @@ bool Application::Init()
 		ret = item->data->Init();
 		item = item->next;
 	}
-
-	// After all Init calls we call Start() in all modules
+	
+		// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = list_modules.getFirst();
 
