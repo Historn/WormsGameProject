@@ -17,6 +17,8 @@ public:
 	// Enables the blending mode for transparency
 	bool Start();
 
+	update_status PreUpdate();
+	
 	// Called at the middle of the application loop
 	// Updates the fade logic
 	update_status Update();

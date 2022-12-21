@@ -26,7 +26,6 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(fade);
 	AddModule(fonts);
 	AddModule(ui);
 
@@ -36,6 +35,9 @@ Application::Application()
 	
 	// Entities
 	AddModule(entityManager);
+
+	//FadeToBlack
+	AddModule(fade);
 }
 
 Application::~Application()
