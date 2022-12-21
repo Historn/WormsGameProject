@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleEntityManager.h"
 
 
 
@@ -19,6 +20,9 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
+
+	/*INITIALIZE ENTITIES*/
+	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
 
 	img = app->textures->Load("Assets/Textures/mapExample.png");
 

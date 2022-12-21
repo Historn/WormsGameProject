@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "p2DynArray.h"
 #include "Globals.h"
+#include "ModulePlayer.h"
 
 #define BOUNCER_TIME 200
 
@@ -54,6 +55,9 @@ public:
 	uint fx_light_big;
 
 	p2DynArray<Light> lights;
+
+	//Entities
+	ModulePlayer* player;
 
 	uint player_lose_fx;
 };
