@@ -41,7 +41,7 @@ class PhysBody
 public:
 	PhysBody() : cType(ColliderType::UNKNOWN), bType(BodyType::UNKNOWN)
 	{}
-	~PhysBody();
+	//~PhysBody();
 
 	int width, height;
 	float radius;
