@@ -3,6 +3,7 @@
 
 #include <windows.h>
 #include <stdio.h>
+#include "math.h"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
@@ -20,6 +21,69 @@ enum update_status
 	UPDATE_CONTINUE = 1,
 	UPDATE_STOP,
 	UPDATE_ERROR
+};
+
+struct Vec2D 
+{
+	/// Default constructor does nothing (for performance).
+	Vec2D() {}
+
+	/// Construct using coordinates.
+	Vec2D(float x, float y) : x(x), y(y) {}
+
+	/// Set this vector to all zeros.
+	void SetZero() { x = 0.0f; y = 0.0f; }
+
+	/// Set this vector to some specified coordinates.
+	void Set(float x_, float y_) { x = x_; y = y_; }
+
+	/// Negate this vector.
+	Vec2D operator -() const { Vec2D v; v.Set(-x, -y); return v; }
+
+	/// Read from and indexed element.
+	float operator () (int i) const
+	{
+		return (&x)[i];
+	}
+
+	/// Write to an indexed element.
+	float& operator () (int i)
+	{
+		return (&x)[i];
+	}
+
+	/// Add a vector to this vector.
+	void operator += (const Vec2D& v)
+	{
+		x += v.x; y += v.y;
+	}
+
+	/// Subtract a vector from this vector.
+	void operator -= (const Vec2D& v)
+	{
+		x -= v.x; y -= v.y;
+	}
+
+	/// Multiply this vector by a scalar.
+	void operator *= (float a)
+	{
+		x *= a; y *= a;
+	}
+
+	/// Get the length of this vector (the norm).
+	float Length() const
+	{
+		return sqrt(x * x + y * y);
+	}
+
+	/// Get the length squared. For performance, use this instead of
+	/// Vec2D::Length (if possible).
+	float LengthSquared() const
+	{
+		return x * x + y * y;
+	}
+
+	float x, y;
 };
 
 // Configuration -----------

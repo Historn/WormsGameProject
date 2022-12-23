@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Entity.h"
 #include "Globals.h"
+#include <vector>
 
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -10.0f
@@ -20,7 +21,14 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-enum ColliderType {
+enum class BodyType {
+	UNKNOWN,
+	STATIC,
+	KINEMATIC,
+	DYNAMIC
+};
+
+enum class ColliderType {
 	UNKNOWN,
 	PLAYER1,
 	PLAYER2,
@@ -31,20 +39,45 @@ enum ColliderType {
 class PhysBody
 {
 public:
-	PhysBody() : /*listener(NULL),*//* body(NULL),*/ cType(ColliderType::UNKNOWN)
+	PhysBody() : cType(ColliderType::UNKNOWN), bType(BodyType::UNKNOWN)
 	{}
+	~PhysBody();
 
-	void GetPosition(int& x, int& y) const;
-	float GetRotation() const;
-	bool Contains(int x, int y) const;
-	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
-
-public:
 	int width, height;
+	float radius;
 	//b2Body* body;
 	//Entity* listener;
 	ColliderType cType;
+
+	Vec2D position;
+	Vec2D velocity;
+	Vec2D acceleration;
+	float angle;
+
+	//Body Mass in kg
+	float mass;
+
+	// Coefficients of friction & restitution (for bounces)
+	float coef_friction;
+	float coef_restitution;
+
+	// Aerodynamics stuff
+	float surface; // Effective wet surface
+	float cl; // Aerodynamic Lift coefficient
+	float cd; // Aerodynamic Drag coefficient
+	float b; // Hydrodynamic Drag coefficient
+
+	/// The body type.
+	/// static: zero mass, zero velocity, may be manually moved
+	/// kinematic: zero mass, non-zero velocity set by user, moved by solver
+	/// dynamic: positive mass, non-zero velocity determined by forces, moved by solver
+	BodyType bType;
+
+	// Has physics enabled?
+	bool physics_enabled = true;
+
 };
+
 
 class ModulePhysics : public Module
 {
@@ -57,9 +90,20 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
+	PhysBody* CreateCircle(int x, int y, float radius, BodyType bType, ColliderType ctype);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, BodyType bType, ColliderType ctype, float angle = 0.0f);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, BodyType bType, ColliderType ctype, float angle = 0.0f);
+	PhysBody* CreateChain(int x, int y, int* points, int size, BodyType bType, ColliderType ctype);
+
 private:
 
 	bool debug;
+
+public:
+
+	std::vector<PhysBody> bodies{};
+
+
 };
 
 #endif 
