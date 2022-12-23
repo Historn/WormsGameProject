@@ -44,7 +44,7 @@ public:
 
 public:
 
-	SDL_Texture* img;
+	SDL_Texture* map_img;
 
 	SDL_Texture* tex_light_tiny;
 	SDL_Texture* tex_light_medium;
@@ -58,7 +58,7 @@ public:
 
 	//Entities
 	ModulePlayer* player;
-
+	
 	uint player_lose_fx;
 };
 

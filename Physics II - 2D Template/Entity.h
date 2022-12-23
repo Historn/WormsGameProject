@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "SString.h"
+#include "p2Point.h"
 
 class PhysBody;
 
@@ -87,7 +88,12 @@ public:
 	bool active = true;
 	//pugi::xml_node parameters;
 
+	// Possible properties, it depends on how generic we
+	// want our Entity class, maybe it's not renderable...
+	iPoint position;
+	bool renderable = true;
 };
+
 
 #endif // !_Entity_H
 

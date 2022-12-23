@@ -46,7 +46,7 @@ public:
 	int width, height;
 	float radius;
 	//b2Body* body;
-	//Entity* listener;
+	Entity* listener;
 	ColliderType cType;
 
 	Vec2D position;

@@ -21,10 +21,12 @@ bool ModuleSceneIntro::Start()
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
+
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	
 
-	img = app->textures->Load("Assets/Textures/mapExample.png");
+	map_img = app->textures->Load("Assets/Textures/mapExample.png");
 
 	return ret;
 }
@@ -32,11 +34,11 @@ bool ModuleSceneIntro::Start()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	
 
 
 
-
-	app->renderer->Blit(img, 0, 0, NULL);
+	app->renderer->Blit(map_img, 0, 0, NULL);
 
 	return UPDATE_CONTINUE;
 }
@@ -46,7 +48,7 @@ bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
-	app->textures->Unload(img);
+	app->textures->Unload(map_img);
 
 	return true;
 }
