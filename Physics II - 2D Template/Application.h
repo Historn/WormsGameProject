@@ -7,7 +7,6 @@
 #include "Dummy.h"
 #include "SString.h"
 #include "Defs.h"
-
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
@@ -40,6 +39,7 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleEntityManager* entityManager;
 	Fonts* fonts;
+	ModulePlayer* player;
 	UI* ui;
 	ModulePhysics* physics;
 
