@@ -17,11 +17,14 @@ bool ModulePlayer::Start()
 	return true;
 	
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	startPos.x = parameters.attribute("x").as_int();
-	startPos.y = parameters.attribute("y").as_int();
+	/*startPos.x = parameters.attribute("x").as_int();
+	startPos.y = parameters.attribute("y").as_int();*/
+	startPos.x = 50;
+	startPos.y = 50;
 
 	//Textures Load
-	texturePath = parameters.attribute("texturepath").as_string();
+	/*texturePath = parameters.attribute("texturepath").as_string();*/
+	texturePath = ("Assets/Textures/Worms_spritesheet.png");
 
 	//Animations
 	idlePlayer.PushBack({ 0, 0, 19, 28 });

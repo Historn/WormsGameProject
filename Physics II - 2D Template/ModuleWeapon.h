@@ -53,6 +53,8 @@ public:
 
 	bool active = false;
 
+	Vec2D startPos;
+
 private:
 
 	SDL_Texture* texture;

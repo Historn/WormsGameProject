@@ -64,8 +64,8 @@ public:
 	int x;
 	int y;
 
-	Vec2D velocity = { x, y };
-	Vec2D startPos = { x, y };
+	Vec2D velocity;
+	Vec2D startPos;
 
 private:
 

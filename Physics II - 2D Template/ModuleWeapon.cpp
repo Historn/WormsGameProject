@@ -21,7 +21,8 @@ bool ModuleWeapon::Start()
 	startPos.y = app->player->position.y;
 
 	//Textures Load
-	texturePath = parameters.attribute("texturepath").as_string();
+	/*texturePath = parameters.attribute("texturepath").as_string();*/
+	texturePath = ("Assets/Textures/Worms_spritesheet.png");
 
 	//Animations
 	readying.PushBack({ 0, 0, 19, 28 });
@@ -73,6 +74,8 @@ update_status ModuleWeapon::Update()
 
 	position.x = app->player->position.x;
 	position.y = app->player->position.y;
+
+	return UPDATE_CONTINUE;
 }
 
 
