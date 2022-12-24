@@ -46,7 +46,7 @@ bool TitleScreen::Start()
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
 
 	//Load tex
-	img = app->textures->Load("Assets/Textures/ExampleTitleScreen.png");
+	img = app->textures->Load("Assets/Textures/TitleScreen.png");
 
 
 	return ret;
