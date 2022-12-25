@@ -2,9 +2,11 @@
 #include "Application.h"
 #include "ModuleInput.h"
 
+#include "SDL/include/SDL.h"
+
 #define MAX_KEYS 300
 
-ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleInput::ModuleInput(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleInput");
 	keyboard = new KEY_STATE[MAX_KEYS];
@@ -18,7 +20,7 @@ ModuleInput::~ModuleInput()
 }
 
 // Called before render is available
-bool ModuleInput::Init()
+bool ModuleInput::Start()
 {
 	LOG("Init SDL input event system");
 	bool ret = true;

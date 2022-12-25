@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Globals.h"
 
+#include "SDL/include/SDL_scancode.h"
+#include "SDL/include/SDL_gamecontroller.h"
+
 enum KEY_STATE
 {
 	KEY_IDLE = 0,
@@ -16,10 +19,10 @@ class ModuleInput : public Module
 {
 public:
 	
-	ModuleInput(Application* app, bool start_enabled = true);
+	ModuleInput(bool start_enabled = true);
 	~ModuleInput();
 
-	bool Init();
+	bool Start();
 	update_status PreUpdate();
 	bool CleanUp();
 

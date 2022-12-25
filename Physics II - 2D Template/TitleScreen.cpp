@@ -1,14 +1,12 @@
+#include "TitleScreen.h"
 #include "Application.h"
 #include "Animation.h"
 #include "ModuleWindow.h"
-#include "Module.h"
-#include "Globals.h"
 #include "ModuleAudio.h"
 #include "Fonts.h"
 #include "ModuleInput.h"
 #include "ModulePhysics.h"
 #include "ModuleRender.h"
-#include "TitleScreen.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleTextures.h"
 #include "UI.h"
@@ -18,7 +16,7 @@
 
 #include "SDL/include/SDL_render.h"
 
-TitleScreen::TitleScreen(Application* app, bool start_enabled) : Module(app, start_enabled)
+TitleScreen::TitleScreen(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleTitleScreen");
 }

@@ -2,6 +2,7 @@
 #define __MODULEAUDIO_H__
 
 #include "Module.h"
+#include "p2List.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
@@ -10,10 +11,10 @@ class ModuleAudio : public Module
 {
 public:
 
-	ModuleAudio(Application* app, bool start_enabled = true);
+	ModuleAudio(bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Init();
+	bool Start();
 	bool CleanUp();
 
 	// Play a music file
@@ -27,7 +28,7 @@ public:
 
 private:
 
-	Mix_Music*			music;
+	Mix_Music* music;
 	p2List<Mix_Chunk*>	fx;
 };
 

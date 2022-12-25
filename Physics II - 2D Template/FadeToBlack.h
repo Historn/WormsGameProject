@@ -8,7 +8,7 @@ class FadeToBlack : public Module
 {
 public:
 	//Constructor
-	FadeToBlack (Application* app, bool start_enabled = true);
+	FadeToBlack (bool start_enabled = true);
 
 	//Destructor
 	virtual ~FadeToBlack();

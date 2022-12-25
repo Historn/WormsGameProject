@@ -26,7 +26,7 @@ class Fonts : public Module {
 public:
 
 	// Constructor
-	Fonts(Application* app, bool start_enabled = true);
+	Fonts(bool start_enabled = true);
 
 	// Destructor
 	virtual ~Fonts();

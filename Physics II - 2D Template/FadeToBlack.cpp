@@ -5,7 +5,7 @@
 #include "ModuleWindow.h"
 #include "SDL/include/SDL_render.h"
 
-FadeToBlack::FadeToBlack(Application* app, bool start_enabled) : Module(app, start_enabled)
+FadeToBlack::FadeToBlack(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleFadeToBlack");
 }

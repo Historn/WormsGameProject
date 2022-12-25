@@ -1,19 +1,36 @@
+
+
+#include "ModuleWindow.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "FadeToBlack.h"
+#include "TitleScreen.h"
+#include "ModulePlayer.h"
+#include "ModulePhysics.h"
+#include "ModuleEntityManager.h"
+#include "ModuleSceneIntro.h"
+#include "Fonts.h"
+#include "UI.h"
+
 #include "Application.h"
+
 
 Application::Application()
 {
-	renderer = new ModuleRender(this);
-	window = new ModuleWindow(this);
-	textures = new ModuleTextures(this);
-	input = new ModuleInput(this);
-	audio = new ModuleAudio(this);
-	fade = new FadeToBlack(this);
-	title_screen = new TitleScreen(this);
-	scene_intro = new ModuleSceneIntro(this, false);
-	entityManager = new ModuleEntityManager(this);
-	fonts = new Fonts(this);
-	ui = new UI(this);
-	physics = new ModulePhysics(this);
+	renderer = new ModuleRender(true);
+	window = new ModuleWindow(true);
+	textures = new ModuleTextures(true);
+	input = new ModuleInput(true);
+	audio = new ModuleAudio(true);
+	fade = new FadeToBlack(true);
+	title_screen = new TitleScreen(true);
+	scene_intro = new ModuleSceneIntro(false);
+	entityManager = new ModuleEntityManager(true);
+	fonts = new Fonts(true);
+	ui = new UI(true);
+	physics = new ModulePhysics(true);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -51,22 +68,14 @@ Application::~Application()
 	}
 }
 
-bool Application::Init()
+bool Application::Start()
 {
 	bool ret = true;
 
-	// Call Init() in all modules
 	p2List_item<Module*>* item = list_modules.getFirst();
 
-	while(item != NULL && ret == true)
-	{
-		ret = item->data->Init();
-		item = item->next;
-	}
-	
 		// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
-	item = list_modules.getFirst();
 
 	while(item != NULL && ret == true)
 	{

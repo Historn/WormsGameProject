@@ -4,7 +4,7 @@
 
 class ModuleDummy : public Module
 {
-	bool Init()
+	bool Start()
 	{
 		LOG("Dummy Init!");
 		return true;

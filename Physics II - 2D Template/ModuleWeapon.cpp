@@ -1,6 +1,7 @@
-#include "Globals.h"
+
 #include "Application.h"
 #include "ModuleWeapon.h"
+#include "ModuleInput.h"
 
 
 ModuleWeapon::ModuleWeapon() : Entity(EntityType::WEAPON) {
@@ -17,8 +18,8 @@ bool ModuleWeapon::Start()
 	return true;
 
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	startPos.x = app->player->position.x;
-	startPos.y = app->player->position.y;
+	/*startPos.x = app->player->position.x;
+	startPos.y = app->player->position.y;*/
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
@@ -67,13 +68,13 @@ update_status ModuleWeapon::PreUpdate()
 // Update: draw background
 update_status ModuleWeapon::Update()
 {
-	if (app->player->isTurn == true) {
+	/*if (app->player->isTurn == true) {
 		(isDrawn = true);
 		Drawn();
 	}
 
 	position.x = app->player->position.x;
-	position.y = app->player->position.y;
+	position.y = app->player->position.y;*/
 
 	return UPDATE_CONTINUE;
 }

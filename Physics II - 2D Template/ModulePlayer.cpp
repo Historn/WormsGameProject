@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
+#include "ModuleInput.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -14,7 +15,6 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-	return true;
 	
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	/*startPos.x = parameters.attribute("x").as_int();
@@ -49,6 +49,8 @@ bool ModulePlayer::Start()
 	dead = false;
 	hp = 100;
 
+
+	return true;
 }
 
 // Unload assets
@@ -68,14 +70,15 @@ update_status ModulePlayer::PreUpdate()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	return UPDATE_CONTINUE;
-
 	currentAnim = &idlePlayer;
 	velocity = { 0, 0 };
 
 	if (isTurn == true) {
 		Attack();
 	}
+
+	return UPDATE_CONTINUE;
+
 }
 
 

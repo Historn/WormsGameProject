@@ -1,33 +1,45 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
+#include "Module.h"
 #include "p2List.h"
 #include "Globals.h"
-#include "Module.h"
 #include "Dummy.h"
 #include "SString.h"
 #include "Defs.h"
-#include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "ModuleTextures.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
-#include "FadeToBlack.h"
-#include "TitleScreen.h"
-#include "ModulePlayer.h"
-#include "ModulePhysics.h"
-#include "ModuleEntityManager.h"
-#include "ModuleSceneIntro.h"
-#include "Fonts.h"
-#include "UI.h"
+
 
 #include "PugiXml/src/pugixml.hpp"
 
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
+class ModuleRender;
+class ModuleWindow;
+class ModuleTextures;
+class ModuleInput;
+class ModuleAudio;
+class FadeToBlack;
+class TitleScreen;
+class ModuleSceneIntro;
+class ModuleEntityManager;
+class Fonts;
+class UI;
+class ModulePhysics;
+
 class Application
 {
+public:
+
+	Application();
+	virtual ~Application();
+
+	bool Start();
+	update_status Update();
+	bool CleanUp();
+
+	int fps = FPS;
+
 public:
 	ModuleRender* renderer;
 	ModuleWindow* window;
@@ -39,7 +51,6 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleEntityManager* entityManager;
 	Fonts* fonts;
-	ModulePlayer* player;
 	UI* ui;
 	ModulePhysics* physics;
 
@@ -55,17 +66,6 @@ private:
 	// Create control variables to control that the real Load and Save happens at the end of the frame
 	bool saveGameRequested;
 	bool loadGameRequested;
-
-public:
-
-	Application();
-	~Application();
-
-	bool Init();
-	update_status Update();
-	bool CleanUp();
-
-	int fps = FPS;
 
 private:
 

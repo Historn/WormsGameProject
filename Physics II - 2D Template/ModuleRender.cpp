@@ -1,8 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "ModuleWindow.h"
 
-ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleRender::ModuleRender(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleRender");
 	renderer = NULL;
@@ -16,7 +17,7 @@ ModuleRender::~ModuleRender()
 {}
 
 // Called before render is available
-bool ModuleRender::Init()
+bool ModuleRender::Start()
 {
 	LOG("Creating Renderer context");
 	bool ret = true;

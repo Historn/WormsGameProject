@@ -11,7 +11,7 @@ struct SDL_Texture;
 class UI : public Module
 {
 public:
-	UI(Application* app, bool start_enabled = true);
+	UI(bool start_enabled = true);
 
 	// Destructor
 	~UI();

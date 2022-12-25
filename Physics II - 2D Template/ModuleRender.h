@@ -4,13 +4,15 @@
 #include "Module.h"
 #include "Globals.h"
 
+#include "SDL/include/SDL.h"
+
 class ModuleRender : public Module
 {
 public:
-	ModuleRender(Application* app, bool start_enabled = true);
+	ModuleRender(bool start_enabled = true);
 	~ModuleRender();
 
-	bool Init();
+	bool Start();
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();

@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "vector"
+#include "SString.h"
 #include "SDL/include/SDL.h"
 
 
@@ -16,13 +17,13 @@ public:
 	virtual ~ModuleWeapon();
 
 	bool Start();
-	update_status Awake();
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
-	void Drawn();
-
+	
 	bool CleanUp();
+
+	void Drawn();
 
 public:
 

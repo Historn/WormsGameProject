@@ -10,7 +10,7 @@ class ModuleEntityManager : public Module
 {
 public:
 
-	ModuleEntityManager(Application* app, bool start_enabled = true);
+	ModuleEntityManager(bool start_enabled = true);
 	~ModuleEntityManager();
 
 	bool Start();

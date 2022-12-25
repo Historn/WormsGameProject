@@ -1,7 +1,6 @@
 #ifndef _Entity_H
 #define _Entity_H
 
-#include "Application.h"
 #include "Globals.h"
 #include "SString.h"
 #include "p2Point.h"
@@ -50,7 +49,7 @@ public:
 		return true;
 	}
 
-	virtual bool LoadState(pugi::xml_node&)
+	/*virtual bool LoadState(pugi::xml_node&)
 	{
 		return true;
 	}
@@ -58,7 +57,7 @@ public:
 	virtual bool SaveState(pugi::xml_node&)
 	{
 		return true;
-	}
+	}*/
 
 	void Entity::Enable()
 	{

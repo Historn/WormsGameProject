@@ -13,7 +13,7 @@
 
 #include "Defs.h"
 
-UI::UI(Application* app, bool start_enabled) : Module(app, start_enabled)
+UI::UI(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("UI_Module");
 }

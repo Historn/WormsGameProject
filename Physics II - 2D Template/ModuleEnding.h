@@ -14,10 +14,10 @@ class ModuleEnding : public Module
 {
 public:
 
-	ModuleEnding(Application* app, bool start_enabled = true);
+	ModuleEnding(bool start_enabled = true);
 
 	// Destructor
-	virtual ~ModuleEnding();
+	~ModuleEnding();
 
 	// Called before the first frame
 	bool Start();

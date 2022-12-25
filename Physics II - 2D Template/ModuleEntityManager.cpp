@@ -2,7 +2,7 @@
 #include "ModuleEntityManager.h"
 #include "ModulePlayer.h"
 
-ModuleEntityManager::ModuleEntityManager(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleEntityManager::ModuleEntityManager(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleEntityManager");
 }

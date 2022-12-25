@@ -1,10 +1,13 @@
-#include "Globals.h"
+
 #include "Application.h"
 #include "ModuleAudio.h"
+#include "Globals.h"
+
+#include "SDL/include/SDL.h"
 
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled), music(NULL)
+ModuleAudio::ModuleAudio(bool start_enabled) : Module(start_enabled), music(NULL)
 {
 	name.Create("ModuleAudio");
 }
@@ -14,7 +17,7 @@ ModuleAudio::~ModuleAudio()
 {}
 
 // Called before render is available
-bool ModuleAudio::Init()
+bool ModuleAudio::Start()
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;

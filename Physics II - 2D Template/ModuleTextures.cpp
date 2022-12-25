@@ -1,11 +1,12 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
+#include "ModuleRender.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
-ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleTextures::ModuleTextures(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleTexture");
 }
@@ -15,7 +16,7 @@ ModuleTextures::~ModuleTextures()
 {}
 
 // Called before render is available
-bool ModuleTextures::Init()
+bool ModuleTextures::Start()
 {
 	LOG("Init Image library");
 	bool ret = true;

@@ -8,7 +8,7 @@
 #include <string.h>
 #include "Defs.h"
 
-Fonts::Fonts(Application* app, bool start_enabled) : Module(app, start_enabled)
+Fonts::Fonts(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("Fonts_Module");
 }

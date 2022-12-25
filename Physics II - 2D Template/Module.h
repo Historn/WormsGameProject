@@ -1,8 +1,8 @@
 #ifndef _MODULE_H
 #define _MODULE_H
 
-#include "SString.h"
 #include "Globals.h"
+#include "SString.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -13,44 +13,14 @@ class PhysBody;
 
 class Module
 {
-private :
-	bool enabled;
-
 public:
-	Application* app;
-
-	Module(Application* parent, bool start_enabled = true) : app(parent), enabled(start_enabled)
-	{}
-
-	virtual ~Module()
+	
+	Module(bool start_enabled = true) : enabled(start_enabled)
 	{}
 
 	bool IsEnabled() const
 	{
 		return enabled;
-	}
-
-	void Enable()
-	{
-		if(enabled == false)
-		{
-			enabled = true;
-			Start();
-		}
-	}
-
-	void Disable()
-	{
-		if(enabled == true)
-		{
-			enabled = false;
-			CleanUp();
-		}
-	}
-
-	virtual bool Init() 
-	{
-		return true; 
 	}
 
 	virtual bool Start()
@@ -89,10 +59,28 @@ public:
 		return true;
 	}
 
+	void Enable()
+	{
+		if (enabled == false)
+		{
+			enabled = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		if (enabled == true)
+		{
+			enabled = false;
+			CleanUp();
+		}
+	}
+
 public:
 
 	SString name;
-
+	bool enabled;
 };
 
 #endif //_MODULE_H

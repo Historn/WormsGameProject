@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModuleWindow");
 	window = NULL;
@@ -15,7 +15,7 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Init()
+bool ModuleWindow::Start()
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -62,6 +62,7 @@ bool ModuleWindow::Init()
 		else
 		{
 			//Get window surface
+			LOG("CREATES SURFACE");
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}

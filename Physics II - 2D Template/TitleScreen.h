@@ -2,11 +2,10 @@
 #define __TITLESCREEN_H__
 
 #include "Module.h"
+#include "Globals.h"
 #include "p2List.h"
 #include "p2Point.h"
-#include "Globals.h"
 #include "Animation.h"
-#include "ModulePhysics.h"
 
 struct SDL_Texture;
 
@@ -14,7 +13,7 @@ class TitleScreen : public Module
 {
 public:
 
-	TitleScreen(Application* app, bool start_enabled = true);
+	TitleScreen(bool start_enabled = true);
 
 	// Destructor
 	virtual ~TitleScreen();
