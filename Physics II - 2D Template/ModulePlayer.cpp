@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
-	texturePath = ("Assets/Textures/Worms_spritesheet.png");
+	texturePath = ("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
 	idlePlayer.PushBack({ 0, 0, 19, 28 });
@@ -33,15 +33,44 @@ bool ModulePlayer::Start()
 	idlePlayer.loop = true;
 	idlePlayer.speed = 0.1f;
 
-	attackrdyPlayer.PushBack({ 0, 128, 65, 33 });
-	attackrdyPlayer.PushBack({ 64, 128, 65, 33 });
+	attackrdyPlayer.PushBack({ 61, 0, 21, 30 }); //Putting Bandana On
+	attackrdyPlayer.PushBack({ 82, 0, 22, 26 });
+	attackrdyPlayer.PushBack({ 105, 0, 22, 26 });
+	attackrdyPlayer.PushBack({ 126, 0, 17, 26 });
+	attackrdyPlayer.PushBack({ 158, 0, 17, 26 });
 	attackrdyPlayer.loop = false;
 	attackrdyPlayer.speed = 0.3f;
 
-	IdleBandanaPlayer.PushBack({ 0, 128, 65, 33 });
-	IdleBandanaPlayer.PushBack({ 0, 128, 65, 33 });
-	IdleBandanaPlayer.loop = false;
+	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
+	IdleBandanaPlayer.PushBack({ 126, 0, 17, 26 });
+	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
+	IdleBandanaPlayer.loop = true;
 	IdleBandanaPlayer.speed = 0.3f;
+
+	//Can Only jump when isTurn = true // With Bandana On
+	jumpPlayer.PushBack({ 126, 0, 17, 26 });
+	jumpPlayer.PushBack({ 158, 0, 17, 26 });
+	jumpPlayer.PushBack({ 175, 0, 17, 29 });
+	jumpPlayer.loop = false;
+	jumpPlayer.speed = 0.1f;
+
+	parachutePlayer.PushBack({ 487, 153, 32, 52 });
+	parachutePlayer.loop = true;
+	parachutePlayer.speed = 0.1f;
+
+	deathPlayer.PushBack({ 396, 100, 20, 24 });
+	deathPlayer.PushBack({ 416, 100, 20, 24 });
+	deathPlayer.PushBack({ 436, 100, 17, 24 });
+	deathPlayer.PushBack({ 453, 100, 20, 24 });
+	deathPlayer.PushBack({ 473, 100, 18, 24 });
+	deathPlayer.PushBack({ 490, 100, 14, 24 });
+	deathPlayer.PushBack({ 503, 100, 10, 24 });
+	deathPlayer.PushBack({ 512, 100, 10, 24 });
+	deathPlayer.loop = false;
+	deathPlayer.speed = 0.1f;
+
+
+
 
 	currentAnim = &idlePlayer;
 

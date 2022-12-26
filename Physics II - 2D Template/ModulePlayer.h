@@ -42,6 +42,10 @@ public:
 	Animation idlePlayer;
 	Animation IdleBandanaPlayer;
 	Animation attackrdyPlayer;
+	Animation jumpPlayer;
+	Animation parachutePlayer;
+	Animation deathPlayer;
+
 
 	//Collider Player
 	/*Collider* collider = nullptr;*/

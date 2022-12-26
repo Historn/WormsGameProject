@@ -42,6 +42,11 @@ public:
 	Animation shooting;
 	Animation idle;
 	Animation putAway;
+	Animation aimUp45;
+	Animation aimDown45;
+	Animation aimDown90;
+	Animation aimUp90;
+	Animation launchSmoke;
 
 
 	//Collider Player

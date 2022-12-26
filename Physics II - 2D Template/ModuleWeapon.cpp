@@ -23,29 +23,46 @@ bool ModuleWeapon::Start()
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
-	texturePath = ("Assets/Textures/Worms_spritesheet.png");
+	texturePath = ("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
-	readying.PushBack({ 0, 0, 19, 28 });
-	readying.PushBack({ 19, 0, 17, 28 });
-	readying.PushBack({ 36, 0, 18, 28 });
-	readying.loop = true;
+	readying.PushBack({ 93, 112, 28, 28 });
+	readying.PushBack({ 93, 140, 28, 28 });
+	readying.PushBack({ 93, 168, 28, 28 });
+	readying.loop = false;
 	readying.speed = 0.1f;
 
-	shooting.PushBack({ 0, 128, 65, 33 });
-	shooting.PushBack({ 64, 128, 65, 33 });
-	shooting.loop = false;
-	shooting.speed = 0.3f;
+	idle.PushBack({ 93, 168, 28, 28 });
+	idle.loop = true;
+	idle.speed = 0.1f;
 
-	idle.PushBack({ 0, 128, 65, 33 });
-	idle.PushBack({ 0, 128, 65, 33 });
-	idle.loop = false;
-	idle.speed = 0.3f;
-
-	putAway.PushBack({ 0, 128, 65, 33 });
-	putAway.PushBack({ 0, 128, 65, 33 });
+	putAway.PushBack({ 93, 168, 28, 28 });
+	putAway.PushBack({ 93, 196, 28, 28 });
+	putAway.PushBack({ 93, 224, 28, 28 });
 	putAway.loop = false;
-	putAway.speed = 0.3f;
+	putAway.speed = 0.1f;
+
+	aimUp45.PushBack({ 93, 140, 28, 28 });
+	aimUp45.loop = true;
+	aimUp45.speed = 0.1f;
+
+	aimDown45.PushBack({ 93, 196, 28, 28 });
+	aimDown45.loop = true;
+	aimDown45.speed = 0.1f;
+
+	aimUp90.PushBack({ 93,112,28,28 });
+	aimUp90.loop = true;
+	aimUp90.speed = 0.1f;
+
+	aimDown90.PushBack({ 93, 224, 28, 28 });
+	aimDown90.loop = true;
+	aimDown90.speed = 0.1f;
+
+	launchSmoke.PushBack({ 73, 313, 34, 35 });
+	launchSmoke.PushBack({ 107, 315, 20, 29 });
+	launchSmoke.PushBack({ 126, 319, 14, 19 });
+	launchSmoke.loop = false;
+	launchSmoke.speed = 0.1f;
 
 	//Life Status 
 
