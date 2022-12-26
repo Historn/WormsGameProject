@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include <cmath>
 
 ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
@@ -47,3 +48,10 @@ bool ModulePhysics::CleanUp()
 
 	return true;
 }
+
+// Compute modulus of a vector
+float modulus(float vx, float vy)
+{
+	return std::sqrt(vx * vx + vy * vy);
+}
+

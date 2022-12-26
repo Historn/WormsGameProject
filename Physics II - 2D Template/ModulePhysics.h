@@ -78,6 +78,24 @@ public:
 
 };
 
+//Class water
+class Water {
+public:
+	float x, y, w, h; // Geometry (x,y,w,h)
+	//SDL_Rect pixels(); // Convert geometry to pixels to draw w/ SDL
+	float density; // Density of fluid
+	float vx; // Velocity x
+	float vy; // Velocity y
+};
+
+//Class atmosphere
+class Atmosphere
+{
+public:
+	float density; // Density of air
+	float windx; // Wind x
+	float windy; // Wind y
+};
 
 class ModulePhysics : public Module
 {
@@ -102,8 +120,25 @@ private:
 public:
 
 	std::vector<PhysBody> bodies{};
-
-
+	Atmosphere atmosphere{};
+	Water water{};
 };
+
+/*
+// Compute Aerodynamic Drag force
+void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody& body, const Atmosphere& atmosphere);
+
+// Compute Hydrodynamic Drag force
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody& body, const Water& water);
+
+// Compute Hydrodynamic Buoyancy force
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& body, const Water& water);
+
+// Integration scheme: Velocity Verlet
+void integrator_velocity_verlet(PhysBody& body, float dt);
+
+// Detect collision with water
+bool is_colliding_with_water(const PhysBody& body, const Water& water);
+*/
 
 #endif 
