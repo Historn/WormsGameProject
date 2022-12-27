@@ -26,13 +26,10 @@ bool ModuleSceneIntro::Start()
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
-<<<<<<< Updated upstream
 	// Enable modules
 	app->physics->Enable();
 
 
-=======
->>>>>>> Stashed changes
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	

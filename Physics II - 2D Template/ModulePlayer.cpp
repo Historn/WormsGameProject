@@ -77,7 +77,7 @@ bool ModulePlayer::Start()
 	dead = false;
 	hp = 100;
 
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 10, BodyType::STATIC, ColliderType::PLAYER1);
+	//pbody = app->physics->CreateCircle(startPos.x, startPos.y, 10, BodyType::STATIC, ColliderType::PLAYER1);
 
 	position.x = startPos.x;
 	position.y = startPos.y;
