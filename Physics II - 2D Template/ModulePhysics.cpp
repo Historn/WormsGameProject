@@ -45,24 +45,29 @@ bool ModulePhysics::Start()
 	ground5->x = 30.5f; // [m]
 	ground5->y = 0.0f; // [m]
 	ground5->w = 5.2f; // [m]
-	ground5->h = 3.7f; // [m]
+	ground5->h = 3.6f; // [m]
 
 	ground6->x = 32.4f; // [m]
-	ground6->y = 14.6f; // [m]
+	ground6->y = 12.3f; // [m]
 	ground6->w = 7.6f; // [m]
-	ground6->h = 3.2f; // [m]
-
-
+	ground6->h = 5.4f; // [m]
 
 	// Create Water
-	water = Water();
-	water.x = 10.2f; // Start where ground ends [m]
-	water.y = 0.0f; // [m]
-	water.w = 5.2f; // [m]
-	water.h = 3.6f; // [m]
-	water.density = 50.0f; // [kg/m^3]
-	water.vx = -1.0f; // [m/s]
-	water.vy = -5.0f; // [m/s]
+	water1->x = 10.2f; // Start where ground ends [m]
+	water1->y = 0.0f; // [m]
+	water1->w = 5.2f; // [m]
+	water1->h = 3.6f; // [m]
+	water1->density = 50.0f; // [kg/m^3]
+	water1->vx = -1.0f; // [m/s]
+	water1->vy = -5.0f; // [m/s]
+
+	water2->x = 35.7f; // Start where ground ends [m]
+	water2->y = 0.0f; // [m]
+	water2->w = 4.4f; // [m]
+	water2->h = 3.6f; // [m]
+	water2->density = 50.0f; // [kg/m^3]
+	water2->vx = -1.0f; // [m/s]
+	water2->vy = -5.0f; // [m/s]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
@@ -88,11 +93,17 @@ bool ModulePhysics::Start()
 
 	// Add ball to the collection
 	bodies.add(ball);
+
+	// Add ground to the collection
 	grounds.add(ground1);
 	grounds.add(ground2);
 	grounds.add(ground3);
 	grounds.add(ground4);
 	grounds.add(ground5);
+
+	// Add water to the collecion
+	waters.add(water1);
+	waters.add(water2);
 
 	return true;
 }
@@ -128,28 +139,34 @@ update_status ModulePhysics::PreUpdate()
 		float fgy = aux->mass * -10.0f; // Let's assume gravity is constant and downwards
 		aux->fx += fgx; aux->fy += fgy; // Add this force to ball's total force
 
-		// Aerodynamic Drag force (only when not in water)
-		if (!is_colliding_with_water(aux, water))
+
+		p2List_item<Water*>* water = waters.getFirst();
+
+		while (water != NULL)
 		{
-			float fdx = 0.0f; float fdy = 0.0f;
-			compute_aerodynamic_drag(fdx, fdy, aux, atmosphere);
-			aux->fx += fdx; aux->fy += fdy; // Add this force to ball's total force
+			// Aerodynamic Drag force (only when not in water)
+			if (!is_colliding_with_water(aux, water->data))
+			{
+				float fdx = 0.0f; float fdy = 0.0f;
+				compute_aerodynamic_drag(fdx, fdy, aux, atmosphere);
+				aux->fx += fdx; aux->fy += fdy; // Add this force to ball's total force
+			}
+
+			// Hydrodynamic forces (only when in water)
+			if (is_colliding_with_water(aux, water->data))
+			{
+				// Hydrodynamic Drag force
+				float fhdx = 0.0f; float fhdy = 0.0f;
+				compute_hydrodynamic_drag(fhdx, fhdy, aux, water->data);
+				aux->fx += fhdx; aux->fy += fhdy; // Add this force to ball's total force
+
+				// Hydrodynamic Buoyancy force
+				float fhbx = 0.0f; float fhby = 0.0f;
+				compute_hydrodynamic_buoyancy(fhbx, fhby, aux, water->data);
+				aux->fx += fhbx; aux->fy += fhby; // Add this force to ball's total force
+			}
+			water = water->next;
 		}
-
-		// Hydrodynamic forces (only when in water)
-		if (is_colliding_with_water(aux, water))
-		{
-			// Hydrodynamic Drag force
-			float fhdx = 0.0f; float fhdy = 0.0f;
-			compute_hydrodynamic_drag(fhdx, fhdy, aux, water);
-			aux->fx += fhdx; aux->fy += fhdy; // Add this force to ball's total force
-
-			// Hydrodynamic Buoyancy force
-			float fhbx = 0.0f; float fhby = 0.0f;
-			compute_hydrodynamic_buoyancy(fhbx, fhby, aux, water);
-			aux->fx += fhbx; aux->fy += fhby; // Add this force to ball's total force
-		}
-
 		// Other forces
 		// ...
 
@@ -241,7 +258,10 @@ update_status ModulePhysics::PostUpdate()
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
-	app->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(water1->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 0; color_b = 255;
+	app->renderer->DrawQuad(water2->pixels(), color_r, color_g, color_b);
 
 
 	p2List_item<PhysBody*>* item = bodies.getFirst();
@@ -301,9 +321,9 @@ void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody* body, const 
 }
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water& water)
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water* water)
 {
-	float rel_vel[2] = { body->vx - water.vx, body->vy - water.vy }; // Relative velocity
+	float rel_vel[2] = { body->vx - water->vx, body->vy - water->vy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
 	float fdrag_modulus = body->b * speed; // Drag force (modulus)
@@ -312,17 +332,17 @@ void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const
 }
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water& water)
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water* water)
 {
 	// Compute submerged area (assume ball is a rectangle, for simplicity)
-	float water_top_level = water.y + water.h; // Water top level y
+	float water_top_level = water->y + water->h; // Water top level y
 	float h = 2.0f * body->radius; // Ball "hitbox" height
 	float surf = h * (water_top_level - body->y); // Submerged surface
 	if ((body->y + body->radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
 	surf *= 0.4; // FUYM to adjust values (should compute the area of circle segment correctly instead; I'm too lazy for that)
 
 	// Compute Buoyancy force
-	double fbuoyancy_modulus = water.density * 10.0 * surf; // Buoyancy force (modulus)
+	double fbuoyancy_modulus = water->density * 10.0 * surf; // Buoyancy force (modulus)
 	fx = 0.0; // Buoyancy is parallel to pressure gradient
 	fy = fbuoyancy_modulus; // Buoyancy is parallel to pressure gradient
 }
@@ -345,11 +365,11 @@ bool is_colliding_with_ground(const PhysBody* body, const Ground* ground)
 }
 
 // Detect collision with water
-bool is_colliding_with_water(const PhysBody* body, const Water& water)
+bool is_colliding_with_water(const PhysBody* body, const Water* water)
 {
-	float rect_x = (water.x + water.w / 2.0f); // Center of rectangle
-	float rect_y = (water.y + water.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, water.w, water.h);
+	float rect_x = (water->x + water->w / 2.0f); // Center of rectangle
+	float rect_y = (water->y + water->h / 2.0f); // Center of rectangle
+	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, water->w, water->h);
 }
 
 // Detect collision between circle and rectange

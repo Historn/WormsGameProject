@@ -126,12 +126,16 @@ private:
 public:
 
 	p2List<PhysBody*> bodies{};
-	Atmosphere atmosphere{};
-	Water water{};
+	p2List<Water*> waters{};
 	p2List<Ground*> grounds{};
+	Atmosphere atmosphere{};
 
 	// Create a ball
 	PhysBody* ball = new PhysBody();
+
+	// Create a water
+	Water* water1 = new Water();
+	Water* water2 = new Water(); 
 
 	// Create a ground
 	Ground* ground1 = new Ground();	// First collider (where player starts)
@@ -154,10 +158,10 @@ float modulus(float vx, float vy);
 void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody* body, const Atmosphere& atmosphere);
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water& water);
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water* water);
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water& water);
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water* water);
 
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBody* body, float dt);
@@ -166,7 +170,7 @@ void integrator_velocity_verlet(PhysBody* body, float dt);
 bool is_colliding_with_ground(const PhysBody* body, const Ground* ground);
 
 // Detect collision with water
-bool is_colliding_with_water(const PhysBody* body, const Water& water);
+bool is_colliding_with_water(const PhysBody* body, const Water* water);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
