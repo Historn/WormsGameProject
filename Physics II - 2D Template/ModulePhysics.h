@@ -22,12 +22,6 @@
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-enum class BodyType {
-	UNKNOWN,
-	STATIC,
-	KINEMATIC,
-	DYNAMIC
-};
 
 enum class ColliderType {
 	UNKNOWN,
@@ -73,6 +67,7 @@ public:
 	float coef_restitution;
 
 	float radius;
+	float w, h;
 	
 	Entity* listener;
 	ColliderType cType;
@@ -125,10 +120,10 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, float radius, BodyType bType, ColliderType ctype);
-	PhysBody* CreateRectangle(int x, int y, int width, int height, BodyType bType, ColliderType ctype, float angle = 0.0f);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, BodyType bType, ColliderType ctype, float angle = 0.0f);
-	PhysBody* CreateChain(int x, int y, int* points, int size, BodyType bType, ColliderType ctype);
+	PhysBody* CreateCircle(int x, int y, float radius, ColliderType ctype);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, ColliderType ctype, float angle = 0.0f);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, ColliderType ctype, float angle = 0.0f);
+	PhysBody* CreateChain(int x, int y, int* points, int size, ColliderType ctype);
 
 private:
 
@@ -136,7 +131,7 @@ private:
 
 public:
 
-	std::vector<PhysBody> bodies{};
+	p2List<PhysBody*> bodies{};
 	Atmosphere atmosphere{};
 	Water water{};
 	Ground ground{};
@@ -149,22 +144,22 @@ public:
 float modulus(float vx, float vy);
 
 // Compute Aerodynamic Drag force
-void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Atmosphere& atmosphere);
+void compute_aerodynamic_drag(float& fx, float& fy, PhysBody* body, const Atmosphere& atmosphere);
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Water& water);
+void compute_hydrodynamic_drag(float& fx, float& fy, PhysBody* body, const Water& water);
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& ball, const Water& water);
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, PhysBody* body, const Water& water);
 
 // Integration scheme: Velocity Verlet
-void integrator_velocity_verlet(PhysBody& ball, float dt);
+void integrator_velocity_verlet(PhysBody* body, float dt);
 
 // Detect collision with ground
-bool is_colliding_with_ground(const PhysBody& ball, const Ground& ground);
+bool is_colliding_with_ground(PhysBody* body, const Ground& ground);
 
 // Detect collision with water
-bool is_colliding_with_water(const PhysBody& ball, const Water& water);
+bool is_colliding_with_water(PhysBody* body, const Water& water);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);

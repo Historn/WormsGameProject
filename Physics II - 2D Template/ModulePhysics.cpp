@@ -45,37 +45,40 @@ bool ModulePhysics::Start()
 	atmosphere.density = 1.0f; // [kg/m^3]
 
 	// Create a ball
-	PhysBody ball = PhysBody();
+	PhysBody* ball = new PhysBody();
 
 	// Set static properties of the ball
-	ball.mass = 10.0f; // [kg]
-	ball.surface = 1.0f; // [m^2]
-	ball.radius = 0.5f; // [m]
-	ball.cd = 0.4f; // [-]
-	ball.cl = 1.2f; // [-]
-	ball.b = 10.0f; // [...]
-	ball.coef_friction = 0.9f; // [-]
-	ball.coef_restitution = 0.8f; // [-]
+	ball->mass = 10.0f; // [kg]
+	ball->surface = 1.0f; // [m^2]
+	ball->radius = 0.5f; // [m]
+	ball->cd = 0.4f; // [-]
+	ball->cl = 1.2f; // [-]
+	ball->b = 10.0f; // [...]
+	ball->coef_friction = 0.9f; // [-]
+	ball->coef_restitution = 0.8f; // [-]
 
 	// Set initial position and velocity of the ball
-	ball.x = 2.0f;
-	ball.y = (ground.y + ground.h) + 2.0f;
-	ball.vx = 5.0f;
-	ball.vy = 10.0f;
+	ball->x = 2.0f;
+	ball->y = (ground.y + ground.h) + 2.0f;
+	ball->vx = 5.0f;
+	ball->vy = 10.0f;
 
 	// Add ball to the collection
-	bodies.emplace_back(ball);
+	bodies.add(ball);
 	return true;
 }
 
 // 
 update_status ModulePhysics::PreUpdate()
 {
+	p2List_item<PhysBody*>* item = bodies.getFirst();
+
 	// Process all balls in the scenario
-	for (auto& ball : bodies)
+	while (item != NULL)
 	{
+		
 		// Skip ball if physics not enabled
-		if (!ball.physics_enabled)
+		if (!item->data->physics_enabled)
 		{
 			continue;
 		}
@@ -84,37 +87,37 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Reset total acceleration and total accumulated force of the ball
-		ball.fx = ball.fy = 0.0f;
-		ball.ax = ball.ay = 0.0f;
+		item->data->fx = item->data->fy = 0.0f;
+		item->data->ax = item->data->ay = 0.0f;
 
 		// Step #1: Compute forces
 		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
-		float fgx = ball.mass * 0.0f;
-		float fgy = ball.mass * -10.0f; // Let's assume gravity is constant and downwards
-		ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
+		float fgx = item->data->mass * 0.0f;
+		float fgy = item->data->mass * -10.0f; // Let's assume gravity is constant and downwards
+		item->data->fx += fgx; item->data->fy += fgy; // Add this force to ball's total force
 
 		// Aerodynamic Drag force (only when not in water)
-		if (!is_colliding_with_water(ball, water))
+		if (!is_colliding_with_water(item->data, water))
 		{
 			float fdx = 0.0f; float fdy = 0.0f;
-			compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
-			ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+			compute_aerodynamic_drag(fdx, fdy, item->data, atmosphere);
+			item->data->fx += fdx; item->data->fy += fdy; // Add this force to ball's total force
 		}
 
 		// Hydrodynamic forces (only when in water)
-		if (is_colliding_with_water(ball, water))
+		if (is_colliding_with_water(item->data, water))
 		{
 			// Hydrodynamic Drag force
 			float fhdx = 0.0f; float fhdy = 0.0f;
-			compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
-			ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
+			compute_hydrodynamic_drag(fhdx, fhdy, item->data, water);
+			item->data->fx += fhdx; item->data->fy += fhdy; // Add this force to ball's total force
 
 			// Hydrodynamic Buoyancy force
 			float fhbx = 0.0f; float fhby = 0.0f;
-			compute_hydrodynamic_buoyancy(fhbx, fhby, ball, water);
-			ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
+			compute_hydrodynamic_buoyancy(fhbx, fhby, item->data, water);
+			item->data->fx += fhbx; item->data->fy += fhby; // Add this force to ball's total force
 		}
 
 		// Other forces
@@ -124,31 +127,33 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-		ball.ax = ball.fx / ball.mass;
-		ball.ay = ball.fy / ball.mass;
+		item->data->ax = item->data->fx / item->data->mass;
+		item->data->ay = item->data->fy / item->data->mass;
 
 		// Step #3: Integrate --> from accel to new velocity & new position
 		// ----------------------------------------------------------------------------------------
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
-		integrator_velocity_verlet(ball, dt);
+		integrator_velocity_verlet(item->data, dt);
 
 		// Step #4: solve collisions
 		// ----------------------------------------------------------------------------------------
 
 		// Solve collision between ball and ground
-		if (is_colliding_with_ground(ball, ground))
+		if (is_colliding_with_ground(item->data, ground))
 		{
 			// TP ball to ground surface
-			ball.y = ground.y + ground.h + ball.radius;
+			item->data->y = item->data->y + ground.h + item->data->radius;
 
 			// Elastic bounce with ground
-			ball.vy = -ball.vy;
+			item->data->vy = -item->data->vy;
 
 			// FUYM non-elasticity
-			ball.vx *= ball.coef_friction;
-			ball.vy *= ball.coef_restitution;
+			item->data->vx *= item->data->coef_friction;
+			item->data->vy *= item->data->coef_restitution;
 		}
+		
+		item = item->next;
 	}
 
 	return UPDATE_CONTINUE;
@@ -174,16 +179,18 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 0; color_g = 0; color_b = 255;
 	app->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 
+
+	p2List_item<PhysBody*>* item = bodies.getFirst();
 	// Draw all balls in the scenario
-	for (auto& ball : bodies)
+	while (item != NULL)
 	{
 		// Convert from physical magnitudes to geometrical pixels
-		int pos_x = METERS_TO_PIXELS(ball.x);
-		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
-		int size_r = METERS_TO_PIXELS(ball.radius);
+		int pos_x = METERS_TO_PIXELS(item->data->x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(item->data->y);
+		int size_r = METERS_TO_PIXELS(item->data->radius);
 
 		// Select color
-		if (ball.physics_enabled)
+		if (item->data->physics_enabled)
 		{
 			color_r = 255; color_g = 255; color_b = 255;
 		}
@@ -194,6 +201,7 @@ update_status ModulePhysics::PostUpdate()
 
 		// Draw ball
 		app->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		item = item->next;
 	}
 
 	return UPDATE_CONTINUE;
@@ -216,35 +224,35 @@ float modulus(float vx, float vy)
 	return std::sqrt(vx * vx + vy * vy);
 }
 // Compute Aerodynamic Drag force
-void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Atmosphere& atmosphere)
+void compute_aerodynamic_drag(float& fx, float& fy, PhysBody* body, const Atmosphere& atmosphere)
 {
-	float rel_vel[2] = { ball.vx - atmosphere.windx, ball.vy - atmosphere.windy }; // Relative velocity
+	float rel_vel[2] = { body->vx - atmosphere.windx, body->vy - atmosphere.windy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
-	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * ball.surface * ball.cd; // Drag force (modulus)
+	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * body->surface * body->cd; // Drag force (modulus)
 	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
 	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
 }
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Water& water)
+void compute_hydrodynamic_drag(float& fx, float& fy, PhysBody* body, const Water& water)
 {
-	float rel_vel[2] = { ball.vx - water.vx, ball.vy - water.vy }; // Relative velocity
+	float rel_vel[2] = { body->vx - water.vx, body->vy - water.vy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
-	float fdrag_modulus = ball.b * speed; // Drag force (modulus)
+	float fdrag_modulus = body->b * speed; // Drag force (modulus)
 	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
 	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
 }
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& ball, const Water& water)
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, PhysBody* body, const Water& water)
 {
 	// Compute submerged area (assume ball is a rectangle, for simplicity)
 	float water_top_level = water.y + water.h; // Water top level y
-	float h = 2.0f * ball.radius; // Ball "hitbox" height
-	float surf = h * (water_top_level - ball.y); // Submerged surface
-	if ((ball.y + ball.radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
+	float h = 2.0f * body->radius; // Ball "hitbox" height
+	float surf = h * (water_top_level - body->y); // Submerged surface
+	if ((body->y + body->radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
 	surf *= 0.4; // FUYM to adjust values (should compute the area of circle segment correctly instead; I'm too lazy for that)
 
 	// Compute Buoyancy force
@@ -254,28 +262,28 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& ball, c
 }
 
 // Integration scheme: Velocity Verlet
-void integrator_velocity_verlet(PhysBody& ball, float dt)
+void integrator_velocity_verlet(PhysBody* body, float dt)
 {
-	ball.x += ball.vx * dt + 0.5f * ball.ax * dt * dt;
-	ball.y += ball.vy * dt + 0.5f * ball.ay * dt * dt;
-	ball.vx += ball.ax * dt;
-	ball.vy += ball.ay * dt;
+	body->x += body->vx * dt + 0.5f * body->ax * dt * dt;
+	body->y += body->vy * dt + 0.5f * body->ay * dt * dt;
+	body->vx += body->ax * dt;
+	body->vy += body->ay * dt;
 }
 
 // Detect collision with ground
-bool is_colliding_with_ground(const PhysBody& ball, const Ground& ground)
+bool is_colliding_with_ground(PhysBody* body, const Ground& ground)
 {
 	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
 	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, ground.w, ground.h);
+	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, ground.w, ground.h);
 }
 
 // Detect collision with water
-bool is_colliding_with_water(const PhysBody& ball, const Water& water)
+bool is_colliding_with_water(PhysBody* body, const Water& water)
 {
 	float rect_x = (water.x + water.w / 2.0f); // Center of rectangle
 	float rect_y = (water.y + water.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, water.w, water.h);
+	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, water.w, water.h);
 }
 
 // Detect collision between circle and rectange
@@ -313,3 +321,27 @@ SDL_Rect Ground::pixels()
 	return pos_px;
 }
 
+PhysBody* ModulePhysics::CreateCircle(int x, int y, float radius, ColliderType ctype) {
+
+	PhysBody* body = new PhysBody();
+
+	// Set static properties of the ball
+	body->mass = 10.0f; // [kg]
+	body->surface = 1.0f; // [m^2]
+	body->radius = radius; // [m]
+	body->cd = 0.4f; // [-]
+	body->cl = 1.2f; // [-]
+	body->b = 10.0f; // [...]
+	body->coef_friction = 0.9f; // [-]
+	body->coef_restitution = 0.8f; // [-]
+
+	// Set initial position and velocity of the ball
+	body->x = x;
+	body->y = y;
+	body->vx = 0.0f;
+	body->vy = 0.0f;
+
+	body->cType = ctype;
+
+	return body;
+}

@@ -3,7 +3,6 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "ModulePhysics.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -21,8 +20,8 @@ bool ModulePlayer::Start()
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	/*startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();*/
-	startPos.x = 50;
-	startPos.y = 50;
+	startPos.x = 100;
+	startPos.y = 100;
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
@@ -77,10 +76,12 @@ bool ModulePlayer::Start()
 	dead = false;
 	hp = 100;
 
-	//pbody = app->physics->CreateCircle(startPos.x, startPos.y, 10, BodyType::STATIC, ColliderType::PLAYER1);
 
-	position.x = startPos.x;
-	position.y = startPos.y;
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 10.0f, ColliderType::PLAYER1);
+	// Add ball to the collection
+	app->physics->bodies.add(pbody);
+	pbody->listener = this;
+
 
 	return true;
 }
@@ -110,7 +111,7 @@ update_status ModulePlayer::Update()
 	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, position.x, position.y, &rect, fliped);
+	app->renderer->Blit(texture, pbody->x, pbody->y, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
