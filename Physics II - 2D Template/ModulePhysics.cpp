@@ -61,7 +61,7 @@ bool ModulePhysics::Start()
 
 	// Set initial position and velocity of the ball
 	ball->x = 2.0f;
-	ball->y = 2.0f;
+	ball->y = 4.0f;
 	ball->vx = 5.0f;
 	ball->vy = 10.0f;
 
@@ -77,7 +77,6 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	p2List_item<PhysBody*>* item = bodies.getFirst();
-	p2List_item<Ground*>* ground = grounds.getFirst();
 	PhysBody* aux = NULL;
 
 	// Process all balls in the scenario
@@ -145,20 +144,39 @@ update_status ModulePhysics::PreUpdate()
 
 		// Step #4: solve collisions
 		// ----------------------------------------------------------------------------------------
+		p2List_item<Ground*>* ground = grounds.getFirst();
 
-		// Solve collision between ball and ground
-		if (is_colliding_with_ground(aux, ground->data))
+		while (ground != NULL)
 		{
-			// TP ball to ground surface
-			aux->y = ground->data->y + ground->data->h + aux->radius;
+			if (is_colliding_with_ground(aux, ground->data))
+			{
+				// TP ball to ground surface
+				if (aux->x > ground->data->x && aux->y > ground->data->y && aux->x < ground->data->x + ground->data->w) {
+					aux->y = ground->data->y + ground->data->h + aux->radius;
+					// Elastic bounce with ground
+					aux->vy = -aux->vy;
+				}
 
-			// Elastic bounce with ground
-			aux->vy = -aux->vy;
+				
+				if (aux->x >= ground->data->x + ground->data->w && aux->y > ground->data->y) {
+					aux->x = ground->data->x + ground->data->w + aux->radius;
+					aux->vx = -aux->vx;
+				}
+					
 
-			// FUYM non-elasticity
-			aux->vx *= aux->coef_friction;
-			aux->vy *= aux->coef_restitution;
+				if (aux->x <= ground->data->x && aux->y > ground->data->y) {
+					aux->x = ground->data->x - aux->radius;
+					aux->vx = -aux->vx;
+				}
+
+				// FUYM non-elasticity
+				aux->vx *= aux->coef_friction;
+				aux->vy *= aux->coef_restitution;
+			}
+			ground = ground->next;
 		}
+		// Solve collision between ball and ground
+		
 		
 		item = item->next;
 	}
