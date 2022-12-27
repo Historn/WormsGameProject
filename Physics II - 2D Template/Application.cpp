@@ -8,6 +8,7 @@
 #include "FadeToBlack.h"
 #include "TitleScreen.h"
 #include "ModulePlayer.h"
+#include "ModuleWeapon.h"
 #include "ModulePhysics.h"
 #include "ModuleEntityManager.h"
 #include "ModuleSceneIntro.h"

@@ -1,7 +1,9 @@
-
+#include "Globals.h"
 #include "Application.h"
 #include "ModuleWeapon.h"
 #include "ModuleInput.h"
+#include "ModuleRender.h"
+#include "ModuleTextures.h"
 
 
 ModuleWeapon::ModuleWeapon() : Entity(EntityType::WEAPON) {
@@ -14,8 +16,11 @@ ModuleWeapon::~ModuleWeapon()
 // Load assets
 bool ModuleWeapon::Start()
 {
-	LOG("Loading player");
+	LOG("Loading Weapon");
 	return true;
+
+	startPos.x = 2;
+	startPos.y = 0.5f;
 
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	/*startPos.x = app->player->position.x;
@@ -23,7 +28,7 @@ bool ModuleWeapon::Start()
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
-	texturePath = ("Assets/Textures/Worms_spritesheet_full.png");
+	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
 	readying.PushBack({ 93, 112, 28, 28 });
@@ -34,7 +39,7 @@ bool ModuleWeapon::Start()
 
 	idle.PushBack({ 93, 168, 28, 28 });
 	idle.loop = true;
-	idle.speed = 0.1f;
+	idle.speed = 0.05f;
 
 	putAway.PushBack({ 93, 168, 28, 28 });
 	putAway.PushBack({ 93, 196, 28, 28 });
@@ -65,13 +70,21 @@ bool ModuleWeapon::Start()
 	launchSmoke.speed = 0.1f;
 
 	//Life Status 
+	currentAnim = &idle;
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::WEAPON);
+	pbody->listener = this;
+	// Add ball to the collection
+	app->physics->bodies.add(pbody);
 
+	LOG("CREATES Weapon");
+
+	return true;
 }
 
 // Unload assets
 bool ModuleWeapon::CleanUp()
 {
-	LOG("Unloading player");
+	LOG("Unloading Weapon");
 
 	return true;
 }
@@ -83,15 +96,13 @@ update_status ModuleWeapon::PreUpdate()
 }
 
 // Update: draw background
-update_status ModuleWeapon::Update()
-{
-	/*if (app->player->isTurn == true) {
-		(isDrawn = true);
-		Drawn();
-	}
+update_status ModuleWeapon::Update() {
 
-	position.x = app->player->position.x;
-	position.y = app->player->position.y;*/
+	currentAnim = &idle;
+
+
+	//Weapon Movement
+
 
 	return UPDATE_CONTINUE;
 }

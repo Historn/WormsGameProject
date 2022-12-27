@@ -4,9 +4,9 @@
 #include "Entity.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModulePhysics.h"
 #include "p2Point.h"
 #include "vector"
-#include "SString.h"
 #include "SDL/include/SDL.h"
 
 
@@ -25,7 +25,6 @@ public:
 
 	void Drawn();
 
-	void aimingAnimations();
 
 public:
 
@@ -61,12 +60,22 @@ public:
 
 	bool active = false;
 
+	Vec2D velocity;
 	Vec2D startPos;
+
+	int x;
+	int y;
+
+	PhysBody* pbody;
+
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
+
+	bool isFliped = false;
+	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };
 

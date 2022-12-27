@@ -6,6 +6,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "ModulePlayer.h"
+#include "ModuleWeapon.h"
 
 #define BOUNCER_TIME 200
 
@@ -60,6 +61,7 @@ public:
 
 	//Entities
 	ModulePlayer* player;
+	ModuleWeapon* weapon;
 	
 	uint player_lose_fx;
 };
