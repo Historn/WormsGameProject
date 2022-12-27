@@ -113,7 +113,7 @@ update_status ModulePlayer::PreUpdate()
 update_status ModulePlayer::Update()
 {
 	currentAnim = &idlePlayer;
-	
+
 	pbody->cd = 0;
 
 	// Player's movement
@@ -136,7 +136,19 @@ update_status ModulePlayer::Update()
 		isTurn = true;
 
 	if (isTurn == true) {
-		Attack();
+		currentAnim = &attackrdyPlayer;
+		if (attackrdyPlayer.HasFinished()) {
+			currentAnim = &IdleBandanaPlayer;
+			attackrdy = true;
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				/*Player Shoots
+				attackrdy = false;*/
+				attackrdyPlayer.Reset();
+				attackrdyPlayer.ResetLoopCount();
+				isTurn = false;
+			}
+		}
+		
 	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
@@ -154,37 +166,10 @@ update_status ModulePlayer::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::Attack() {
 
-	//bool isTurn to decide if is turn to shoot. After shot enemy bool isTurn gets switched
-	if (isTurn == true)
-	{
-		//Attack Player has player put bandana On, then can shoot
-		currentAnim = &attackrdyPlayer;
 
-		//Once bandana on enter attack mode
-		if (attackrdyPlayer.HasFinished()) {
+		
 
-			currentAnim = &IdleBandanaPlayer;
-			attackrdy = true;
-			attackrdyPlayer.Reset();
-			attackrdyPlayer.ResetLoopCount();
-
-			//draws current linked list weapon class (exp string rpg, with damage and velocity values
-
-			if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-				//linked list next node for next weapon
-				//draws next linked list weapon class (exp string rpg, with damage and velocity values
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				/*Player Shoots
-				attackrdy = false;*/
-				isTurn = false;
-			}
-		}
-	}
-}
 
 
 
