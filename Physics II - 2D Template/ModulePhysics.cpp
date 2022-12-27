@@ -25,17 +25,17 @@ bool ModulePhysics::Start()
 	ground = Ground();
 	ground.x = 0.0f; // [m]
 	ground.y = 0.0f; // [m]
-	ground.w = 30.0f; // [m]
-	ground.h = 5.0f; // [m]
+	ground.w = 10.2f; // [m]
+	ground.h = 2.0f; // [m]
 
 	// Create Water
 	water = Water();
-	water.x = ground.x + ground.w; // Start where ground ends [m]
+	water.x = 10.2f; // Start where ground ends [m]
 	water.y = 0.0f; // [m]
-	water.w = 30.0f; // [m]
-	water.h = 5.0f; // [m]
+	water.w = 5.2f; // [m]
+	water.h = 3.2f; // [m]
 	water.density = 50.0f; // [kg/m^3]
-	water.vx = -1.0f; // [m/s]
+	water.vx = 0.0f; // [m/s]
 	water.vy = 0.0f; // [m/s]
 
 	// Create atmosphere
