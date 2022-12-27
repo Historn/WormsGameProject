@@ -45,6 +45,13 @@ bool ModulePlayer::Start()
 	attackrdyPlayer.loop = false;
 	attackrdyPlayer.speed = 0.05f;
 
+	attackoffPlayer.PushBack({ 126, 9, 14, 18}); //Bandana Off
+	attackoffPlayer.PushBack({ 105, 9, 19, 18 });
+	attackoffPlayer.PushBack({ 81, 9, 19, 18 });
+	attackoffPlayer.PushBack({ 61, 9, 17, 18 });
+	attackoffPlayer.loop = false;
+	attackoffPlayer.speed = 0.05f;
+	
 	IdleBandanaPlayer.PushBack({ 126, 9, 14, 18 });
 	IdleBandanaPlayer.PushBack({ 143, 11, 14, 16 });
 	IdleBandanaPlayer.PushBack({ 159, 13, 14, 14 });
@@ -76,6 +83,13 @@ bool ModulePlayer::Start()
 	deathPlayer.PushBack({ 513, 110, 6, 6 });
 	deathPlayer.loop = false;
 	deathPlayer.speed = 0.1f;
+
+	hitPlayer.PushBack({ 453, 102, 18, 22 });
+	hitPlayer.PushBack({ 4, 84, 16, 20 });
+	hitPlayer.PushBack({ 453, 102, 18, 22 });
+	hitPlayer.PushBack({ 4, 84, 16, 20 });
+	hitPlayer.loop = false;
+	hitPlayer.speed = 0.05f;
 
 	currentAnim = &idlePlayer;
 
@@ -132,6 +146,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
+
 	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 		isTurn = true;
 
@@ -145,11 +160,28 @@ update_status ModulePlayer::Update()
 				attackrdy = false;*/
 				attackrdyPlayer.Reset();
 				attackrdyPlayer.ResetLoopCount();
+				attackrdy = false;
 				isTurn = false;
 			}
 		}
-		
 	}
+
+
+	if (hp <= 0 ) {
+		dead == true;
+	}
+
+	if (dead == true) {
+		currentAnim = &deathPlayer;
+	}
+
+	if (isHit == true) {
+		currentAnim = &hitPlayer;
+		if (currentAnim->HasFinished()) {
+			isHit = false;
+		}
+	}
+
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
@@ -162,9 +194,11 @@ update_status ModulePlayer::Update()
 
 update_status ModulePlayer::PostUpdate()
 {
-	
 	return UPDATE_CONTINUE;
 }
+
+
+
 
 
 

@@ -23,6 +23,7 @@ class FadeToBlack;
 class TitleScreen;
 class ModuleSceneIntro;
 class ModuleEntityManager;
+class ModulePlayer;
 class Fonts;
 class UI;
 class ModulePhysics;
@@ -50,6 +51,7 @@ public:
 	TitleScreen* title_screen;
 	ModuleSceneIntro* scene_intro;
 	ModuleEntityManager* entityManager;
+	ModulePlayer* player;
 	Fonts* fonts;
 	UI* ui;
 	ModulePhysics* physics;

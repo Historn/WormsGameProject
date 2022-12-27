@@ -28,6 +28,7 @@ bool ModuleSceneIntro::Start()
 
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 

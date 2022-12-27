@@ -24,11 +24,12 @@ public:
 	ModulePlayer();
 	virtual ~ModulePlayer();
 
+
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
-	void Attack();
+
 
 	bool CleanUp();
 
@@ -46,6 +47,9 @@ public:
 	Animation jumpPlayer;
 	Animation parachutePlayer;
 	Animation deathPlayer;
+	Animation hitPlayer;
+	Animation attackoffPlayer;
+
 
 
 	//Collider Player
@@ -60,9 +64,12 @@ public:
 	bool dead = false;
 	bool onCollision = false; 
 	bool attackrdy = false;
+	bool jumping;
+
+	bool isHit = false;
 
 	//Turn bool to decide if is users shoot turn
-	bool isTurn;
+	bool isTurn = false;
 
 	int hp;
 
