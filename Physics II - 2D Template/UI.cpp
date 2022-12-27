@@ -8,6 +8,8 @@
 #include "ModulePlayer.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleWindow.h"
+#include "ModulePhysics.h"
+#include "ModuleEntityManager.h"
 
 #include "SDL/include/SDL.h"
 
@@ -28,15 +30,16 @@ bool UI::Start()
 	LOG("--STARTS UI MODULE--");
 	
 	/*Initialize*/
-	//font1Path = App->configNode.child("ui").child("font1").attribute("texturepath").as_string();
-	//font2Path = App->configNode.child("ui").child("font2").attribute("texturepath").as_string();
-	
-	//Loading font 1
-	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
-	font1_id = app->fonts->Load(font1Path, lookupTableFont1, 2);
+	font1Path = ("Assets/Fonts/font1.png");
+	font2Path = ("Assets/Fonts/font2.png");
 
-	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
-	font2_id = app->fonts->Load(font2Path, lookupTableFont2, 1);
+	//Loading font 1
+	char lookupTableFont1[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
+	font1_id = app->fonts->Load(font1Path, lookupTableFont1, 1);
+
+	//Loading font 2
+	char lookupTableFont2[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
+	font2_id = app->fonts->Load(font2Path, lookupTableFont2, 2);
 
 	return true;
 }
@@ -61,17 +64,25 @@ bool UI::CleanUp()
 }
 
 
+/* UI BLIT WITH FONT 1 */
+void UI::BlitPlayerHP()
+{
+	char playerHP[15];
+	sprintf_s(playerHP, 15, "player hp: %d", app->scene_intro->player->hp);
+	app->fonts->BlitText(20, 35, font1_id, playerHP);
+}
+
 /* UI DEBUG INFO WITH FONT 2 */
-//void UI::BlitPlayerXPos()
-//{
-//	char playerXPos[25];
-//	sprintf_s(playerXPos, 25, "position x: %d", app->player->position.x);
-//	app->fonts->BlitText(20, 55, font2_id, playerXPos);
-//}
-//
-//void UI::BlitPlayerYPos()
-//{
-//	char playerYPos[25];
-//	sprintf_s(playerYPos, 25, "position y: %d", app->player->position.y);
-//	app->fonts->BlitText(20, 75, font2_id, playerYPos);
-//}
+void UI::BlitPlayerXPos()
+{
+	char playerXPos[25];
+	sprintf_s(playerXPos, 25, "position x; %d", app->scene_intro->player->position.x);
+	app->fonts->BlitText(20, 55, font2_id, playerXPos);
+}
+
+void UI::BlitPlayerYPos()
+{
+	char playerYPos[25];
+	sprintf_s(playerYPos, 25, "position y; %d", app->scene_intro->player->position.y);
+	app->fonts->BlitText(20, 65, font2_id, playerYPos);
+}

@@ -24,7 +24,9 @@ public:
 	/* Blit UI graphics funtions */
 	void BlitPlayerXPos();
 	void BlitPlayerYPos();
-	
+	void BlitPlayerHP();
+
+
 	uint font1_id = -1;
 	uint font2_id = -1;
 

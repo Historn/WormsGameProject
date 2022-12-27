@@ -8,6 +8,7 @@
 #include "ModuleInput.h"
 #include "FadeToBlack.h"
 #include "ModuleAudio.h"
+#include "UI.h"
 
 
 
@@ -48,8 +49,18 @@ update_status ModuleSceneIntro::Update()
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
 
-
 	app->renderer->Blit(map_img, 0, 0, NULL);
+
+	// UI blit
+	app->ui->BlitPlayerHP();
+
+	if (app->physics->debug)
+	{
+		app->ui->BlitPlayerXPos();
+		app->ui->BlitPlayerYPos();
+	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
