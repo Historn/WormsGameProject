@@ -7,6 +7,7 @@
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
 #include "FadeToBlack.h"
+#include "ModuleAudio.h"
 
 
 
@@ -32,7 +33,8 @@ bool ModuleSceneIntro::Start()
 
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	
+
+	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg", 1.0f);
 
 	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
 
@@ -59,7 +61,6 @@ bool ModuleSceneIntro::CleanUp()
 
 	// Disable modules
 	app->physics->Disable();
-
 
 	app->textures->Unload(map_img);
 
