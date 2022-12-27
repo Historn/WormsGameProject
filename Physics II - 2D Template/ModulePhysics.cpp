@@ -52,6 +52,17 @@ bool ModulePhysics::Start()
 	ground6->w = 7.6f; // [m]
 	ground6->h = 5.4f; // [m]
 
+	ground7->x = 15.3f; // [m]
+	ground7->y = 13.6f; // [m]
+	ground7->w = 5.0f; // [m]
+	ground7->h = 1.0; // [m]
+
+	ground8->x = 22.6f; // [m]
+	ground8->y = 16.0f; // [m]
+	ground8->w = 4.9f; // [m]
+	ground8->h = 1.0; // [m]
+
+
 	// Create Water
 	water1->x = 10.2f; // Start where ground ends [m]
 	water1->y = 0.0f; // [m]
@@ -100,6 +111,10 @@ bool ModulePhysics::Start()
 	grounds.add(ground3);
 	grounds.add(ground4);
 	grounds.add(ground5);
+	grounds.add(ground6);
+	grounds.add(ground7);
+	grounds.add(ground8);
+
 
 	// Add water to the collecion
 	waters.add(water1);
@@ -255,6 +270,11 @@ update_status ModulePhysics::PostUpdate()
 	color_r = 0; color_g = 255; color_b = 0;
 	app->renderer->DrawQuad(ground6->pixels(), color_r, color_g, color_b);
 
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground7->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground8->pixels(), color_r, color_g, color_b);
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
