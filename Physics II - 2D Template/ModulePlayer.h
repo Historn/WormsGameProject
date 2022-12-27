@@ -78,6 +78,8 @@ private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
+
+	bool isFliped = false;
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };

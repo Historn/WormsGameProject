@@ -102,6 +102,7 @@ bool ModulePlayer::CleanUp()
 
 update_status ModulePlayer::PreUpdate()
 {
+
 	return UPDATE_CONTINUE;
 }
 
@@ -111,6 +112,23 @@ update_status ModulePlayer::Update()
 	currentAnim = &idlePlayer;
 	
 	pbody->cd = 0;
+
+	// Player's movement
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		isFliped = false;
+		pbody->x += 0.05f;
+		if (isFliped == false && fliped == SDL_FLIP_NONE) {
+			fliped = SDL_FLIP_HORIZONTAL;
+		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		isFliped = true;
+		pbody->x -= 0.05f;
+		if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
+			fliped = SDL_FLIP_NONE;
+		}
+	}
+
 
 	if (isTurn == true) {
 		Attack();
