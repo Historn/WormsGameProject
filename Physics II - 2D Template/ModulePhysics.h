@@ -2,8 +2,9 @@
 #define _MODULEPHYSISCS_H
 
 #include "Module.h"
-#include "Entity.h"
 #include "Globals.h"
+#include "Entity.h"
+#include "SDL/include/SDL_rect.h"
 #include <vector>
 
 #define GRAVITY_X 0.0f
@@ -39,33 +40,44 @@ enum class ColliderType {
 class PhysBody
 {
 public:
-	PhysBody() : cType(ColliderType::UNKNOWN), bType(BodyType::UNKNOWN)
+	/*PhysBody() : cType(ColliderType::UNKNOWN), bType(BodyType::UNKNOWN)
 	{}
-	//~PhysBody();
+	~PhysBody();*/
 
-	int width, height;
-	float radius;
-	//b2Body* body;
-	Entity* listener;
-	ColliderType cType;
+	float x;
+	float y;
 
-	Vec2D position;
-	Vec2D velocity;
-	Vec2D acceleration;
-	float angle;
+	// Velocity
+	float vx;
+	float vy;
+
+	// Acceleration
+	float ax;
+	float ay;
+
+	// Force (total) applied to the ball
+	float fx;
+	float fy;
 
 	//Body Mass in kg
 	float mass;
 
-	// Coefficients of friction & restitution (for bounces)
-	float coef_friction;
-	float coef_restitution;
-
-	// Aerodynamics stuff
+	// Aerodynamics variables
 	float surface; // Effective wet surface
 	float cl; // Aerodynamic Lift coefficient
 	float cd; // Aerodynamic Drag coefficient
 	float b; // Hydrodynamic Drag coefficient
+
+	// Coefficients of friction & restitution (used for bounces)
+	float coef_friction;
+	float coef_restitution;
+
+	float radius;
+	
+	Entity* listener;
+	ColliderType cType;
+	
+	float angle;
 
 	/// The body type.
 	/// static: zero mass, zero velocity, may be manually moved
@@ -75,14 +87,19 @@ public:
 
 	// Has physics enabled?
 	bool physics_enabled = true;
+};
 
+// Class: Ground
+class Ground : public SDL_Rect
+{
+public:
+	float x,y,w,h; // Geometry (x,y,w,h)
+	SDL_Rect pixels(); // Convert geometry to pixels to draw w/ SDL
 };
 
 //Class water
-class Water {
+class Water : public Ground {
 public:
-	float x, y, w, h; // Geometry (x,y,w,h)
-	//SDL_Rect pixels(); // Convert geometry to pixels to draw w/ SDL
 	float density; // Density of fluid
 	float vx; // Velocity x
 	float vy; // Velocity y
@@ -122,23 +139,35 @@ public:
 	std::vector<PhysBody> bodies{};
 	Atmosphere atmosphere{};
 	Water water{};
+	Ground ground{};
+
+	// Misc
+	float dt = 1.0 / 60.0;
 };
 
-/*
+// Compute modulus of a vector
+float modulus(float vx, float vy);
+
 // Compute Aerodynamic Drag force
-void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody& body, const Atmosphere& atmosphere);
+void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Atmosphere& atmosphere);
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody& body, const Water& water);
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody& ball, const Water& water);
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& body, const Water& water);
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody& ball, const Water& water);
 
 // Integration scheme: Velocity Verlet
-void integrator_velocity_verlet(PhysBody& body, float dt);
+void integrator_velocity_verlet(PhysBody& ball, float dt);
+
+// Detect collision with ground
+bool is_colliding_with_ground(const PhysBody& ball, const Ground& ground);
 
 // Detect collision with water
-bool is_colliding_with_water(const PhysBody& body, const Water& water);
-*/
+bool is_colliding_with_water(const PhysBody& ball, const Water& water);
+
+// Detect collision between circle and rectange
+bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
+
 
 #endif 

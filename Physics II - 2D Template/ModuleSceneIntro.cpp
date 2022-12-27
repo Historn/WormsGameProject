@@ -4,6 +4,9 @@
 #include "ModuleEntityManager.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModulePhysics.h"
+#include "ModuleInput.h"
+#include "FadeToBlack.h"
 
 
 
@@ -23,6 +26,9 @@ bool ModuleSceneIntro::Start()
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
+	// Enable modules
+	app->physics->Enable();
+
 
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
@@ -37,7 +43,8 @@ bool ModuleSceneIntro::Start()
 update_status ModuleSceneIntro::Update()
 {
 	
-
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
 
 
 	app->renderer->Blit(map_img, 0, 0, NULL);
@@ -49,6 +56,10 @@ update_status ModuleSceneIntro::Update()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	// Disable modules
+	app->physics->Disable();
+
 
 	app->textures->Unload(map_img);
 

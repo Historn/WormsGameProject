@@ -30,7 +30,7 @@ Application::Application()
 	entityManager = new ModuleEntityManager(true);
 	fonts = new Fonts(true);
 	ui = new UI(true);
-	physics = new ModulePhysics(true);
+	physics = new ModulePhysics(false);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
