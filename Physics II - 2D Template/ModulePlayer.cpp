@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
+#include "ModuleRender.h"
+#include "ModulePhysics.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -69,15 +71,16 @@ bool ModulePlayer::Start()
 	deathPlayer.loop = false;
 	deathPlayer.speed = 0.1f;
 
-
-
-
 	currentAnim = &idlePlayer;
 
 	//Life Status 
 	dead = false;
 	hp = 100;
 
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 10, BodyType::STATIC, ColliderType::PLAYER1);
+
+	position.x = startPos.x;
+	position.y = startPos.y;
 
 	return true;
 }
@@ -105,6 +108,10 @@ update_status ModulePlayer::Update()
 	if (isTurn == true) {
 		Attack();
 	}
+
+	SDL_Rect rect = currentAnim->GetCurrentFrame();
+	app->renderer->Blit(texture, position.x, position.y, &rect, fliped);
+	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
 

@@ -71,10 +71,13 @@ public:
 	Vec2D velocity;
 	Vec2D startPos;
 
+	PhysBody* pbody;
+
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
+	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };
 
