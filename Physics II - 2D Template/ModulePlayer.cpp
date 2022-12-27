@@ -38,24 +38,27 @@ bool ModulePlayer::Start()
 	idlePlayer.loop = true;
 	idlePlayer.speed = 0.05f;
 
-	attackrdyPlayer.PushBack({ 61, 0, 21, 30 }); //Putting Bandana On
-	attackrdyPlayer.PushBack({ 82, 0, 22, 26 });
-	attackrdyPlayer.PushBack({ 105, 0, 22, 26 });
-	attackrdyPlayer.PushBack({ 126, 0, 17, 26 });
-	attackrdyPlayer.PushBack({ 158, 0, 17, 26 });
+	attackrdyPlayer.PushBack({ 61, 9, 17, 18 }); //Putting Bandana On
+	attackrdyPlayer.PushBack({ 81, 9, 19, 18 });
+	attackrdyPlayer.PushBack({ 105, 9, 19, 18 });
+	attackrdyPlayer.PushBack({ 126, 9, 14, 18 });
 	attackrdyPlayer.loop = false;
 	attackrdyPlayer.speed = 0.05f;
 
-	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
-	IdleBandanaPlayer.PushBack({ 126, 0, 17, 26 });
-	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
+	IdleBandanaPlayer.PushBack({ 126, 9, 14, 18 });
+	IdleBandanaPlayer.PushBack({ 143, 11, 14, 16 });
+	IdleBandanaPlayer.PushBack({ 159, 13, 14, 14 });
 	IdleBandanaPlayer.loop = true;
 	IdleBandanaPlayer.speed = 0.05f;
 
 	//Can Only jump when isTurn = true // With Bandana On
-	jumpPlayer.PushBack({ 126, 0, 17, 26 });
-	jumpPlayer.PushBack({ 158, 0, 17, 26 });
-	jumpPlayer.PushBack({ 175, 0, 17, 29 });
+	jumpPlayer.PushBack({ 126, 9, 15, 18 });
+	jumpPlayer.PushBack({ 143, 11, 14, 16 });
+	jumpPlayer.PushBack({ 159, 13, 14, 14 });
+	jumpPlayer.PushBack({ 177, 5, 13, 22 });
+	jumpPlayer.PushBack({ 195, 5, 13, 22 });
+	jumpPlayer.PushBack({ 213, 5, 11, 22 });
+	jumpPlayer.PushBack({ 230, 5, 11, 22 });
 	jumpPlayer.loop = false;
 	jumpPlayer.speed = 0.1f;
 
@@ -63,14 +66,14 @@ bool ModulePlayer::Start()
 	parachutePlayer.loop = true;
 	parachutePlayer.speed = 0.1f;
 
-	deathPlayer.PushBack({ 396, 100, 20, 24 });
-	deathPlayer.PushBack({ 416, 100, 20, 24 });
-	deathPlayer.PushBack({ 436, 100, 17, 24 });
-	deathPlayer.PushBack({ 453, 100, 20, 24 });
-	deathPlayer.PushBack({ 473, 100, 18, 24 });
-	deathPlayer.PushBack({ 490, 100, 14, 24 });
-	deathPlayer.PushBack({ 503, 100, 10, 24 });
-	deathPlayer.PushBack({ 512, 100, 10, 24 });
+	deathPlayer.PushBack({ 399, 104, 14, 18 });
+	deathPlayer.PushBack({ 418, 104, 14, 18 });
+	deathPlayer.PushBack({ 436, 104, 14, 18 });
+	deathPlayer.PushBack({ 453, 102, 18, 22 });
+	deathPlayer.PushBack({ 473, 103, 16, 20 });
+	deathPlayer.PushBack({ 491, 107, 10, 12 });
+	deathPlayer.PushBack({ 504, 109, 7, 8 });
+	deathPlayer.PushBack({ 513, 110, 6, 6 });
 	deathPlayer.loop = false;
 	deathPlayer.speed = 0.1f;
 
