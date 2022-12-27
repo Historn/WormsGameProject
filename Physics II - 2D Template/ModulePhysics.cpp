@@ -250,38 +250,39 @@ update_status ModulePhysics::PostUpdate()
 
 	// Colors
 	int color_r, color_g, color_b;
+	int color_opacity = 100;
 
 	// Draw grounds
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground1->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground1->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground2->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground2->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground3->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground3->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground4->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground4->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground5->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground5->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground6->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground6->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground7->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground7->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground8->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground8->pixels(), color_r, color_g, color_b, color_opacity);
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
-	app->renderer->DrawQuad(water1->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(water1->pixels(), color_r, color_g, color_b, color_opacity);
 
 	color_r = 0; color_g = 0; color_b = 255;
-	app->renderer->DrawQuad(water2->pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(water2->pixels(), color_r, color_g, color_b, color_opacity);
 
 
 	p2List_item<PhysBody*>* item = bodies.getFirst();
