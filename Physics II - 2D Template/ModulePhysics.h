@@ -135,6 +135,8 @@ public:
 	// Create a ground
 	Ground* ground1 = new Ground();
 	Ground* ground2 = new Ground();
+	Ground* ground3 = new Ground();
+
 
 	// Misc
 	float dt = 1.0 / 60.0;
