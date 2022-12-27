@@ -134,9 +134,11 @@ public:
 	PhysBody* ball = new PhysBody();
 
 	// Create a ground
-	Ground* ground1 = new Ground();
-	Ground* ground2 = new Ground();
-	Ground* ground3 = new Ground();
+	Ground* ground1 = new Ground();	// First collider (where player starts)
+	Ground* ground2 = new Ground();	// Right collider
+	Ground* ground3 = new Ground();	// First platform collider
+	Ground* ground4 = new Ground();	// Left upper platform collider
+	Ground* ground5 = new Ground();	// Right bottom collider
 
 
 	// Misc

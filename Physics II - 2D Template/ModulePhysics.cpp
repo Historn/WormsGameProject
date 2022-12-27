@@ -32,10 +32,21 @@ bool ModulePhysics::Start()
 	ground2->w = 15.2f; // [m]
 	ground2->h = 5.5f; // [m]
 
-	ground3->x = 30.5f; // [m]
-	ground3->y = 0.0f; // [m]
-	ground3->w = 5.3f; // [m]
-	ground3->h = 3.6f; // [m]
+	ground3->x = 5.9f; // [m]
+	ground3->y = 9.6f; // [m]
+	ground3->w = 7.5f; // [m]
+	ground3->h = 1.0; // [m]
+
+	ground4->x = 0.0f; // [m]
+	ground4->y = 14.5f; // [m]
+	ground4->w = 10.2f; // [m]
+	ground4->h = 3.3f; // [m]
+
+	ground5->x = 30.5f; // [m]
+	ground5->y = 0.0f; // [m]
+	ground5->w = 5.2f; // [m]
+	ground5->h = 3.7f; // [m]
+
 
 
 	// Create Water
@@ -74,6 +85,9 @@ bool ModulePhysics::Start()
 	bodies.add(ball);
 	grounds.add(ground1);
 	grounds.add(ground2);
+	grounds.add(ground3);
+	grounds.add(ground4);
+	grounds.add(ground5);
 
 	return true;
 }
@@ -153,6 +167,7 @@ update_status ModulePhysics::PreUpdate()
 
 		while (ground != NULL)
 		{
+			// Solve collision between ball and ground
 			if (is_colliding_with_ground(aux, ground->data))
 			{
 				// TP ball to ground surface
@@ -179,9 +194,7 @@ update_status ModulePhysics::PreUpdate()
 				aux->vy *= aux->coef_restitution;
 			}
 			ground = ground->next;
-		}
-		// Solve collision between ball and ground
-		
+		}	
 		
 		item = item->next;
 	}
@@ -210,6 +223,12 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 0; color_g = 255; color_b = 0;
 	app->renderer->DrawQuad(ground3->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground4->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground5->pixels(), color_r, color_g, color_b);
 
 
 	// Draw water

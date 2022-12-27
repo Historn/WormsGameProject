@@ -19,13 +19,10 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 	
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	/*startPos.x = parameters.attribute("x").as_int();
-	startPos.y = parameters.attribute("y").as_int();*/
 	startPos.x = 2;
-	startPos.y = 0.5f;
+	startPos.y = 1;
 
 	//Textures Load
-	/*texturePath = parameters.attribute("texturepath").as_string();*/
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
@@ -97,14 +94,14 @@ bool ModulePlayer::Start()
 	dead = false;
 	hp = 100;
 
-
+	LOG("CREATES PLAYER");
 	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER1);
 	pbody->listener = this;
+	
 	// Add ball to the collection
 	app->physics->bodies.add(pbody);
 
-	LOG("CREATES PLAYER")
-
+	
 	return true;
 }
 
@@ -112,6 +109,7 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
+
 
 	return true;
 }
