@@ -2,6 +2,8 @@
 
 ## Description
 
+Map Image: https://opengameart.org/sites/default/files/Preview2_0.jpg
+
 Worms like game created for Physics II subject.
 
 ## Key Features

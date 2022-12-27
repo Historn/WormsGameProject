@@ -105,7 +105,7 @@ update_status ModuleWeapon::PostUpdate()
 void ModuleWeapon::Drawn() {
 
 	//bool isDrawn to decide if is turn to shoot.
-	if (isDrawn == true)
+	while (isDrawn == true)
 	{
 		//Attack Player has player put bandana On, then can shoot
 		currentAnim = &readying;
@@ -116,28 +116,53 @@ void ModuleWeapon::Drawn() {
 			currentAnim = &idle;
 			readying.Reset();
 			readying.ResetLoopCount();
+			
+			// start at 0 degrees launchDegree Variable
 
-			if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-				//pseudo code to draw new weapon (for example readying smg instead of rpg
-			}
+			bool hasShot = false;
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				/*Player Shoots
-				attackrdy = false;*/
-				currentAnim = &shooting;
-				if (shooting.HasFinished()) {
-					currentAnim = &putAway;
-					if (putAway.HasFinished()) {
-						isDrawn = false;
-						putAway.Reset();
-						putAway.ResetLoopCount();
+			while (hasShot == false) {
 
+				/*Anims for each degree of aim - if we do aim with mouse or smaller increments make 
+				animations for range instead */
+
+				//..aimingAnimation();..
+
+				/*check player inputs to decide which degree we are at, this is for sending to the animations above*/
+				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+					// up key was pressed, increase the degree by 5
+					launchDegree += 5;
+					if (launchDegree > 90) {
+						launchDegree = -90;  // wrap around to 0 degrees
 					}
 				}
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+					// down key was pressed, decrease the degree by 5
+					launchDegree -= 5;
+					if (launchDegree < -90) {
+						launchDegree = 90;  // wrap around to 180 degrees
+					}
+				}
+				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						currentAnim = &putAway;
+						hasShot = true;
+				}
 			}
+		
+		}
+		if (putAway.HasFinished()) {
+			putAway.Reset();
+			putAway.ResetLoopCount();
+			isDrawn = false;
 		}
 	}
 }
 
+void aimingAnimations() {
 
+	/*code idea*/
+	/*if (-90 <= launchDegree < -45) {
+		currentAnim = launchdegree
+	}*/
 
+}

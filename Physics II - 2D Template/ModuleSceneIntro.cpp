@@ -26,15 +26,18 @@ bool ModuleSceneIntro::Start()
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
+<<<<<<< Updated upstream
 	// Enable modules
 	app->physics->Enable();
 
 
+=======
+>>>>>>> Stashed changes
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	
 
-	map_img = app->textures->Load("Assets/Textures/mapExample.png");
+	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
 
 	return ret;
 }

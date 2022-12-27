@@ -25,10 +25,13 @@ public:
 
 	void Drawn();
 
+	void aimingAnimations();
+
 public:
 
 	int currentweapon = 0;
 
+	int launchDegree = 0;
 
 	//Textures
 
@@ -39,7 +42,6 @@ public:
 	Animation* currentAnim = nullptr;
 
 	Animation readying;
-	Animation shooting;
 	Animation idle;
 	Animation putAway;
 	Animation aimUp45;
