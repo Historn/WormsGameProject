@@ -35,7 +35,7 @@ bool ModuleSceneIntro::Start()
 	app->physics->Enable();
 	app->entityManager->Enable();
 
-	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg", 1.0f);
+	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg");
 
 	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
 

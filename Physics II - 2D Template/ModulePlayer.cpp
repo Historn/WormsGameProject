@@ -36,7 +36,7 @@ bool ModulePlayer::Start()
 	idlePlayer.PushBack({ 21, 33, 15, 19 });
 	idlePlayer.PushBack({ 40, 33, 16, 19 });
 	idlePlayer.loop = true;
-	idlePlayer.speed = 0.03f;
+	idlePlayer.speed = 0.05f;
 
 	attackrdyPlayer.PushBack({ 61, 0, 21, 30 }); //Putting Bandana On
 	attackrdyPlayer.PushBack({ 82, 0, 22, 26 });
@@ -44,13 +44,13 @@ bool ModulePlayer::Start()
 	attackrdyPlayer.PushBack({ 126, 0, 17, 26 });
 	attackrdyPlayer.PushBack({ 158, 0, 17, 26 });
 	attackrdyPlayer.loop = false;
-	attackrdyPlayer.speed = 0.3f;
+	attackrdyPlayer.speed = 0.05f;
 
 	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
 	IdleBandanaPlayer.PushBack({ 126, 0, 17, 26 });
 	IdleBandanaPlayer.PushBack({ 105, 0, 22, 26 });
 	IdleBandanaPlayer.loop = true;
-	IdleBandanaPlayer.speed = 0.3f;
+	IdleBandanaPlayer.speed = 0.05f;
 
 	//Can Only jump when isTurn = true // With Bandana On
 	jumpPlayer.PushBack({ 126, 0, 17, 26 });
@@ -129,6 +129,8 @@ update_status ModulePlayer::Update()
 		}
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+		isTurn = true;
 
 	if (isTurn == true) {
 		Attack();
