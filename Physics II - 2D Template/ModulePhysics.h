@@ -139,22 +139,22 @@ public:
 float modulus(float vx, float vy);
 
 // Compute Aerodynamic Drag force
-void compute_aerodynamic_drag(float& fx, float& fy, PhysBody* body, const Atmosphere& atmosphere);
+void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody* body, const Atmosphere& atmosphere);
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, PhysBody* body, const Water& water);
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water& water);
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, PhysBody* body, const Water& water);
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water& water);
 
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBody* body, float dt);
 
 // Detect collision with ground
-bool is_colliding_with_ground(PhysBody* body, const Ground& ground);
+bool is_colliding_with_ground(const PhysBody* body, const Ground& ground);
 
 // Detect collision with water
-bool is_colliding_with_water(PhysBody* body, const Water& water);
+bool is_colliding_with_water(const PhysBody* body, const Water& water);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);

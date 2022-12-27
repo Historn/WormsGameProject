@@ -31,7 +31,6 @@ bool ModuleEntityManager::Start()
 
 	return ret;
 
-	return true;
 }
 
 // Unload assets
@@ -111,6 +110,20 @@ update_status ModuleEntityManager::PreUpdate()
 // Update: draw background
 update_status ModuleEntityManager::Update()
 {
+	update_status ret = UPDATE_CONTINUE;
+	p2List_item<Entity*>* item;
+	Entity* pEntity = NULL;
+
+	for (item = entities.getFirst(); item != NULL && ret == UPDATE_CONTINUE; item = item->next)
+	{
+		pEntity = item->data;
+
+		if (pEntity->active == false) continue;
+		ret = item->data->Update();
+	}
+
+	return ret;
+
 	return UPDATE_CONTINUE;
 }
 

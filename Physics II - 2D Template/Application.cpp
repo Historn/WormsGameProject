@@ -27,7 +27,7 @@ Application::Application()
 	fade = new FadeToBlack(true);
 	title_screen = new TitleScreen(true);
 	scene_intro = new ModuleSceneIntro(false);
-	entityManager = new ModuleEntityManager(true);
+	entityManager = new ModuleEntityManager(false);
 	fonts = new Fonts(true);
 	ui = new UI(true);
 	physics = new ModulePhysics(false);
@@ -48,10 +48,11 @@ Application::Application()
 
 	// Scenes
 	AddModule(title_screen);
-	AddModule(scene_intro);
-	
+
 	// Entities
 	AddModule(entityManager);
+
+	AddModule(scene_intro);
 
 	//FadeToBlack
 	AddModule(fade);

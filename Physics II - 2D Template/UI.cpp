@@ -76,13 +76,13 @@ void UI::BlitPlayerHP()
 void UI::BlitPlayerXPos()
 {
 	char playerXPos[25];
-	sprintf_s(playerXPos, 25, "position x; %d", app->scene_intro->player->position.x);
+	sprintf_s(playerXPos, 25, "position x; %f", app->scene_intro->player->pbody->x);
 	app->fonts->BlitText(20, 55, font2_id, playerXPos);
 }
 
 void UI::BlitPlayerYPos()
 {
 	char playerYPos[25];
-	sprintf_s(playerYPos, 25, "position y; %d", app->scene_intro->player->position.y);
+	sprintf_s(playerYPos, 25, "position y; %f", app->scene_intro->player->pbody->y);
 	app->fonts->BlitText(20, 65, font2_id, playerYPos);
 }

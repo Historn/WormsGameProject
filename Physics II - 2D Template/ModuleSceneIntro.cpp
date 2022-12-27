@@ -26,14 +26,14 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	/*INITIALIZE ENTITIES*/
+	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
+
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
 	// Enable modules
 	app->physics->Enable();
-
-
-	/*INITIALIZE ENTITIES*/
-	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	app->entityManager->Enable();
 
 	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg", 1.0f);
 

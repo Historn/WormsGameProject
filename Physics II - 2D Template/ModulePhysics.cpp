@@ -224,35 +224,41 @@ float modulus(float vx, float vy)
 	return std::sqrt(vx * vx + vy * vy);
 }
 // Compute Aerodynamic Drag force
-void compute_aerodynamic_drag(float& fx, float& fy, PhysBody* body, const Atmosphere& atmosphere)
+void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody* body, const Atmosphere& atmosphere)
 {
-	float rel_vel[2] = { body->vx - atmosphere.windx, body->vy - atmosphere.windy }; // Relative velocity
+	const PhysBody retBody = *body;
+
+	float rel_vel[2] = { retBody.vx - atmosphere.windx, retBody.vy - atmosphere.windy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
-	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * body->surface * body->cd; // Drag force (modulus)
+	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * retBody.surface * retBody.cd; // Drag force (modulus)
 	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
 	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
 }
 
 // Compute Hydrodynamic Drag force
-void compute_hydrodynamic_drag(float& fx, float& fy, PhysBody* body, const Water& water)
+void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBody* body, const Water& water)
 {
-	float rel_vel[2] = { body->vx - water.vx, body->vy - water.vy }; // Relative velocity
+	const PhysBody retBody = *body;
+
+	float rel_vel[2] = { retBody.vx - water.vx, retBody.vy - water.vy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
-	float fdrag_modulus = body->b * speed; // Drag force (modulus)
+	float fdrag_modulus = retBody.b * speed; // Drag force (modulus)
 	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
 	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
 }
 
 // Compute Hydrodynamic Buoyancy force
-void compute_hydrodynamic_buoyancy(float& fx, float& fy, PhysBody* body, const Water& water)
+void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, const Water& water)
 {
+	const PhysBody retBody = *body;
+
 	// Compute submerged area (assume ball is a rectangle, for simplicity)
 	float water_top_level = water.y + water.h; // Water top level y
-	float h = 2.0f * body->radius; // Ball "hitbox" height
-	float surf = h * (water_top_level - body->y); // Submerged surface
-	if ((body->y + body->radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
+	float h = 2.0f * retBody.radius; // Ball "hitbox" height
+	float surf = h * (water_top_level - retBody.y); // Submerged surface
+	if ((retBody.y + retBody.radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
 	surf *= 0.4; // FUYM to adjust values (should compute the area of circle segment correctly instead; I'm too lazy for that)
 
 	// Compute Buoyancy force
@@ -271,19 +277,23 @@ void integrator_velocity_verlet(PhysBody* body, float dt)
 }
 
 // Detect collision with ground
-bool is_colliding_with_ground(PhysBody* body, const Ground& ground)
+bool is_colliding_with_ground(const PhysBody* body, const Ground& ground)
 {
+	const PhysBody retBody = *body;
+
 	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
 	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, ground.w, ground.h);
+	return check_collision_circle_rectangle(retBody.x, retBody.y, retBody.radius, rect_x, rect_y, ground.w, ground.h);
 }
 
 // Detect collision with water
-bool is_colliding_with_water(PhysBody* body, const Water& water)
+bool is_colliding_with_water(const PhysBody* body, const Water& water)
 {
+	const PhysBody retBody = *body;
+
 	float rect_x = (water.x + water.w / 2.0f); // Center of rectangle
 	float rect_y = (water.y + water.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, water.w, water.h);
+	return check_collision_circle_rectangle(retBody.x, retBody.y, retBody.radius, rect_x, rect_y, water.w, water.h);
 }
 
 // Detect collision between circle and rectange
