@@ -47,6 +47,11 @@ bool ModulePhysics::Start()
 	ground5->w = 5.2f; // [m]
 	ground5->h = 3.7f; // [m]
 
+	ground6->x = 32.4f; // [m]
+	ground6->y = 14.6f; // [m]
+	ground6->w = 7.6f; // [m]
+	ground6->h = 3.2f; // [m]
+
 
 
 	// Create Water
@@ -229,6 +234,9 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 0; color_g = 255; color_b = 0;
 	app->renderer->DrawQuad(ground5->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground6->pixels(), color_r, color_g, color_b);
 
 
 	// Draw water

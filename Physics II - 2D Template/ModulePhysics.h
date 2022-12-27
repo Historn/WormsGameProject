@@ -139,7 +139,7 @@ public:
 	Ground* ground3 = new Ground();	// First platform collider
 	Ground* ground4 = new Ground();	// Left upper platform collider
 	Ground* ground5 = new Ground();	// Right bottom collider
-
+	Ground* ground6 = new Ground(); // Upper left collider
 
 	// Misc
 	float dt = 1.0 / 60.0;
