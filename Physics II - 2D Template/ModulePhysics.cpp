@@ -22,11 +22,16 @@ bool ModulePhysics::Start()
 	LOG("Creating Physics 2D environment");
 	
 	// Create ground
-	ground = Ground();
-	ground.x = 0.0f; // [m]
-	ground.y = 0.0f; // [m]
-	ground.w = 10.2f; // [m]
-	ground.h = 3.6f; // [m]
+	ground1->x = 0.0f; // [m]
+	ground1->y = 0.0f; // [m]
+	ground1->w = 10.2f; // [m]
+	ground1->h = 3.6f; // [m]
+
+	ground2->x = 15.4f; // [m]
+	ground2->y = 0.0f; // [m]
+	ground2->w = 15.2f; // [m]
+	ground2->h = 5.5f; // [m]
+
 
 	// Create Water
 	water = Water();
@@ -35,17 +40,14 @@ bool ModulePhysics::Start()
 	water.w = 5.2f; // [m]
 	water.h = 3.6f; // [m]
 	water.density = 50.0f; // [kg/m^3]
-	water.vx = 0.0f; // [m/s]
-	water.vy = 0.0f; // [m/s]
+	water.vx = -1.0f; // [m/s]
+	water.vy = -5.0f; // [m/s]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
 	atmosphere.windx = 10.0f; // [m/s]
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
-
-	// Create a ball
-	PhysBody* ball = new PhysBody();
 
 	// Set static properties of the ball
 	ball->mass = 10.0f; // [kg]
@@ -59,12 +61,15 @@ bool ModulePhysics::Start()
 
 	// Set initial position and velocity of the ball
 	ball->x = 2.0f;
-	ball->y = (ground.y + ground.h) + 2.0f;
+	ball->y = 2.0f;
 	ball->vx = 5.0f;
 	ball->vy = 10.0f;
 
 	// Add ball to the collection
 	bodies.add(ball);
+	grounds.add(ground1);
+	grounds.add(ground2);
+
 	return true;
 }
 
@@ -72,7 +77,9 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	p2List_item<PhysBody*>* item = bodies.getFirst();
+	p2List_item<Ground*>* ground = grounds.getFirst();
 	PhysBody* aux = NULL;
+
 	// Process all balls in the scenario
 	while (item != NULL)
 	{
@@ -140,10 +147,10 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Solve collision between ball and ground
-		if (is_colliding_with_ground(aux, ground))
+		if (is_colliding_with_ground(aux, ground->data))
 		{
 			// TP ball to ground surface
-			aux->y = ground.y + ground.h + aux->radius;
+			aux->y = ground->data->y + ground->data->h + aux->radius;
 
 			// Elastic bounce with ground
 			aux->vy = -aux->vy;
@@ -171,9 +178,13 @@ update_status ModulePhysics::PostUpdate()
 	// Colors
 	int color_r, color_g, color_b;
 
-	// Draw ground
+	// Draw grounds
 	color_r = 0; color_g = 255; color_b = 0;
-	app->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+	app->renderer->DrawQuad(ground1->pixels(), color_r, color_g, color_b);
+
+	color_r = 0; color_g = 255; color_b = 0;
+	app->renderer->DrawQuad(ground2->pixels(), color_r, color_g, color_b);
+
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
@@ -214,6 +225,7 @@ bool ModulePhysics::CleanUp()
 	LOG("Destroying physics world");
 
 	bodies.clear();
+	grounds.clear();
 
 	return true;
 }
@@ -223,6 +235,7 @@ float modulus(float vx, float vy)
 {
 	return std::sqrt(vx * vx + vy * vy);
 }
+
 // Compute Aerodynamic Drag force
 void compute_aerodynamic_drag(float& fx, float& fy, const PhysBody* body, const Atmosphere& atmosphere)
 {
@@ -271,11 +284,11 @@ void integrator_velocity_verlet(PhysBody* body, float dt)
 }
 
 // Detect collision with ground
-bool is_colliding_with_ground(const PhysBody* body, const Ground& ground)
+bool is_colliding_with_ground(const PhysBody* body, const Ground* ground)
 {
-	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
-	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
-	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, ground.w, ground.h);
+	float rect_x = (ground->x + ground->w / 2.0f); // Center of rectangle
+	float rect_y = (ground->y + ground->h / 2.0f); // Center of rectangle
+	return check_collision_circle_rectangle(body->x, body->y, body->radius, rect_x, rect_y, ground->w, ground->h);
 }
 
 // Detect collision with water

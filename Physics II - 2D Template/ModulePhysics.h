@@ -127,7 +127,14 @@ public:
 	p2List<PhysBody*> bodies{};
 	Atmosphere atmosphere{};
 	Water water{};
-	Ground ground{};
+	p2List<Ground*> grounds{};
+
+	// Create a ball
+	PhysBody* ball = new PhysBody();
+
+	// Create a ground
+	Ground* ground1 = new Ground();
+	Ground* ground2 = new Ground();
 
 	// Misc
 	float dt = 1.0 / 60.0;
@@ -151,7 +158,7 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBody* body, c
 void integrator_velocity_verlet(PhysBody* body, float dt);
 
 // Detect collision with ground
-bool is_colliding_with_ground(const PhysBody* body, const Ground& ground);
+bool is_colliding_with_ground(const PhysBody* body, const Ground* ground);
 
 // Detect collision with water
 bool is_colliding_with_water(const PhysBody* body, const Water& water);
