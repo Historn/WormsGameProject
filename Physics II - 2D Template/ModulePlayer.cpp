@@ -20,7 +20,7 @@ bool ModulePlayer::Start()
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	/*startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();*/
-	startPos.x = 500;
+	startPos.x = 250;
 	startPos.y = 250;
 
 	//Textures Load
@@ -108,6 +108,7 @@ update_status ModulePlayer::Update()
 {
 	currentAnim = &idlePlayer;
 	pbody->vx = 2;
+	pbody->vy = 0;
 
 	if (isTurn == true) {
 		Attack();
