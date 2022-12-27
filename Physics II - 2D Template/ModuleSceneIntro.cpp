@@ -43,6 +43,12 @@ bool ModuleSceneIntro::Start()
 }
 
 // Update: draw background
+update_status ModuleSceneIntro::PreUpdate()
+{
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleSceneIntro::Update()
 {
 	
@@ -60,7 +66,12 @@ update_status ModuleSceneIntro::Update()
 		app->ui->BlitPlayerYPos();
 	}
 
-	
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleSceneIntro::PostUpdate()
+{
+
 
 	return UPDATE_CONTINUE;
 }

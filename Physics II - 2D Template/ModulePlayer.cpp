@@ -3,6 +3,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleTextures.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -20,19 +21,22 @@ bool ModulePlayer::Start()
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	/*startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();*/
-	startPos.x = 250;
-	startPos.y = 250;
+	startPos.x = 2;
+	startPos.y = 0.5f;
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
-	texturePath = ("Assets/Textures/Worms_spritesheet_full.png");
+	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
-	idlePlayer.PushBack({ 0, 0, 19, 28 });
-	idlePlayer.PushBack({ 19, 0, 17, 28 });
-	idlePlayer.PushBack({ 36, 0, 18, 28 });
+	idlePlayer.PushBack({ 3, 9, 15, 19 });
+	idlePlayer.PushBack({ 20, 9, 15, 19 });
+	idlePlayer.PushBack({ 37, 9, 15, 19 });
+	idlePlayer.PushBack({ 3, 33, 15, 19 });
+	idlePlayer.PushBack({ 21, 33, 15, 19 });
+	idlePlayer.PushBack({ 40, 33, 16, 19 });
 	idlePlayer.loop = true;
-	idlePlayer.speed = 0.1f;
+	idlePlayer.speed = 0.03f;
 
 	attackrdyPlayer.PushBack({ 61, 0, 21, 30 }); //Putting Bandana On
 	attackrdyPlayer.PushBack({ 82, 0, 22, 26 });
@@ -78,10 +82,8 @@ bool ModulePlayer::Start()
 
 
 	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER1);
-	// Add ball to the collection
-	
 	pbody->listener = this;
-
+	// Add ball to the collection
 	app->physics->bodies.add(pbody);
 
 	LOG("CREATES PLAYER")
@@ -107,15 +109,15 @@ update_status ModulePlayer::PreUpdate()
 update_status ModulePlayer::Update()
 {
 	currentAnim = &idlePlayer;
-	pbody->vx = 2;
-	pbody->vy = 0;
+	
+	pbody->cd = 0;
 
 	if (isTurn == true) {
 		Attack();
 	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, pbody->x, pbody->y, &rect, fliped);
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
@@ -125,6 +127,7 @@ update_status ModulePlayer::Update()
 
 update_status ModulePlayer::PostUpdate()
 {
+	
 	return UPDATE_CONTINUE;
 }
 

@@ -326,7 +326,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, float radius, ColliderType c
 	PhysBody* body = new PhysBody();
 
 	// Set static properties of the ball
-	body->mass = 10.0f; // [kg]
+	body->mass = 5.0f; // [kg]
 	body->surface = 1.0f; // [m^2]
 	body->radius = radius; // [m]
 	body->cd = 0.4f; // [-]

@@ -45,14 +45,13 @@ Application::Application()
 	AddModule(audio);
 	AddModule(fonts);
 	AddModule(ui);
-
+	// Entities
+	
 	// Scenes
 	AddModule(title_screen);
-
-	// Entities
-	AddModule(entityManager);
-
 	AddModule(scene_intro);
+
+	AddModule(entityManager);
 
 	//FadeToBlack
 	AddModule(fade);
