@@ -147,7 +147,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		isTurn = true;
 
 	if (isTurn == true) {
