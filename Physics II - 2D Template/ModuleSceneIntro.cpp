@@ -65,6 +65,7 @@ update_status ModuleSceneIntro::Update()
 	if (app->scene_intro->player->isTurn == true) {
 		app->ui->BlitPlayerAngle();
 		app->ui->BlitPlayerVelocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * -sin(player->projAngle))), 255, 0, 0);
 	}
 	if (app->physics->debug)
 	{
