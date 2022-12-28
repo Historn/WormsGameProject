@@ -127,14 +127,12 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	p2List_item<PhysBody*>* item = bodies.getFirst();
-	PhysBody* aux = NULL;
 
 	// Process all balls in the scenario
 	while (item != NULL)
 	{
-		aux = item->data;
 		// Skip ball if physics not enabled
-		if (!aux->physics_enabled)
+		if (!item->data->physics_enabled)
 		{
 			continue;
 		}
@@ -143,16 +141,16 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Reset total acceleration and total accumulated force of the ball
-		aux->fx = aux->fy = 0.0f;
-		aux->ax = aux->ay = 0.0f;
+		item->data->fx = item->data->fy = 0.0f;
+		item->data->ax = item->data->ay = 0.0f;
 
 		// Step #1: Compute forces
 		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
-		float fgx = aux->mass * 0.0f;
-		float fgy = aux->mass * -10.0f; // Let's assume gravity is constant and downwards
-		aux->fx += fgx; aux->fy += fgy; // Add this force to ball's total force
+		float fgx = item->data->mass * 0.0f;
+		float fgy = item->data->mass * -10.0f; // Let's assume gravity is constant and downwards
+		item->data->fx += fgx; item->data->fy += fgy; // Add this force to ball's total force
 
 
 		p2List_item<Water*>* water = waters.getFirst();
@@ -160,25 +158,25 @@ update_status ModulePhysics::PreUpdate()
 		while (water != NULL)
 		{
 			// Aerodynamic Drag force (only when not in water)
-			if (!is_colliding_with_water(aux, water->data))
+			if (!is_colliding_with_water(item->data, water->data))
 			{
 				float fdx = 0.0f; float fdy = 0.0f;
-				compute_aerodynamic_drag(fdx, fdy, aux, atmosphere);
-				aux->fx += fdx; aux->fy += fdy; // Add this force to ball's total force
+				compute_aerodynamic_drag(fdx, fdy, item->data, atmosphere);
+				item->data->fx += fdx; item->data->fy += fdy; // Add this force to ball's total force
 			}
 
 			// Hydrodynamic forces (only when in water)
-			if (is_colliding_with_water(aux, water->data))
+			if (is_colliding_with_water(item->data, water->data))
 			{
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
-				compute_hydrodynamic_drag(fhdx, fhdy, aux, water->data);
-				aux->fx += fhdx; aux->fy += fhdy; // Add this force to ball's total force
+				compute_hydrodynamic_drag(fhdx, fhdy, item->data, water->data);
+				item->data->fx += fhdx; item->data->fy += fhdy; // Add this force to ball's total force
 
 				// Hydrodynamic Buoyancy force
 				float fhbx = 0.0f; float fhby = 0.0f;
-				compute_hydrodynamic_buoyancy(fhbx, fhby, aux, water->data);
-				aux->fx += fhbx; aux->fy += fhby; // Add this force to ball's total force
+				compute_hydrodynamic_buoyancy(fhbx, fhby, item->data, water->data);
+				item->data->fx += fhbx; item->data->fy += fhby; // Add this force to ball's total force
 			}
 			water = water->next;
 		}
@@ -189,14 +187,14 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-		aux->ax = aux->fx / aux->mass;
-		aux->ay = aux->fy / aux->mass;
+		item->data->ax = item->data->fx / item->data->mass;
+		item->data->ay = item->data->fy / item->data->mass;
 
 		// Step #3: Integrate --> from accel to new velocity & new position
 		// ----------------------------------------------------------------------------------------
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
-		integrator_velocity_verlet(aux, dt);
+		integrator_velocity_verlet(item->data, dt);
 
 		// Step #4: solve collisions
 		// ----------------------------------------------------------------------------------------
@@ -205,30 +203,30 @@ update_status ModulePhysics::PreUpdate()
 		while (ground != NULL)
 		{
 			// Solve collision between ball and ground
-			if (is_colliding_with_ground(aux, ground->data))
+			if (is_colliding_with_ground(item->data, ground->data))
 			{
 				// TP ball to ground surface
-				if (aux->x > ground->data->x && aux->y > ground->data->y && aux->x < ground->data->x + ground->data->w) {
-					aux->y = ground->data->y + ground->data->h + aux->radius;
+				if (item->data->x > ground->data->x && item->data->y > ground->data->y && item->data->x < ground->data->x + ground->data->w) {
+					item->data->y = ground->data->y + ground->data->h + item->data->radius;
 					// Elastic bounce with ground
-					aux->vy = -aux->vy;
+					item->data->vy = -item->data->vy;
 				}
 
 				
-				if (aux->x >= ground->data->x + ground->data->w && aux->y > ground->data->y) {
-					aux->x = ground->data->x + ground->data->w + aux->radius;
-					aux->vx = -aux->vx;
+				if (item->data->x >= ground->data->x + ground->data->w && item->data->y > ground->data->y) {
+					item->data->x = ground->data->x + ground->data->w + item->data->radius;
+					item->data->vx = -item->data->vx;
 				}
 					
 
-				if (aux->x <= ground->data->x && aux->y > ground->data->y) {
-					aux->x = ground->data->x - aux->radius;
-					aux->vx = -aux->vx;
+				if (item->data->x <= ground->data->x && item->data->y > ground->data->y) {
+					item->data->x = ground->data->x - item->data->radius;
+					item->data->vx = -item->data->vx;
 				}
 
 				// FUYM non-elasticity
-				aux->vx *= aux->coef_friction;
-				aux->vy *= aux->coef_restitution;
+				item->data->vx *= item->data->coef_friction;
+				item->data->vy *= item->data->coef_restitution;
 			}
 			ground = ground->next;
 		}	
