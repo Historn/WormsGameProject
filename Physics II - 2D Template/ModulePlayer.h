@@ -24,7 +24,6 @@ public:
 	ModulePlayer();
 	virtual ~ModulePlayer();
 
-
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
@@ -32,6 +31,10 @@ public:
 
 
 	bool CleanUp();
+	void SetVelocity();
+	void SetAngle();
+
+	void ShootingFlow();
 
 public:
 
@@ -63,8 +66,12 @@ public:
 	bool onGround = false;
 	bool dead = false;
 	bool onCollision = false; 
-	bool attackrdy = false;
+	bool settingattack = false;
 	bool jumping;
+	bool playershoots = false;
+
+	bool VelSet = false;
+	bool AngleSet = false;
 
 	bool isHit = false;
 
@@ -77,6 +84,8 @@ public:
 	int y;
 
 	Vec2D velocity;
+	int projVel;
+	int projAngle;
 	Vec2D startPos;
 
 	PhysBody* pbody;

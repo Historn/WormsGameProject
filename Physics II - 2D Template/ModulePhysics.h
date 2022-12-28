@@ -28,6 +28,7 @@ enum class ColliderType {
 	PLAYER1,
 	PLAYER2,
 	FLOOR,
+	PROJECTILE,
 	WEAPON
 };
 

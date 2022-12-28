@@ -62,6 +62,7 @@ public:
 	//Entities
 	ModulePlayer* player;
 	ModuleWeapon* weapon;
+	ModuleProjectile* projectile;
 	
 	uint player_lose_fx;
 };

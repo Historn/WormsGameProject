@@ -24,6 +24,7 @@ class TitleScreen;
 class ModuleSceneIntro;
 class ModuleEntityManager;
 class ModulePlayer;
+class ModuleProjectile;
 class Fonts;
 class UI;
 class ModulePhysics;

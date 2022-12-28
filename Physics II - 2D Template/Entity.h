@@ -15,6 +15,7 @@ enum class EntityType
 	ITEM,
 	COIN,
 	WEAPON,
+	PROJECTILE,
 	UNKNOWN
 };
 

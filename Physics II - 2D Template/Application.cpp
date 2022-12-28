@@ -9,6 +9,7 @@
 #include "TitleScreen.h"
 #include "ModulePlayer.h"
 #include "ModuleWeapon.h"
+#include "ModuleProjectile.h"
 #include "ModulePhysics.h"
 #include "ModuleEntityManager.h"
 #include "ModuleSceneIntro.h"
@@ -52,6 +53,7 @@ Application::Application()
 	AddModule(title_screen);
 	AddModule(scene_intro);
 
+	
 	AddModule(entityManager);
 
 	//FadeToBlack

@@ -25,6 +25,8 @@ public:
 	void BlitPlayerXPos();
 	void BlitPlayerYPos();
 	void BlitPlayerHP();
+	void BlitPlayerAngle();
+	void BlitPlayerVelocity();
 
 
 	uint font1_id = -1;

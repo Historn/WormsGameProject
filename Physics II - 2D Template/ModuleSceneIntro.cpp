@@ -28,7 +28,6 @@ bool ModuleSceneIntro::Start()
 
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
@@ -65,6 +64,16 @@ update_status ModuleSceneIntro::Update()
 	{
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
+		app->ui->BlitPlayerAngle();
+		app->ui->BlitPlayerVelocity();
+	}
+
+	if (app->scene_intro->player->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+	}
+
+	if (app->scene_intro->player->isTurn == true) {
+		weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
 	}
 
 	return UPDATE_CONTINUE;
