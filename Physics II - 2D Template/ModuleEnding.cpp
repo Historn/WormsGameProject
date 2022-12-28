@@ -44,7 +44,7 @@ bool ModuleEnding::Start()
 	//Load SFX
 
 	//Load tex
-	img = app->textures->Load("Assets/Textures/ExampleTitleScreen.png");
+	img = app->textures->Load("Assets/Textures/mapExample.png");
 
 
 	return ret;
@@ -56,8 +56,7 @@ update_status ModuleEnding::Update()
 	//Pass next screen
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");
-		app->fade->FadeBlack(this, (Module*)app->scene_intro, 100);
-		app->audio->PlayFx(startSFX);
+		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

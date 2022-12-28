@@ -15,7 +15,7 @@
 #include "ModuleSceneIntro.h"
 #include "Fonts.h"
 #include "UI.h"
-//#include "ModuleEnding.h"
+#include "ModuleEnding.h"
 
 #include "Application.h"
 
@@ -30,7 +30,7 @@ Application::Application()
 	fade = new FadeToBlack(true);
 	title_screen = new TitleScreen(true);
 	scene_intro = new ModuleSceneIntro(false);
-	//module_ending = new ModuleEnding(false);
+	ending_screen = new ModuleEnding(false);
 	entityManager = new ModuleEntityManager(false);
 	fonts = new Fonts(true);
 	ui = new UI(true);
@@ -54,7 +54,7 @@ Application::Application()
 	// Scenes
 	AddModule(title_screen);
 	AddModule(scene_intro);
-	//AddModule(module_ending);
+	AddModule(ending_screen);
 
 
 	

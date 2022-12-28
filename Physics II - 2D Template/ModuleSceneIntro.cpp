@@ -54,20 +54,23 @@ update_status ModuleSceneIntro::Update()
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
 
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+
 	app->renderer->Blit(map_img, 0, 0, NULL);
 
 	// UI blit
 	app->ui->BlitPlayerHP();
 
+	if (app->scene_intro->player->isTurn == true) {
+		app->ui->BlitPlayerAngle();
+		app->ui->BlitPlayerVelocity();
+	}
 	if (app->physics->debug)
 	{
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
 
-		if (app->scene_intro->player->isTurn == true) {
-			app->ui->BlitPlayerAngle();
-			app->ui->BlitPlayerVelocity();
-		}
 	}
 
 	if (app->scene_intro->player->playershoots == true) {

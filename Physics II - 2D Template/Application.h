@@ -27,7 +27,7 @@ class ModuleProjectile;
 class Fonts;
 class UI;
 class ModulePhysics;
-//class MopduleEnding;
+class ModuleEnding;
 
 class Application
 {
@@ -51,17 +51,12 @@ public:
 	FadeToBlack* fade;
 	TitleScreen* title_screen;
 	ModuleSceneIntro* scene_intro;
-	//ModuleEnding* module_ending;
+	ModuleEnding* ending_screen;
 	ModuleEntityManager* entityManager;
 	Fonts* fonts;
 	UI* ui;
 	ModulePhysics* physics;
 
-
-	// xml_document to store the config file and
-	// xml_node(s) to read specific branches of the xml
-	/*pugi::xml_document configFile;
-	pugi::xml_node configNode;*/
 
 private:
 
