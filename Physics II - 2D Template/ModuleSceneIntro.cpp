@@ -63,8 +63,12 @@ update_status ModuleSceneIntro::Update()
 	{
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
-		app->ui->BlitPlayerAngle();
-		app->ui->BlitPlayerVelocity();
+
+		if (app->scene_intro->player->isTurn == true) {
+			app->ui->BlitPlayerAngle();
+			app->ui->BlitPlayerVelocity();
+		}
+		
 	}
 
 	if (app->scene_intro->player->playershoots == true) {
