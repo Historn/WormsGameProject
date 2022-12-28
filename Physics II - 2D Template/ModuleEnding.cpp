@@ -45,7 +45,7 @@ bool ModuleEnding::Start()
 	click_sfx = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
 
 	//Load tex
-	img = app->textures->Load("Assets/Textures/mapExample.png");
+	img = app->textures->Load("Assets/Textures/EndingScreen.png");
 
 
 	return ret;
