@@ -318,6 +318,7 @@ bool ModulePhysics::CleanUp()
 
 	bodies.clear();
 	grounds.clear();
+	waters.clear();
 
 	return true;
 }
