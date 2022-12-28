@@ -83,6 +83,7 @@ bool ModuleSceneIntro::CleanUp()
 	LOG("Unloading Intro scene");
 
 	// Disable modules
+	app->entityManager->Disable();
 	app->physics->Disable();
 
 	app->textures->Unload(map_img);
