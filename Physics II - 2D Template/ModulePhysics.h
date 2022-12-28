@@ -105,6 +105,12 @@ public:
 	float windy; // Wind y
 };
 
+class Screen : public SDL_Rect
+{
+public:
+	float x, y, w, h; // Geometry (x,y,w,h)
+};
+
 class ModulePhysics : public Module
 {
 public:
@@ -130,6 +136,7 @@ public:
 	p2List<Water*> waters{};
 	p2List<Ground*> grounds{};
 	Atmosphere atmosphere{};
+	Screen screen{};
 
 	// Create a ball
 	PhysBody* ball = new PhysBody();
@@ -147,6 +154,11 @@ public:
 	Ground* ground6 = new Ground(); // Upper right collider
 	Ground* ground7 = new Ground(); // Left central platform collider
 	Ground* ground8 = new Ground(); // Right central platform collider
+	Ground* leftWall = new Ground();
+	Ground* rightWall = new Ground();
+	Ground* upperRoof = new Ground();
+	Ground* lowerRoof = new Ground();
+
 
 	// Misc
 	float dt = 1.0 / 60.0;
@@ -177,6 +189,5 @@ bool is_colliding_with_water(const PhysBody* body, const Water* water);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
-
 
 #endif 

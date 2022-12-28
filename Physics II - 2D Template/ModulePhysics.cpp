@@ -62,6 +62,25 @@ bool ModulePhysics::Start()
 	ground8->w = 4.9f; // [m]
 	ground8->h = 1.0; // [m]
 
+	leftWall->x = 0.0f; // [m]
+	leftWall->y = -0.05f; // [m]
+	leftWall->w = 0.1f; // [m]
+	leftWall->h = PIXEL_TO_METERS(SCREEN_HEIGHT); // [m]
+
+	rightWall->x = PIXEL_TO_METERS(SCREEN_WIDTH) - 0.05f; // [m]
+	rightWall->y = 0.0f; // [m]
+	rightWall->w = 0.1f; // [m]
+	rightWall->h = PIXEL_TO_METERS(SCREEN_HEIGHT); // [m]
+
+	upperRoof->x = 0.0f;  // [m]
+	upperRoof->y = PIXEL_TO_METERS(SCREEN_HEIGHT) - 0.05f; // [m]
+	upperRoof->w = PIXEL_TO_METERS(SCREEN_WIDTH); // [m]
+	upperRoof->h = 0.1f; // [m]
+
+	lowerRoof->x = 0.0f;  // [m]
+	lowerRoof->y = -0.05f; // [m]
+	lowerRoof->w = PIXEL_TO_METERS(SCREEN_WIDTH); // [m]
+	lowerRoof->h = 0.1f; // [m]
 
 	// Create Water
 	water1->x = 10.2f; // Start where ground ends [m]
@@ -85,6 +104,12 @@ bool ModulePhysics::Start()
 	atmosphere.windx = 10.0f; // [m/s]
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
+
+	// Set screen rectangle properties
+	screen.x = 0.0f;
+	screen.y = 0.0f;
+	screen.w = SCREEN_WIDTH;
+	screen.h = SCREEN_HEIGHT;
 
 	// Set static properties of the ball
 	ball->mass = 10.0f; // [kg]
@@ -114,7 +139,10 @@ bool ModulePhysics::Start()
 	grounds.add(ground6);
 	grounds.add(ground7);
 	grounds.add(ground8);
-
+	grounds.add(leftWall);
+	grounds.add(rightWall);
+	grounds.add(upperRoof);
+	grounds.add(lowerRoof);
 
 	// Add water to the collecion
 	waters.add(water1);
@@ -229,6 +257,7 @@ update_status ModulePhysics::PreUpdate()
 				item->data->vy *= item->data->coef_restitution;
 			}
 			ground = ground->next;
+
 		}	
 		
 		item = item->next;
@@ -274,6 +303,18 @@ update_status ModulePhysics::PostUpdate()
 
 	color_r = 0; color_g = 255; color_b = 0;
 	app->renderer->DrawQuad(ground8->pixels(), color_r, color_g, color_b, color_opacity);
+
+	color_r = 0; color_g = 255; color_b = 255;
+	app->renderer->DrawQuad(leftWall->pixels(), color_r, color_g, color_b, color_opacity);
+
+	color_r = 0; color_g = 255; color_b = 255;
+	app->renderer->DrawQuad(rightWall->pixels(), color_r, color_g, color_b, color_opacity);
+
+	color_r = 0; color_g = 255; color_b = 255;
+	app->renderer->DrawQuad(upperRoof->pixels(), color_r, color_g, color_b, color_opacity);
+
+	color_r = 0; color_g = 255; color_b = 255;
+	app->renderer->DrawQuad(lowerRoof->pixels(), color_r, color_g, color_b, color_opacity);
 
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
