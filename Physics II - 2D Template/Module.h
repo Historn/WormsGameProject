@@ -4,9 +4,6 @@
 #include "Globals.h"
 #include "SString.h"
 
-#include "PugiXml/src/pugixml.hpp"
-
-
 class Application;
 
 class PhysBody;
@@ -46,17 +43,6 @@ public:
 	virtual bool CleanUp() 
 	{ 
 		return true; 
-	}
-
-	// Create new virtual methods to LoadState / SaveState
-	virtual bool LoadState(pugi::xml_node&)
-	{
-		return true;
-	}
-
-	virtual bool SaveState(pugi::xml_node&)
-	{
-		return true;
 	}
 
 	void Enable()

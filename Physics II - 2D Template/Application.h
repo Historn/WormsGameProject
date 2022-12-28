@@ -9,11 +9,6 @@
 #include "Defs.h"
 
 
-#include "PugiXml/src/pugixml.hpp"
-
-#define CONFIG_FILENAME		"config.xml"
-#define SAVE_STATE_FILENAME "save_game.xml"
-
 class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
@@ -61,10 +56,6 @@ public:
 private:
 
 	p2List<Module*> list_modules;
-
-	// Create control variables to control that the real Load and Save happens at the end of the frame
-	bool saveGameRequested;
-	bool loadGameRequested;
 
 private:
 

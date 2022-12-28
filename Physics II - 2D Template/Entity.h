@@ -50,16 +50,6 @@ public:
 		return true;
 	}
 
-	/*virtual bool LoadState(pugi::xml_node&)
-	{
-		return true;
-	}
-
-	virtual bool SaveState(pugi::xml_node&)
-	{
-		return true;
-	}*/
-
 	void Entity::Enable()
 	{
 		if (!active)
@@ -87,8 +77,7 @@ public:
 	SString name;
 	EntityType type;
 	bool active = true;
-	//pugi::xml_node parameters;
-
+	
 	// Possible properties, it depends on how generic we
 	// want our Entity class, maybe it's not renderable...
 	iPoint position;
