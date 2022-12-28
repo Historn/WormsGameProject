@@ -178,6 +178,27 @@ update_status ModulePlayer::Update()
 		}
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+		if (onGround == true) {
+			jumping = true;
+			jumpingTime = 0;
+		}
+		onGround = false;
+	}
+
+	//Jumping Function
+	if (jumping == true) {
+		velocity.y = +jumpVel;
+
+		jumpVel += 1.0f;
+
+		jumpingTime++;
+	}
+
+	longPress = false;
+
+
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
 	currentAnim->Update();

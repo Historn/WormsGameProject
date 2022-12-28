@@ -54,7 +54,6 @@ public:
 	Animation hitPlayer;
 	Animation attackoffPlayer;
 
-
 	uint RocketLaunchSFX = 0;
 	uint BandanaSFX = 0;
 	uint DeathSFX = 0;
@@ -66,11 +65,17 @@ public:
 	//bool isDefeated = false;
 	//bool isCelebrating = false;
 
-	bool onGround = false;
+	int jumpingTime;
+
+	//Jump Variables
+	float jumpVel = GRAVITY_Y;
+	bool jumping = false;
+	bool longPress = false;
+
+	bool onGround = true;
 	bool dead = false;
 	bool onCollision = false; 
 	bool settingattack = false;
-	bool jumping;
 	bool playershoots = false;
 
 	bool VelSet = false;
