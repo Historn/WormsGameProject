@@ -71,9 +71,9 @@ update_status ModuleProjectile::Update() {
 
 	/*OnCollision();*/
 
-	SDL_Rect rect = currentAnim->GetCurrentFrame();
+	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
-	currentAnim->Update();
+	currentAnim->Update();*/
 
 
 	return UPDATE_CONTINUE;

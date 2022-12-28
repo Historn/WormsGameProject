@@ -2,6 +2,7 @@
 #include "ModuleEntityManager.h"
 #include "ModulePlayer.h"
 #include "ModuleWeapon.h"
+#include "ModuleProjectile.h"
 
 ModuleEntityManager::ModuleEntityManager(bool start_enabled) : Module(start_enabled)
 {
@@ -67,6 +68,9 @@ Entity* ModuleEntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::WEAPON:
 		entity = new ModuleWeapon();
+		break;
+	case EntityType::PROJECTILE:
+		entity = new ModuleProjectile();
 		break;
 
 	default: break;

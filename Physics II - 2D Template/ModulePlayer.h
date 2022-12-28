@@ -84,8 +84,8 @@ public:
 	int y;
 
 	Vec2D velocity;
-	int projVel;
-	int projAngle;
+	int projVel = 50;
+	int projAngle = 0;
 	Vec2D startPos;
 
 	PhysBody* pbody;

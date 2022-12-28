@@ -185,62 +185,49 @@ update_status ModulePlayer::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::SetVelocity() {
-	projVel = 50;
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-		projVel = projVel + 5;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-		projVel = projVel - 5;
-	}
-	if (projVel < 0) {
-		projVel = 0;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		VelSet = false;
-	}
-}
-
-void ModulePlayer::SetAngle() {
-	//Code for setting Angle Var
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-		projAngle = projAngle + 5;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-		projAngle = projAngle - 5;
-	}
-	if (projAngle >= 90) {
-		projAngle = -90;
-	}
-	if (projAngle <= -90) {
-		projAngle = 90;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		AngleSet = false;
-	}
-}
 
 void ModulePlayer::ShootingFlow() {
 
 	currentAnim = &attackrdyPlayer;
 	if (attackrdyPlayer.HasFinished()) {
 		currentAnim = &IdleBandanaPlayer;
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			isFliped = false;
-			if (isFliped == false && fliped == SDL_FLIP_NONE) {
-				fliped = SDL_FLIP_HORIZONTAL;
-			}
+
+		//Projectile Inputs Horizontal = Velocity
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+			projAngle = projAngle + 5;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			isFliped = true;
-			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
-				fliped = SDL_FLIP_NONE;
-			}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+			projAngle = projAngle - 5;
 		}
+
+		//Projectile Inputs Vertical = Angle
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+			projVel = projVel + 5;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+			projVel = projVel - 5;
+		}
+
+		//Projectile Limits
+		if (projVel > 100) {
+			projVel = 100;
+		}
+		if (projVel < 0) {
+			projVel = 0;
+		}
+		if (projAngle > 90) {
+			projAngle = 90;
+		}
+		if (projAngle < -90) {
+			projAngle = -90;
+		}
+
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 			playershoots = true;
 			attackrdyPlayer.Reset();
 			attackrdyPlayer.ResetLoopCount();
+			projAngle = 0;
+			projVel = 50;
 			isTurn = false;
 		}
 	}

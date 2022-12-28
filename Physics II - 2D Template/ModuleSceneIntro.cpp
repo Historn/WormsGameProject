@@ -45,7 +45,6 @@ bool ModuleSceneIntro::Start()
 // Update: draw background
 update_status ModuleSceneIntro::PreUpdate()
 {
-
 	return UPDATE_CONTINUE;
 }
 
