@@ -68,7 +68,6 @@ update_status ModuleSceneIntro::Update()
 			app->ui->BlitPlayerAngle();
 			app->ui->BlitPlayerVelocity();
 		}
-		
 	}
 
 	if (app->scene_intro->player->playershoots == true) {

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "ModuleInput.h"
+#include "ModulePlayer.h"
 #include "ModuleRender.h"
 #include "math.h"
 #include <cmath>

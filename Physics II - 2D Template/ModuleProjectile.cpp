@@ -4,7 +4,6 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
-#include "ModulePhysics.h"
 #include "ModuleSceneIntro.h"
 
 
@@ -22,8 +21,8 @@ bool ModuleProjectile::Start()
 	return true;
 
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	/*startPos.x = app->player->position.x;
-	startPos.y = app->player->position.y;*/
+	//startPos.x = app->player->position.x;
+	//startPos.y = app->player->position.y;
 
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
@@ -35,8 +34,8 @@ bool ModuleProjectile::Start()
 	proj0.speed = 0.05f;
 
 	// Add ball to the collection
-	startPos.x = app->scene_intro->player->pbody->x;
-	startPos.y = app->scene_intro->player->pbody->y;
+	startPos.x = app->scene_intro->player->position.x;
+	startPos.y = app->scene_intro->player->position.y;
 
 	LOG("CREATES PROJECTILE");
 	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PROJECTILE);
@@ -71,9 +70,9 @@ update_status ModuleProjectile::Update() {
 
 	/*OnCollision();*/
 
-	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
-	currentAnim->Update();*/
+	//SDL_Rect rect = currentAnim->GetCurrentFrame();
+	//app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
+	//currentAnim->Update();
 
 
 	return UPDATE_CONTINUE;

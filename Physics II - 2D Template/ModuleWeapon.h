@@ -9,7 +9,6 @@
 #include "vector"
 #include "SDL/include/SDL.h"
 
-
 class ModuleWeapon : public Entity
 {
 public:
@@ -37,6 +36,8 @@ public:
 	//Animations
 
 	bool isDrawn = false;
+
+	bool display = false;
 
 	Animation* currentAnim = nullptr;
 

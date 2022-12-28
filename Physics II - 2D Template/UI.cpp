@@ -90,13 +90,15 @@ void UI::BlitPlayerYPos()
 void UI::BlitPlayerAngle()
 {
 	char playerangle[15];
-	sprintf_s(playerangle, 15, "angle; %d", app->scene_intro->player->projAngle);
+	sprintf_s(playerangle, 15, "angle: %d", app->scene_intro->player->projAngle);
 	app->fonts->BlitText(20, 160, font1_id, playerangle);
+
 }
 
 void UI::BlitPlayerVelocity()
 {
 	char playervel[15];
-	sprintf_s(playervel, 15, "velocity; %d", app->scene_intro->player->projVel);
+	sprintf_s(playervel, 15, "velocity: %d", app->scene_intro->player->projVel);
 	app->fonts->BlitText(20, 185, font1_id, playervel);
 }
+

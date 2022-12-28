@@ -7,6 +7,8 @@
 #include "Globals.h"
 #include "ModulePlayer.h"
 #include "ModuleWeapon.h"
+#include "ModuleProjectile.h"
+
 
 #define BOUNCER_TIME 200
 
@@ -65,6 +67,7 @@ public:
 	ModuleProjectile* projectile;
 	
 	uint player_lose_fx;
+
 };
 
 #endif

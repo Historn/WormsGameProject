@@ -4,6 +4,8 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
+#include "ModulePhysics.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -24,6 +26,11 @@ bool ModulePlayer::Start()
 
 	//Textures Load
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
+
+	//Sounds
+	RocketLaunchSFX = app->audio->LoadFx("Assets/Audio/Fx/RocketLaunch.wav");
+	BandanaSFX = app->audio->LoadFx("Assets/Audio/Fx/Bandana.wav");
+	DeathSFX = app->audio->LoadFx("Assets/Audio/Fx/DeathSFX.wav");
 
 	//Animations
 	idlePlayer.PushBack({ 3, 9, 15, 19 });
@@ -79,7 +86,7 @@ bool ModulePlayer::Start()
 	deathPlayer.PushBack({ 504, 109, 7, 8 });
 	deathPlayer.PushBack({ 513, 110, 6, 6 });
 	deathPlayer.loop = false;
-	deathPlayer.speed = 0.1f;
+	deathPlayer.speed = 0.02f;
 
 	hitPlayer.PushBack({ 453, 102, 18, 22 });
 	hitPlayer.PushBack({ 4, 84, 16, 20 });
@@ -109,8 +116,6 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
-	
-
 
 	return true;
 }
@@ -118,7 +123,6 @@ bool ModulePlayer::CleanUp()
 
 update_status ModulePlayer::PreUpdate()
 {
-
 	return UPDATE_CONTINUE;
 }
 
@@ -128,6 +132,8 @@ update_status ModulePlayer::Update()
 	currentAnim = &idlePlayer;
 
 	pbody->cd = 0;
+
+	Collisions();
 
 	// Player's movement
 	if (isTurn == false) {
@@ -154,13 +160,15 @@ update_status ModulePlayer::Update()
 		ShootingFlow();
 	}
 
-
 	if (hp <= 0 ) {
 		dead == true;
 	}
 
 	if (dead == true) {
 		currentAnim = &deathPlayer;
+		if (deathPlayer.HasFinished()) {
+			pbody->listener->Disable();
+		}
 	}
 
 	if (isHit == true) {
@@ -170,13 +178,11 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
-
 }
 
 
@@ -189,6 +195,9 @@ update_status ModulePlayer::PostUpdate()
 void ModulePlayer::ShootingFlow() {
 
 	currentAnim = &attackrdyPlayer;
+	if (attackrdyPlayer.HasFinished() == false) {
+		app->audio->PlayFx(BandanaSFX);
+	}
 	if (attackrdyPlayer.HasFinished()) {
 		currentAnim = &IdleBandanaPlayer;
 
@@ -224,6 +233,7 @@ void ModulePlayer::ShootingFlow() {
 
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 			playershoots = true;
+			app->audio->PlayFx(RocketLaunchSFX);
 			attackrdyPlayer.Reset();
 			attackrdyPlayer.ResetLoopCount();
 			projAngle = 0;
@@ -233,6 +243,19 @@ void ModulePlayer::ShootingFlow() {
 	}
 }
 
+void ModulePlayer::Collisions() {
+
+	// L07 DONE 7: Detect the type of collision 
+	if (is_colliding_with_water(this->pbody, app->physics->water1) == true) {
+		LOG("Water Collision");
+		app->audio->PlayFx(DeathSFX,0);
+		dead = true;
+	}
+	if (is_colliding_with_water(this->pbody, app->physics->water2) == true) {
+		LOG("Water Collision");
+		dead = true;
+	}
+}
 
 
 		

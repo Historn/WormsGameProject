@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleSceneIntro.h"
 
 
 ModuleWeapon::ModuleWeapon() : Entity(EntityType::WEAPON) {
@@ -17,17 +18,10 @@ ModuleWeapon::~ModuleWeapon()
 bool ModuleWeapon::Start()
 {
 	LOG("Loading Weapon");
-	return true;
 
 	startPos.x = 2;
-	startPos.y = 0.5f;
+	startPos.y = 1;
 
-	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	/*startPos.x = app->player->position.x;
-	startPos.y = app->player->position.y;*/
-
-	//Textures Load
-	/*texturePath = parameters.attribute("texturepath").as_string();*/
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
@@ -69,14 +63,14 @@ bool ModuleWeapon::Start()
 	launchSmoke.loop = false;
 	launchSmoke.speed = 0.1f;
 
-	//Life Status 
 	currentAnim = &idle;
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::WEAPON);
-	pbody->listener = this;
-	// Add ball to the collection
-	app->physics->bodies.add(pbody);
 
 	LOG("CREATES Weapon");
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::WEAPON);
+	pbody->listener = this;
+
+	// Add ball to the collection
+	app->physics->bodies.add(pbody);
 
 	return true;
 }
@@ -98,10 +92,13 @@ update_status ModuleWeapon::PreUpdate()
 // Update: draw background
 update_status ModuleWeapon::Update() {
 
-	currentAnim = &idle;
-
+	currentAnim = &readying;
 
 	//Weapon Movement
+
+	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
+	currentAnim->Update();*/
 
 
 	return UPDATE_CONTINUE;
@@ -116,7 +113,7 @@ update_status ModuleWeapon::PostUpdate()
 void ModuleWeapon::Drawn() {
 
 	//bool isDrawn to decide if is turn to shoot.
-	while (isDrawn == true)
+	if (isDrawn == true)
 	{
 		//Attack Player has player put bandana On, then can shoot
 		currentAnim = &readying;
@@ -132,7 +129,7 @@ void ModuleWeapon::Drawn() {
 
 			bool hasShot = false;
 
-			while (hasShot == false) {
+			if (hasShot == false) {
 
 				/*Anims for each degree of aim - if we do aim with mouse or smaller increments make 
 				animations for range instead */
@@ -167,13 +164,4 @@ void ModuleWeapon::Drawn() {
 			isDrawn = false;
 		}
 	}
-}
-
-void aimingAnimations() {
-
-	/*code idea*/
-	/*if (-90 <= launchDegree < -45) {
-		currentAnim = launchdegree
-	}*/
-
 }

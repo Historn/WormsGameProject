@@ -29,6 +29,7 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 
+	void Collisions();
 
 	bool CleanUp();
 	void SetVelocity();
@@ -54,7 +55,9 @@ public:
 	Animation attackoffPlayer;
 
 
-
+	uint RocketLaunchSFX = 0;
+	uint BandanaSFX = 0;
+	uint DeathSFX = 0;
 	//Collider Player
 	/*Collider* collider = nullptr;*/
 
