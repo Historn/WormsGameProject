@@ -178,25 +178,24 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	//if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	//  currentAnim = &jumpPlayer;
+	//	if (onGround == true) {
+	//		jumping = true;
+	//		jumpingTime = 0;
+	//	}
+	//	onGround = false;
+	//}
 
-		if (onGround == true) {
-			jumping = true;
-			jumpingTime = 0;
-		}
-		onGround = false;
-	}
+	////Jumping Function
+	//if (jumping == true) {
+	//	velocity.y = +jumpVel;
 
-	//Jumping Function
-	if (jumping == true) {
-		velocity.y = +jumpVel;
+	//	jumpVel += 1.0f;
 
-		jumpVel += 1.0f;
+	//	jumpingTime++;
+	//}
 
-		jumpingTime++;
-	}
-
-	longPress = false;
 
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
