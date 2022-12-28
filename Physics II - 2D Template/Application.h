@@ -27,6 +27,7 @@ class ModuleProjectile;
 class Fonts;
 class UI;
 class ModulePhysics;
+//class MopduleEnding;
 
 class Application
 {
@@ -50,10 +51,12 @@ public:
 	FadeToBlack* fade;
 	TitleScreen* title_screen;
 	ModuleSceneIntro* scene_intro;
+	//ModuleEnding* module_ending;
 	ModuleEntityManager* entityManager;
 	Fonts* fonts;
 	UI* ui;
 	ModulePhysics* physics;
+
 
 	// xml_document to store the config file and
 	// xml_node(s) to read specific branches of the xml
