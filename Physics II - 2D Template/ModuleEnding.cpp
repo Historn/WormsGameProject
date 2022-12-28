@@ -35,13 +35,14 @@ bool ModuleEnding::Start()
 
 	//Disable modules/entities
 
-
 	// Set camera position
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
 	//Load music
+	app->audio->PlayMusic("Assets/Audio/Music/EndingScreen.ogg");
 
 	//Load SFX
+	click_sfx = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
 
 	//Load tex
 	img = app->textures->Load("Assets/Textures/mapExample.png");
@@ -57,6 +58,7 @@ update_status ModuleEnding::Update()
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");
 		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
+		app->audio->PlayFx(click_sfx);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

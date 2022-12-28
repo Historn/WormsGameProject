@@ -35,6 +35,7 @@ public:
 public:
 	SDL_Texture* img;
 
+	uint click_sfx = -1;
 private:
 
 
