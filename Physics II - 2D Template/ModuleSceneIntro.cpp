@@ -52,11 +52,8 @@ update_status ModuleSceneIntro::PreUpdate()
 update_status ModuleSceneIntro::Update()
 {
 	
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		app->fade->FadeBlack(this, (Module*)app->title_screen, 90);
-
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		app->fullscreen = !app->fullscreen;
 
 	app->renderer->Blit(map_img, 0, 0, NULL);
 
@@ -74,6 +71,46 @@ update_status ModuleSceneIntro::Update()
 	{
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
+		app->ui->BlitFPS();
+		app->ui->BlitGravityX();
+		app->ui->BlitGravityY();
+		app->ui->BlitWindX();
+		app->ui->BlitWindY();
+		app->ui->BlitAtmosphereDensity();
+
+		//Changes FPS
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+			app->fps++;
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+			app->fps--;
+
+		//Changes GRAVITY X
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+			app->physics->gravity.x += .5f;
+		if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+			app->physics->gravity.x -= .5f;
+		//Changes GRAVITY Y
+		if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+			app->physics->gravity.y += .5f;
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+			app->physics->gravity.y -= .5f;
+
+		//Changes WIND X
+		if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+			app->physics->atmosphere.windx -= .5f;
+		if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+			app->physics->atmosphere.windx += .5f;
+		//Changes WIND Y
+		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+			app->physics->atmosphere.windy -= .5f;
+		if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+			app->physics->atmosphere.windy += .5f;
+
+		//Changes ATMOSPHERE DENSITY
+		if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+			app->physics->atmosphere.density -= .5f;
+		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+			app->physics->atmosphere.density += .5f;
 
 	}
 

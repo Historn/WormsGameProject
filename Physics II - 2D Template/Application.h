@@ -36,6 +36,7 @@ public:
 	bool CleanUp();
 
 	int fps = FPS;
+	bool fullscreen = false;
 
 public:
 	ModuleRender* renderer;

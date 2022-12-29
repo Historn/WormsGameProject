@@ -82,8 +82,8 @@ void UI::BlitPlayer2HP()
 
 void UI::BlitPlayerAngle()
 {
-	char playerangle[25];
-	sprintf_s(playerangle, 25, "angle: %.1f", app->scene_intro->player->projAngle);
+	char playerangle[30];
+	sprintf_s(playerangle, 30, "angle: %.1f degs", app->scene_intro->player->projAngle);
 	app->fonts->BlitText(20, 180, font1_id, playerangle);
 
 }
@@ -98,8 +98,8 @@ void UI::BlitPlayer2Angle()
 
 void UI::BlitPlayerVelocity()
 {
-	char playervel[15];
-	sprintf_s(playervel, 15, "velocity: %d", app->scene_intro->player->projVel);
+	char playervel[30];
+	sprintf_s(playervel, 30, "velocity: %d m/s", app->scene_intro->player->projVel);
 	app->fonts->BlitText(20, 200, font1_id, playervel);
 }
 
@@ -115,7 +115,7 @@ void UI::BlitPlayerXPos()
 {
 	char playerXPos[25];
 	sprintf_s(playerXPos, 25, "position x; %.2f", app->scene_intro->player->pbody->x);
-	app->fonts->BlitText(10, 620, font2_id, playerXPos);
+	app->fonts->BlitText(10, 615, font2_id, playerXPos);
 }
 
 void UI::BlitPlayer2XPos()
@@ -125,12 +125,11 @@ void UI::BlitPlayer2XPos()
 	app->fonts->BlitText(985, 620, font2_id, playertwoXPos);
 }
 
-
 void UI::BlitPlayerYPos()
 {
 	char playerYPos[25];
 	sprintf_s(playerYPos, 25, "position y; %.2f", app->scene_intro->player->pbody->y);
-	app->fonts->BlitText(10, 630, font2_id, playerYPos);
+	app->fonts->BlitText(10, 625, font2_id, playerYPos);
 }
 
 void UI::BlitPlayer2YPos()
@@ -138,4 +137,47 @@ void UI::BlitPlayer2YPos()
 	char playertwoYPos[25];
 	sprintf_s(playertwoYPos, 25, "position y; %.2f", app->scene_intro->playertwo->pbody->y);
 	app->fonts->BlitText(985, 630, font2_id, playertwoYPos);
+}
+
+void UI::BlitFPS()
+{
+	char fps[25];
+	sprintf_s(fps, 25, "fps; %d", app->fps);
+	app->fonts->BlitText(510, 555, font2_id, fps);
+}
+
+void UI::BlitGravityX()
+{
+	char gravityX[25];
+	sprintf_s(gravityX, 25, "gravity x; %.2f m/s2", app->physics->gravity.x);
+	app->fonts->BlitText(510, 565, font2_id, gravityX);
+}
+
+void UI::BlitGravityY()
+{
+	char gravityY[25];
+	sprintf_s(gravityY, 25, "gravity y; %.2f m/s2", app->physics->gravity.y);
+	app->fonts->BlitText(510, 575, font2_id, gravityY);
+}
+
+void UI::BlitWindX()
+{
+
+	char windX[25];
+	sprintf_s(windX, 25, "wind x; %.2f m/s", app->physics->atmosphere.windx);
+	app->fonts->BlitText(510, 585, font2_id, windX);
+}
+
+void UI::BlitWindY()
+{
+	char windY[25];
+	sprintf_s(windY, 25, "wind y; %.2f m/s", app->physics->atmosphere.windy);
+	app->fonts->BlitText(510, 595, font2_id, windY);
+}
+
+void UI::BlitAtmosphereDensity()
+{
+	char density[40];
+	sprintf_s(density, 40, "atmosphere density; %.2f kg/m3", app->physics->atmosphere.density);
+	app->fonts->BlitText(510, 605, font2_id, density);
 }

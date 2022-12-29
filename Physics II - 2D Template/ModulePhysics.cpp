@@ -106,11 +106,7 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
 
-	// Set screen rectangle properties
-	screen.x = 0.0f;
-	screen.y = 0.0f;
-	screen.w = SCREEN_WIDTH;
-	screen.h = SCREEN_HEIGHT;
+	gravity.y = -10.0f;
 
 	// Set static properties of the ball
 	ball->mass = 10.0f; // [kg]
@@ -177,8 +173,8 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
-		float fgx = item->data->mass * 0.0f;
-		float fgy = item->data->mass * -10.0f; // Let's assume gravity is constant and downwards
+		float fgx = item->data->mass * gravity.x;
+		float fgy = item->data->mass * gravity.y;
 		item->data->fx += fgx; item->data->fy += fgy; // Add this force to ball's total force
 
 

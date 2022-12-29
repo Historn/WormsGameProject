@@ -140,14 +140,14 @@ update_status ModulePlayerTwo::Update()
 	if (isTurn == false) {
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			isFliped = false;
-			pbody->x += 0.05f;
+			pbody->x += 0.1f;
 			if (isFliped == false && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			isFliped = true;
-			pbody->x -= 0.05f;
+			pbody->x -= 0.1f;
 			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
 			}

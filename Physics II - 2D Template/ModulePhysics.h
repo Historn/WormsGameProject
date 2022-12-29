@@ -136,7 +136,6 @@ public:
 	p2List<Water*> waters{};
 	p2List<Ground*> grounds{};
 	Atmosphere atmosphere{};
-	Screen screen{};
 
 	// Create a ball
 	PhysBody* ball = new PhysBody();
@@ -163,6 +162,8 @@ public:
 	// Misc
 	float dt = 1.0 / 30.0;
 
+	Vec2D gravity;
+	
 	bool debug;
 };
 
