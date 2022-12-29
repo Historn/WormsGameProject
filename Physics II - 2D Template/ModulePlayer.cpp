@@ -139,16 +139,14 @@ update_status ModulePlayer::Update()
 	// Player's movement
 	if (isTurn == true && isAiming == false) {
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			isFliped = false;
 			pbody->x += 0.1f;
-			if (isFliped == false && fliped == SDL_FLIP_NONE) {
+			if (fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			isFliped = true;
 			pbody->x -= 0.1f;
-			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
+			if (fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
 			}
 		}

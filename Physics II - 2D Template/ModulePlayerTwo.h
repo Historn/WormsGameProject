@@ -94,7 +94,6 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	bool isFliped = true;
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };
