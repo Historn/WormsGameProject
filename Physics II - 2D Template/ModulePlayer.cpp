@@ -41,27 +41,27 @@ bool ModulePlayer::Start()
 	idlePlayer.PushBack({ 21, 33, 15, 19 });
 	idlePlayer.PushBack({ 40, 33, 16, 19 });
 	idlePlayer.loop = true;
-	idlePlayer.speed = 0.05f;
+	idlePlayer.speed = 0.1f;
 
 	attackrdyPlayer.PushBack({ 61, 9, 17, 18 }); //Putting Bandana On
 	attackrdyPlayer.PushBack({ 81, 9, 19, 18 });
 	attackrdyPlayer.PushBack({ 105, 9, 19, 18 });
 	attackrdyPlayer.PushBack({ 126, 9, 14, 18 });
 	attackrdyPlayer.loop = false;
-	attackrdyPlayer.speed = 0.05f;
+	attackrdyPlayer.speed = 0.1f;
 
 	attackoffPlayer.PushBack({ 126, 9, 14, 18}); //Bandana Off
 	attackoffPlayer.PushBack({ 105, 9, 19, 18 });
 	attackoffPlayer.PushBack({ 81, 9, 19, 18 });
 	attackoffPlayer.PushBack({ 61, 9, 17, 18 });
 	attackoffPlayer.loop = false;
-	attackoffPlayer.speed = 0.05f;
+	attackoffPlayer.speed = 0.1f;
 	
 	IdleBandanaPlayer.PushBack({ 126, 9, 14, 18 });
 	IdleBandanaPlayer.PushBack({ 143, 11, 14, 16 });
 	IdleBandanaPlayer.PushBack({ 159, 13, 14, 14 });
 	IdleBandanaPlayer.loop = true;
-	IdleBandanaPlayer.speed = 0.05f;
+	IdleBandanaPlayer.speed = 0.1f;
 
 	//Can Only jump when isTurn = true // With Bandana On
 	jumpPlayer.PushBack({ 126, 9, 15, 18 });
@@ -87,14 +87,14 @@ bool ModulePlayer::Start()
 	deathPlayer.PushBack({ 504, 109, 7, 8 });
 	deathPlayer.PushBack({ 513, 110, 6, 6 });
 	deathPlayer.loop = false;
-	deathPlayer.speed = 0.02f;
+	deathPlayer.speed = 0.05f;
 
 	hitPlayer.PushBack({ 453, 102, 18, 22 });
 	hitPlayer.PushBack({ 4, 84, 16, 20 });
 	hitPlayer.PushBack({ 453, 102, 18, 22 });
 	hitPlayer.PushBack({ 4, 84, 16, 20 });
 	hitPlayer.loop = false;
-	hitPlayer.speed = 0.05f;
+	hitPlayer.speed = 0.1f;
 
 	currentAnim = &idlePlayer;
 
@@ -140,14 +140,14 @@ update_status ModulePlayer::Update()
 	if (isTurn == false) {
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			isFliped = false;
-			pbody->x += 0.05f;
+			pbody->x += 0.1f;
 			if (isFliped == false && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			isFliped = true;
-			pbody->x -= 0.05f;
+			pbody->x -= 0.1f;
 			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
 			}
