@@ -161,7 +161,7 @@ public:
 
 
 	// Misc
-	float dt = 1.0 / 60.0;
+	float dt = 1.0 / 30.0;
 
 	bool debug;
 };
