@@ -89,6 +89,10 @@ update_status ModuleSceneIntro::Update()
 		app->scene_intro->player->showWeapon = false;
 	}
 
+	if (app->scene_intro->player->dead == true) {
+		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+	}
+
 	return UPDATE_CONTINUE;
 }
 

@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "FadeToBlack.h" 
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
@@ -274,12 +275,29 @@ void ModulePlayer::Collisions() {
 	// L07 DONE 7: Detect the type of collision 
 	if (is_colliding_with_water(this->pbody, app->physics->water1) == true) {
 		LOG("Water Collision");
+		if (timeToDie <= 0) {
+			hp -= 10;
+			timeToDie = 75;
+		}
 		app->audio->PlayFx(DeathSFX,0);
-		dead = true;
+		if (hp <= 0) {
+			dead = true;
+		}
+
+		timeToDie--;
 	}
 	if (is_colliding_with_water(this->pbody, app->physics->water2) == true) {
 		LOG("Water Collision");
-		dead = true;
+		if (timeToDie <= 0) {
+			hp -= 10;
+			timeToDie = 75;
+		}
+		app->audio->PlayFx(DeathSFX, 0);
+		if (hp <= 0) {
+			dead = true;
+		}
+
+		timeToDie--;
 	}
 }
 

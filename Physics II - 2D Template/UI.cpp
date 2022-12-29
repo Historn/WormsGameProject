@@ -67,31 +67,16 @@ bool UI::CleanUp()
 /* UI BLIT WITH FONT 1 */
 void UI::BlitPlayerHP()
 {
-	char playerHP[15];
-	sprintf_s(playerHP, 15, "player hp: %d", app->scene_intro->player->hp);
-	app->fonts->BlitText(20, 35, font1_id, playerHP);
-}
-
-/* UI DEBUG INFO WITH FONT 2 */
-void UI::BlitPlayerXPos()
-{
-	char playerXPos[25];
-	sprintf_s(playerXPos, 25, "position x; %f", app->scene_intro->player->pbody->x);
-	app->fonts->BlitText(20, 55, font2_id, playerXPos);
-}
-
-void UI::BlitPlayerYPos()
-{
-	char playerYPos[25];
-	sprintf_s(playerYPos, 25, "position y; %f", app->scene_intro->player->pbody->y);
-	app->fonts->BlitText(20, 65, font2_id, playerYPos);
+	char playerHP[25];
+	sprintf_s(playerHP, 25, "player hp: %d", app->scene_intro->player->hp);
+	app->fonts->BlitText(20, 160, font1_id, playerHP);
 }
 
 void UI::BlitPlayerAngle()
 {
 	char playerangle[25];
 	sprintf_s(playerangle, 25, "angle: %.1f", app->scene_intro->player->projAngle);
-	app->fonts->BlitText(20, 160, font1_id, playerangle);
+	app->fonts->BlitText(20, 180, font1_id, playerangle);
 
 }
 
@@ -99,6 +84,20 @@ void UI::BlitPlayerVelocity()
 {
 	char playervel[15];
 	sprintf_s(playervel, 15, "velocity: %d", app->scene_intro->player->projVel);
-	app->fonts->BlitText(20, 185, font1_id, playervel);
+	app->fonts->BlitText(20, 200, font1_id, playervel);
 }
 
+/* UI DEBUG INFO WITH FONT 2 */
+void UI::BlitPlayerXPos()
+{
+	char playerXPos[25];
+	sprintf_s(playerXPos, 25, "position x; %.2f", app->scene_intro->player->pbody->x);
+	app->fonts->BlitText(10, 620, font2_id, playerXPos);
+}
+
+void UI::BlitPlayerYPos()
+{
+	char playerYPos[25];
+	sprintf_s(playerYPos, 25, "position y; %.2f", app->scene_intro->player->pbody->y);
+	app->fonts->BlitText(10, 630, font2_id, playerYPos);
+}
