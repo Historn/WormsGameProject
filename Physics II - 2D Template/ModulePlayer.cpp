@@ -7,6 +7,9 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "FadeToBlack.h" 
+#include "ModuleEntityManager.h"
+#include "Entity.h"
+#include "ModuleSceneIntro.h"
 
 
 ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){

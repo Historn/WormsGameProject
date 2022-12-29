@@ -89,10 +89,14 @@ update_status ModuleWeapon::PreUpdate()
 // Update: draw background
 update_status ModuleWeapon::Update() {
 
-	currentAnim = &readying;
+	if (app->scene_intro->player->isTurn == true) {
+		isDrawn = true;
+	}
 
+	Drawn();
+	
 	//Weapon Movement
-	pbody->x = app->scene_intro->player->pbody->x + 0.3f;
+	pbody->x = app->scene_intro->player->pbody->x + 1.0f;
 	pbody->y = app->scene_intro->player->pbody->y;
 
 	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
@@ -123,44 +127,6 @@ void ModuleWeapon::Drawn() {
 			currentAnim = &idle;
 			readying.Reset();
 			readying.ResetLoopCount();
-			
-			// start at 0 degrees launchDegree Variable
-
-			bool hasShot = false;
-
-			if (hasShot == false) {
-
-				/*Anims for each degree of aim - if we do aim with mouse or smaller increments make 
-				animations for range instead */
-
-				//..aimingAnimation();..
-
-				/*check player inputs to decide which degree we are at, this is for sending to the animations above*/
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-					// up key was pressed, increase the degree by 5
-					launchDegree += 5;
-					if (launchDegree > 90) {
-						launchDegree = -90;  // wrap around to 0 degrees
-					}
-				}
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-					// down key was pressed, decrease the degree by 5
-					launchDegree -= 5;
-					if (launchDegree < -90) {
-						launchDegree = 90;  // wrap around to 180 degrees
-					}
-				}
-				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						currentAnim = &putAway;
-						hasShot = true;
-				}
-			}
-		
-		}
-		if (putAway.HasFinished()) {
-			putAway.Reset();
-			putAway.ResetLoopCount();
-			isDrawn = false;
 		}
 	}
 }
