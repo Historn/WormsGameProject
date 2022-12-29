@@ -105,6 +105,8 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
+
+
 };
 
 #endif //MODULEPLAYER
