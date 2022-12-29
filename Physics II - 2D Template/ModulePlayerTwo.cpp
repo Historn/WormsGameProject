@@ -91,7 +91,7 @@ bool ModulePlayerTwo::Start()
 	deathPlayer.PushBack({ 504, 109, 7, 8 });
 	deathPlayer.PushBack({ 513, 110, 6, 6 });
 	deathPlayer.loop = false;
-	deathPlayer.speed = 0.02f;
+	deathPlayer.speed = 0.1f;
 
 	hitPlayer.PushBack({ 453, 102, 18, 22 });
 	hitPlayer.PushBack({ 4, 84, 16, 20 });
@@ -134,7 +134,10 @@ update_status ModulePlayerTwo::PreUpdate()
 // Update: draw background
 update_status ModulePlayerTwo::Update()
 {
-	currentAnim = &idlePlayer;
+	if (isHit == false && dead == false) {
+		currentAnim = &idlePlayer;
+	}
+	
 
 	pbody->cd = 0;
 
@@ -176,14 +179,15 @@ update_status ModulePlayerTwo::Update()
 	}
 
 	if (dead == true) {
+		currentAnim = &deathPlayer;
 		if (deathPlayer.HasFinished()) {
 			pbody->listener->Disable();
 		}
 	}
 
 	if (isHit == true) {
-		currentAnim = &hitPlayer;
-		if (currentAnim->HasFinished()) {
+		currentAnim = &deathPlayer;
+		if (deathPlayer.HasFinished()) {
 			isHit = false;
 		}
 	}
@@ -227,7 +231,7 @@ void ModulePlayerTwo::ShootingFlow() {
 
 	currentAnim = &attackrdyPlayer;
 	if (attackrdyPlayer.HasFinished() == false) {
-		app->audio->PlayFx(BandanaSFX);
+		app->audio->PlayFx(BandanaSFX,0);
 	}
 	if (attackrdyPlayer.HasFinished()) {
 		currentAnim = &IdleBandanaPlayer;

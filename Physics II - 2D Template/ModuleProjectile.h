@@ -36,6 +36,7 @@ public:
 
 	Animation proj0;
 
+	uint DeathSFX = 0;
 
 	//Collider Player
 	/*Collider* collider = nullptr;*/

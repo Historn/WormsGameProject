@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleEntityManager.h"
+#include "ModuleAudio.h"
 
 
 ModuleProjectile::ModuleProjectile() : Entity(EntityType::PROJECTILE) {
@@ -27,6 +28,8 @@ bool ModuleProjectile::Start()
 	//Textures Load
 	/*texturePath = parameters.attribute("texturepath").as_string();*/
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
+
+	DeathSFX = app->audio->LoadFx("Assets/Audio/Fx/DeathSFX.wav");
 
 	//Animations
 	proj0.PushBack({ 167, 151, 9, 7 });
@@ -132,5 +135,24 @@ void ModuleProjectile::Collisions() {
 				pbody->listener->Disable();
 		}
 		body = body->next;
+	}
+	//Player Health Down by 50 on Hit
+	if (is_colliding_with_physbody(this->pbody, app->scene_intro->player->pbody) == true) {
+		LOG("Projectile Collision");
+		app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
+		app->audio->PlayFx(DeathSFX, 0);
+		app->scene_intro->player->isHit = true;
+		if (app->scene_intro->player->hp <= 0) {
+			app->scene_intro->player->dead = true;
+		}
+	}
+	if (is_colliding_with_physbody(this->pbody, app->scene_intro->playertwo->pbody) == true) {
+		LOG("Projectile Collision");
+		app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
+		app->audio->PlayFx(DeathSFX, 0);
+		app->scene_intro->playertwo->isHit = true;
+		if (app->scene_intro->playertwo->hp <= 0) {
+			app->scene_intro->playertwo->dead = true;
+		}
 	}
 }
