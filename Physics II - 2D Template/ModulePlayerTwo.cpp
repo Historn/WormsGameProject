@@ -250,11 +250,11 @@ void ModulePlayerTwo::ShootingFlow() {
 		if (projVel < 0) {
 			projVel = 0;
 		}
-		if (projAngle > 90.0f) {
-			projAngle = 90.0f;
+		if (projAngle > 180.0f) {
+			projAngle = 180.0f;
 		}
-		if (projAngle < -90.0f) {
-			projAngle = -90.0f;
+		if (projAngle < -180.0f) {
+			projAngle = -180.0f;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
