@@ -22,8 +22,8 @@ bool ModulePlayerTwo::Start()
 	LOG("Loading player2");
 
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	startPos.x = 34;
-	startPos.y = 20;
+	startPos.x = 28;
+	startPos.y = 2;
 
 	//Textures Load
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
