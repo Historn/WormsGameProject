@@ -88,6 +88,7 @@ public:
 	bool showWeapon = false;
 
 	int hp;
+	int timeToDie = 75;
 
 	Vec2D velocity;
 	int projVel = 50;
