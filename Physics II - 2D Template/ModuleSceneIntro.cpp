@@ -62,7 +62,7 @@ update_status ModuleSceneIntro::Update()
 	app->ui->BlitPlayer2HP();
 
 	//Player1
-	if (app->scene_intro->player->isTurn == true) {
+	if (app->scene_intro->player->isAiming == true) {
 		app->ui->BlitPlayerAngle();
 		app->ui->BlitPlayerVelocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
@@ -135,16 +135,18 @@ update_status ModuleSceneIntro::Update()
 		projectile->pbody->vx = player->projVel * cos(DEGTORAD * player->projAngle);
 		projectile->pbody->vy = player->projVel * sin(DEGTORAD * player->projAngle);
 		app->scene_intro->player->playershoots = false;
+		app->scene_intro->playertwo->isTurn = true;
 	}
 
 	//Player2
 	if (app->scene_intro->playertwo->playershoots == true) {
 		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = player->pbody->x + (playertwo->pbody->radius * 2);
+		projectile->pbody->x = playertwo->pbody->x - (playertwo->pbody->radius * 2);
 		projectile->pbody->y = playertwo->pbody->y;
-		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
+		projectile->pbody->vx = -playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
 		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);
 		app->scene_intro->playertwo->playershoots = false;
+		app->scene_intro->player->isTurn = true;
 	}
 
 	//Player1

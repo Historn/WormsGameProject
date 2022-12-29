@@ -84,7 +84,8 @@ public:
 	bool isHit = false;
 
 	//Turn bool to decide if is users shoot turn
-	bool isTurn = false;
+	bool isTurn = true;
+	bool isAiming = false;
 	bool showWeapon = false;
 
 	int hp;
