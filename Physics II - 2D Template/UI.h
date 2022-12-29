@@ -38,6 +38,7 @@ public:
 	void BlitWindX();
 	void BlitWindY();
 	void BlitAtmosphereDensity();
+	void BlitDeltaTime();
 
 	uint font1_id = -1;
 	uint font2_id = -1;

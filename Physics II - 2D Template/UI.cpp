@@ -162,7 +162,6 @@ void UI::BlitGravityY()
 
 void UI::BlitWindX()
 {
-
 	char windX[25];
 	sprintf_s(windX, 25, "wind x; %.2f m/s", app->physics->atmosphere.windx);
 	app->fonts->BlitText(510, 585, font2_id, windX);
@@ -180,4 +179,11 @@ void UI::BlitAtmosphereDensity()
 	char density[40];
 	sprintf_s(density, 40, "atmosphere density; %.2f kg/m3", app->physics->atmosphere.density);
 	app->fonts->BlitText(510, 605, font2_id, density);
+}
+
+void UI::BlitDeltaTime()
+{
+	char deltaTime[40];
+	sprintf_s(deltaTime, 40, "delta time scheme; %.6f ms", app->physics->dt);
+	app->fonts->BlitText(510, 615, font2_id, deltaTime);
 }

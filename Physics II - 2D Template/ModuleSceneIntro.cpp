@@ -61,22 +61,35 @@ update_status ModuleSceneIntro::Update()
 	app->ui->BlitPlayerHP();
 	app->ui->BlitPlayer2HP();
 
-	//Player1
+	// Player1
 	if (app->scene_intro->player->isAiming == true) {
 		app->ui->BlitPlayerAngle();
 		app->ui->BlitPlayerVelocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
 	}
+	// Player2
+	if (app->scene_intro->playertwo->isAiming == true) {
+		app->ui->BlitPlayer2Angle();
+		app->ui->BlitPlayer2Velocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
+	}
+	// Debug UI info
 	if (app->physics->debug)
 	{
+		// Blit UI
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
+
+		app->ui->BlitPlayer2XPos();
+		app->ui->BlitPlayer2YPos();
+
 		app->ui->BlitFPS();
 		app->ui->BlitGravityX();
 		app->ui->BlitGravityY();
 		app->ui->BlitWindX();
 		app->ui->BlitWindY();
 		app->ui->BlitAtmosphereDensity();
+		app->ui->BlitDeltaTime();
 
 		//Changes FPS
 		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
@@ -112,18 +125,11 @@ update_status ModuleSceneIntro::Update()
 		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
 			app->physics->atmosphere.density += .5f;
 
-	}
-
-	//Player2
-	if (app->scene_intro->playertwo->isAiming == true) {
-		app->ui->BlitPlayer2Angle();
-		app->ui->BlitPlayer2Velocity();
-		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
-	}
-	if (app->physics->debug)
-	{
-		app->ui->BlitPlayer2XPos();
-		app->ui->BlitPlayer2YPos();
+		//Changes DELTA TIME SCHEME
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+			app->physics->dtValue -= 10.0f;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+			app->physics->dtValue += 10.0f;
 	}
 
 	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
