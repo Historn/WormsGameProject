@@ -146,14 +146,14 @@ update_status ModulePlayerTwo::Update()
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			pbody->x += 0.1f;
 			if (fliped == SDL_FLIP_NONE) {
-				projAngle = 180.0;
+				projAngle = 0.0f;
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			pbody->x -= 0.1f;
 			if (fliped == SDL_FLIP_HORIZONTAL) {
-				projAngle = 0.0f;
+				projAngle = 180.0f;
 				fliped = SDL_FLIP_NONE;
 			}
 		}
@@ -294,7 +294,6 @@ void ModulePlayerTwo::ShootingFlow() {
 			/*projAngle = 0;
 			projVel = 50;*/
 			isAiming = false;
-			app->scene_intro->player->isTurn = true;
 			isTurn = false;
 		}
 	}
