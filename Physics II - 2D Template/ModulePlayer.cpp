@@ -312,6 +312,7 @@ void ModulePlayer::Collisions() {
 		LOG("Water Collision");
 		if (timeToDie <= 0) {
 			hp -= 10;
+			isHit = true;
 			timeToDie = 75;
 		}
 		app->audio->PlayFx(DeathSFX,0);
@@ -326,6 +327,7 @@ void ModulePlayer::Collisions() {
 		LOG("Water Collision");
 		if (timeToDie <= 0) {
 			hp -= 10;
+			isHit = true;
 			timeToDie = 75;
 		}
 		app->audio->PlayFx(DeathSFX, 0);

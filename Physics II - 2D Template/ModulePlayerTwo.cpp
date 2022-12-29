@@ -138,7 +138,6 @@ update_status ModulePlayerTwo::Update()
 		currentAnim = &idlePlayer;
 	}
 	
-
 	pbody->cd = 0;
 
 	Collisions();
@@ -255,10 +254,10 @@ void ModulePlayerTwo::ShootingFlow() {
 		}
 
 		//Projectile Inputs Vertical = Angle
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
 			projVel += 5;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 			projVel -= 5;
 		}
 
@@ -310,6 +309,7 @@ void ModulePlayerTwo::Collisions() {
 		LOG("Water Collision");
 		if (timeToDie <= 0) {
 			hp -= 10;
+			isHit = true;
 			timeToDie = 75;
 		}
 		app->audio->PlayFx(DeathSFX, 0);
@@ -324,6 +324,7 @@ void ModulePlayerTwo::Collisions() {
 		LOG("Water Collision");
 		if (timeToDie <= 0) {
 			hp -= 10;
+			isHit = true;
 			timeToDie = 75;
 		}
 		app->audio->PlayFx(DeathSFX, 0);
