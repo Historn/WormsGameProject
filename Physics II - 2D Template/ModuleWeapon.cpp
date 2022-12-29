@@ -4,6 +4,11 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
+#include "ModulePhysics.h"
+#include "FadeToBlack.h" 
+#include "ModuleEntityManager.h"
+#include "Entity.h"
 #include "ModuleSceneIntro.h"
 
 
@@ -108,12 +113,96 @@ update_status ModuleWeapon::Update() {
 	}
 
 	if (app->scene_intro->player->isTurn == true) {
-		currentAnim = &readying;
-		if (readying.HasFinished()) {
-			currentAnim = &idle;
+		
+		float angleholder1 = app->scene_intro->player->projAngle;
+
+		if ((app->scene_intro->player->fliped == SDL_FLIP_NONE) == true) {
+			fliped = SDL_FLIP_NONE;
+			currentAnim = &readying;
+			if (readying.HasFinished()) {
+				if (angleholder1 == 90 || angleholder1 == 95 || angleholder1 == 100 || angleholder1 == 105 || angleholder1 == 110) {
+					currentAnim = &aimUp90;
+				}
+				if (angleholder1 == 115 || angleholder1 == 120 || angleholder1 == 125 || angleholder1 == 130 || angleholder1 == 135 || 
+					angleholder1 == 140 || angleholder1 == 145 || angleholder1 == 150 || angleholder1 == 155 || angleholder1 == 160){
+					currentAnim = &aimUp45;
+				}
+				if (angleholder1 == 165 || angleholder1 == 170 || angleholder1 == 175 || angleholder1 == 180 || angleholder1 == 185 ||
+					angleholder1 == 190 || angleholder1 == 195 || angleholder1 == 200 || angleholder1 == 205 || angleholder1 == 210) {
+					currentAnim = &idle;
+				}
+				if (angleholder1 == 215 || angleholder1 == 220 || angleholder1 == 225 || angleholder1 == 230 ||
+					angleholder1 == 235 || angleholder1 == 240 || angleholder1 == 245 || angleholder1 == 250) {
+					currentAnim = &aimDown45;
+				}
+				if (angleholder1 == 270 || angleholder1 == 265 || angleholder1 == 260 || angleholder1 == 255) {
+					currentAnim = &aimDown90;
+				}
+			}
 		}
+
+		if ((app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) == true) {
+			fliped = SDL_FLIP_HORIZONTAL;
+			currentAnim = &readying;
+			if (readying.HasFinished()) {
+				if (angleholder1 == 90 || angleholder1 == 85 || angleholder1 == 80 || angleholder1 == 75 || angleholder1 == 70) {
+					currentAnim = &aimUp90;
+				}
+				if (angleholder1 == 65 || angleholder1 == 60 || angleholder1 == 55 || angleholder1 == 50 || angleholder1 == 45 ||
+					angleholder1 == 40 || angleholder1 == 35 || angleholder1 == 30 || angleholder1 == 25 || angleholder1 == 20) {
+					currentAnim = &aimUp45;
+				}
+				if (angleholder1 == 15 || angleholder1 == 10 || angleholder1 == 5 || angleholder1 == 0 || angleholder1 == -5 ||
+					angleholder1 == -10 || angleholder1 == -15 || angleholder1 == -20 || angleholder1 == -25 || angleholder1 == -30) {
+					currentAnim = &idle;
+				}
+				if (angleholder1 == -35 || angleholder1 == -40 || angleholder1 == -45 || angleholder1 == -50 ||
+					angleholder1 == -55 || angleholder1 == -60 || angleholder1 == -65 || angleholder1 == -70) {
+					currentAnim = &aimDown45;
+				}
+				if (angleholder1 == -75 || angleholder1 == -80 || angleholder1 == -85 || angleholder1 == -90) {
+					currentAnim = &aimDown90;
+				}
+			}
+		}
+		
+		/*if (readying.HasFinished()) {
+			float holder = app->scene_intro->player->projAngle;
+			if (app->scene_intro->player->fliped == SDL_FLIP_NONE) {
+				if (90 >= holder > 80) {
+					currentAnim = &aimUp90;
+				}
+				if (80 >= holder > 30) {
+					currentAnim = &aimUp45;
+				}
+				if (30 >= holder > -30) {
+					currentAnim = &idle;
+				}
+				if (-30 >= holder > -80) {
+					currentAnim = &aimDown45;
+				}
+				if (-80 >= holder >= -90) {
+					currentAnim = &aimDown90;
+				}
+			}*/
+			/*if (app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) {
+				if (90 >= holder > 100) {
+					currentAnim = &aimUp90;
+				}
+				if (100 >= holder > 150) {
+					currentAnim = &aimUp45;
+				}
+				if (150 >= holder > 210) {
+					currentAnim = &idle;
+				}
+				if (210 >= holder > 260) {
+					currentAnim = &aimDown45;
+				}
+				if (260 >= holder >= 270) {
+					currentAnim = &aimDown90;
+				}
+			}*/
 	}
-	
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
