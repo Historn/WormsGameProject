@@ -22,7 +22,7 @@ public:
 	
 	bool CleanUp();
 
-	void Drawn();
+	void AngleHolds();
 
 
 public:
@@ -64,6 +64,8 @@ public:
 
 	Vec2D velocity;
 	Vec2D startPos;
+
+	float angleholder1;
 
 	int x;
 	int y;
