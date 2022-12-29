@@ -61,8 +61,9 @@ update_status ModuleSceneIntro::Update()
 	app->ui->BlitPlayerHP();
 	app->ui->BlitPlayer2HP();
 
-	// Player1
-	if (app->scene_intro->player->isAiming == true) {
+
+	//Player1
+	if (player->isAiming == true) {
 		app->ui->BlitPlayerAngle();
 		app->ui->BlitPlayerVelocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
@@ -130,6 +131,18 @@ update_status ModuleSceneIntro::Update()
 			app->physics->dtValue -= 10.0f;
 		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
 			app->physics->dtValue += 10.0f;
+	}
+
+	//Player2
+	if (playertwo->isAiming == true) {
+		app->ui->BlitPlayer2Angle();
+		app->ui->BlitPlayer2Velocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
+	}
+	if (app->physics->debug)
+	{
+		app->ui->BlitPlayer2XPos();
+		app->ui->BlitPlayer2YPos();
 	}
 
 	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
