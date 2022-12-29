@@ -99,8 +99,9 @@ void ModuleProjectile::Collisions() {
 		if (is_colliding_with_ground(pbody, ground->data))
 		{
 			--life;
-			if (life < 0)
-				app->entityManager->DestroyEntity(this);
+			if (life < 0) {
+				pbody->listener->Disable();
+			}
 		}
 		ground = ground->next;
 	}
@@ -113,8 +114,9 @@ void ModuleProjectile::Collisions() {
 		if (is_colliding_with_ground(pbody, water->data))
 		{
 			--life;
-			if (life < 0)
-				app->entityManager->DestroyEntity(this);
+			if (life < 0) {
+				pbody->listener->Disable();
+			}
 		}
 		water = water->next;
 	}
