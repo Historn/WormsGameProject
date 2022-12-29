@@ -8,21 +8,43 @@ Worms like game created for Physics II subject.
 
 ## Key Features
 
- - {} - 
+ - {F1} - View colliders/logic 
  - {} - 
  - {} - 
 
 ## Debug keys
 
- - {} - 
- - {} - 
- - {} - 
+- {R} - Adds +1 FPS
+- {F} - Reduces -1 FPS
+
+- {T} - Adds +0.5 Gravity X
+- {G} - Reduces -0.5 Gravity X
+
+- {Y} - Adds +0.5 Gravity Y
+- {H} - Reduces -0.5 Gravity Y
+
+- {Z} - Reduces -0.5 Wind X
+- {X} - Adds +0.5 Wind X
+
+- {C} - Reduces -0.5 Wind Y
+- {V} - Adds +0.5 Wind Y
+
+- {B} - Reduces -0.5 Atmosphere Density
+- {N} - Adds +0.5 Atmosphere Density
 
 ## Controls
 
- - {} - 
- - {} - 
- - {} - 
+- {WASD} - Player 1 Movement 
+- {E} - Player 1 Shot Preparation
+- {W/S} - Edit player 1 shot angle
+- {A/D} - Edit player 1 shot velocity
+- {Q} - Player 1 Shot
+
+- {IJKL} - Player 2 Movement 
+- {O} - Player 2 Shot Preparation
+- {I/K} - Edit player 2 shot angle
+- {J/L} - Edit player 2 shot velocity
+- {U} - Player 2 Shot
 
 ## Developers
 
