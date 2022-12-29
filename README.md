@@ -32,6 +32,9 @@ Worms like game created for Physics II subject.
 - {B} - Reduces -0.5 Atmosphere Density
 - {N} - Adds +0.5 Atmosphere Density
 
+- {UP ARROW} - Increases the Delta Time Scheme value
+- {UP ARROW} - Decreases the Delta Time Scheme value
+
 ## Controls
 
 - {WASD} - Player 1 Movement 
@@ -60,11 +63,11 @@ Worms like game created for Physics II subject.
  ![](https://github.com/Historn/PinBall_Game/blob/master/TeamPhotos/joelchaves.jpg)
  - [Joel Chaves Moreno](https://github.com/JoeyCM) - CODE
  
- ## Github repository
-  Click [here](https://github.com/Historn/WormsGameProject) to go to our project's Github repository.
- 
-## Fixed Bugs
+## Github repository
 
+Click [here](https://github.com/Historn/WormsGameProject) to go to our project's Github repository.
+Click [here](https://github.com/Historn/WormsGameProject/tree/main/Physics%20II%20-%202D%20Template) to go to our project's Source Code.
+ 
 ## License
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://mit-license.org/) for further details.

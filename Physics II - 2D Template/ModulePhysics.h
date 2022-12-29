@@ -158,9 +158,10 @@ public:
 	Ground* upperRoof = new Ground();
 	Ground* lowerRoof = new Ground();
 
+	float dtValue = 30.0f;
 
 	// Misc
-	float dt = 1.0 / 30.0;
+	float dt;
 
 	Vec2D gravity;
 	

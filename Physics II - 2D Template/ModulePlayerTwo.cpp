@@ -146,12 +146,14 @@ update_status ModulePlayerTwo::Update()
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			pbody->x += 0.1f;
 			if (fliped == SDL_FLIP_NONE) {
+				projAngle = 180.0;
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			pbody->x -= 0.1f;
 			if (fliped == SDL_FLIP_HORIZONTAL) {
+				projAngle = 0.0f;
 				fliped = SDL_FLIP_NONE;
 			}
 		}
@@ -231,11 +233,21 @@ void ModulePlayerTwo::ShootingFlow() {
 		currentAnim = &IdleBandanaPlayer;
 
 		//Projectile Inputs Horizontal = Velocity
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-			projAngle -= 5.0f;
+		if (fliped == SDL_FLIP_HORIZONTAL) {
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+				projAngle += 5.0f;
+			}
+			if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+				projAngle -= 5.0f;
+			}
 		}
-		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-			projAngle += 5.0f;
+		else if (fliped == SDL_FLIP_NONE) {
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+				projAngle -= 5.0f;
+			}
+			if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+				projAngle += 5.0f;
+			}
 		}
 
 		//Projectile Inputs Vertical = Angle
@@ -253,11 +265,25 @@ void ModulePlayerTwo::ShootingFlow() {
 		if (projVel < 0) {
 			projVel = 0;
 		}
-		if (projAngle > 180.0f) {
-			projAngle = 180.0f;
+
+		if (fliped == SDL_FLIP_HORIZONTAL)
+		{
+			if (projAngle > 90.0f) {
+				projAngle = 90.0f;
+			}
+			if (projAngle < -90.0f) {
+				projAngle = -90.0f;
+			}
 		}
-		if (projAngle < -180.0f) {
-			projAngle = -180.0f;
+		else if (fliped == SDL_FLIP_NONE)
+		{
+
+			if (projAngle > 270.0f) {
+				projAngle = 270.0f;
+			}
+			if (projAngle < 90.0f) {
+				projAngle = 90.0f;
+			}
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {

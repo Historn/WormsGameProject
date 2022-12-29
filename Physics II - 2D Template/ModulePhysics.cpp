@@ -219,6 +219,12 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// We will use the 2nd order "Velocity Verlet" method for integration.
+		dt = 1.0 / dtValue;
+		// Limit dt so it can't be 1/0 value (infinite)
+		if (dt >= 0.1f) {
+			dtValue = 10.0f;
+			dt = 0.1f;
+		}
 		integrator_velocity_verlet(item->data, dt);
 
 		// Step #4: solve collisions

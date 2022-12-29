@@ -98,12 +98,12 @@ public:
 
 	PhysBody* pbody;
 
+	SDL_RendererFlip fliped = SDL_FLIP_NONE;
+
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
-
-	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };
 
