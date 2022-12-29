@@ -103,7 +103,7 @@ bool ModulePlayer::Start()
 	hp = 100;
 
 	LOG("CREATES PLAYER");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER1);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.45f, ColliderType::PLAYER1);
 	pbody->listener = this;
 	
 	// Add ball to the collection

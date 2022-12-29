@@ -26,8 +26,6 @@ public:
 
 	void AddEntity(Entity* entity);
 
-private:
-
 	p2List<Entity*> entities;
 
 };

@@ -120,4 +120,17 @@ void ModuleProjectile::Collisions() {
 		}
 		water = water->next;
 	}
+	
+	p2List_item<PhysBody*>* body = app->physics->bodies.getFirst();
+
+	while (body != NULL)
+	{
+		// Solve collision between ball and ground
+		if (is_colliding_with_physbody(pbody, body->data))
+		{
+			if(body->data->cType == ColliderType::PLAYER1 || body->data->cType == ColliderType::PLAYER2)
+				pbody->listener->Disable();
+		}
+		body = body->next;
+	}
 }
