@@ -103,7 +103,7 @@ bool ModulePlayer::Start()
 	hp = 100;
 
 	LOG("CREATES PLAYER");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.45f, ColliderType::PLAYER1);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.35f, ColliderType::PLAYER1);
 	pbody->listener = this;
 	
 	// Add ball to the collection
@@ -205,7 +205,7 @@ update_status ModulePlayer::Update()
 
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/2, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
