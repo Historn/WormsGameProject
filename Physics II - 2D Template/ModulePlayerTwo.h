@@ -76,6 +76,7 @@ public:
 
 	//Turn bool to decide if is users shoot turn
 	bool isTurn = false;
+	bool isAiming = false;
 	bool showWeapon = false;
 
 	int hp;

@@ -137,7 +137,7 @@ update_status ModulePlayer::Update()
 	Collisions();
 
 	// Player's movement
-	if (isTurn == true) {
+	if (isTurn == true && isAiming == false) {
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			isFliped = false;
 			pbody->x += 0.1f;

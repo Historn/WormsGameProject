@@ -115,7 +115,7 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	//Player2
-	if (app->scene_intro->playertwo->isTurn == true) {
+	if (app->scene_intro->playertwo->isAiming == true) {
 		app->ui->BlitPlayer2Angle();
 		app->ui->BlitPlayer2Velocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);

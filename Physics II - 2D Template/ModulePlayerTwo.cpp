@@ -137,7 +137,8 @@ update_status ModulePlayerTwo::Update()
 	Collisions();
 
 	// Player's movement
-	if (isTurn == false) {
+	if (isTurn == true && isAiming == false) 
+	{
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			isFliped = false;
 			pbody->x += 0.1f;
@@ -152,18 +153,17 @@ update_status ModulePlayerTwo::Update()
 				fliped = SDL_FLIP_NONE;
 			}
 		}
-	}
+		if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+			if (isAiming == false) {
+				showWeapon = true;
+			}
+			isAiming = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		if (isTurn == false) {
-			showWeapon = true;
 		}
-		isTurn = true;
-
 	}
 
 
-	if (isTurn == true) {
+	if (isAiming == true) {
 		ShootingFlow();
 	}
 
@@ -265,6 +265,7 @@ void ModulePlayerTwo::ShootingFlow() {
 			attackrdyPlayer.ResetLoopCount();
 			/*projAngle = 0;
 			projVel = 50;*/
+			isAiming = false;
 			isTurn = false;
 		}
 	}
