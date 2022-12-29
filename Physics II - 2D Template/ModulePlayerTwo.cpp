@@ -7,6 +7,10 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "FadeToBlack.h" 
+#include "ModuleEntityManager.h"
+#include "Entity.h"
+#include "ModuleSceneIntro.h"
+
 
 
 ModulePlayerTwo::ModulePlayerTwo() : Entity(EntityType::PLAYERTWO){
@@ -264,6 +268,7 @@ void ModulePlayerTwo::ShootingFlow() {
 			/*projAngle = 0;
 			projVel = 50;*/
 			isAiming = false;
+			app->scene_intro->player->isTurn = true;
 			isTurn = false;
 		}
 	}

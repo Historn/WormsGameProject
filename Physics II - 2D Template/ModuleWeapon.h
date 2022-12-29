@@ -43,6 +43,7 @@ public:
 
 	Animation readying;
 	Animation idle;
+	Animation away;
 	Animation putAway;
 	Animation aimUp45;
 	Animation aimDown45;

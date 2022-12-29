@@ -149,10 +149,14 @@ update_status ModuleSceneIntro::Update()
 		app->scene_intro->player->isTurn = true;
 	}
 
+	
 	//Player1
 	if (app->scene_intro->player->isTurn == true) {
-		weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
-		weapon->isDrawn = true;
+		if (numhold == 0) {
+			weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
+			weapon->isDrawn = true;
+			numhold++;
+		}
 	}
 
 	if (app->scene_intro->player->dead == true) {

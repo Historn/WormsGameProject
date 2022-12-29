@@ -70,6 +70,8 @@ public:
 	
 	uint player_lose_fx;
 
+	int numhold = 0;
+
 };
 
 #endif

@@ -28,9 +28,13 @@ bool ModuleWeapon::Start()
 	readying.loop = false;
 	readying.speed = 0.1f;
 
-	idle.PushBack({ 93, 168, 28, 28 });
+	idle.PushBack({ 97, 171, 24, 15 });
 	idle.loop = true;
 	idle.speed = 0.05f;
+
+	away.PushBack({ 5, 244, 24, 15 });
+	away.loop = true;
+	away.speed = 0.05f;
 
 	putAway.PushBack({ 93, 168, 28, 28 });
 	putAway.PushBack({ 93, 196, 28, 28 });
@@ -60,7 +64,7 @@ bool ModuleWeapon::Start()
 	launchSmoke.loop = false;
 	launchSmoke.speed = 0.1f;
 
-	currentAnim = &idle;
+	currentAnim = &away;
 
 	LOG("CREATES Weapon");
 	pbody = app->physics->CreateCircle(app->scene_intro->player->pbody->x, app->scene_intro->player->pbody->y, 0.3f, ColliderType::WEAPON);
@@ -89,19 +93,31 @@ update_status ModuleWeapon::PreUpdate()
 // Update: draw background
 update_status ModuleWeapon::Update() {
 
-	if (app->scene_intro->player->isTurn == true) {
-		isDrawn = true;
-	}
-
-	Drawn();
+	currentAnim = &away;
 	
 	//Weapon Movement
-	pbody->x = app->scene_intro->player->pbody->x + 1.0f;
+	pbody->x = app->scene_intro->player->pbody->x + 0.2f;
 	pbody->y = app->scene_intro->player->pbody->y;
 
-	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
+	if (app->scene_intro->player->fliped == SDL_FLIP_NONE){
+		fliped = SDL_FLIP_NONE; 
+	}
+
+	if (app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) {
+		fliped = SDL_FLIP_HORIZONTAL;
+	}
+
+	if (app->scene_intro->player->isTurn == true) {
+		currentAnim = &readying;
+		if (readying.HasFinished()) {
+			currentAnim = &idle;
+		}
+	}
+	
+
+	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
-	currentAnim->Update();*/
+	currentAnim->Update();
 
 
 	return UPDATE_CONTINUE;
