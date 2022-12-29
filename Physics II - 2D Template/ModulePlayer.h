@@ -85,12 +85,13 @@ public:
 
 	//Turn bool to decide if is users shoot turn
 	bool isTurn = false;
+	bool showWeapon = false;
 
 	int hp;
 
 	Vec2D velocity;
 	int projVel = 50;
-	float projAngle = 0;
+	float projAngle = 0.0f;
 	Vec2D startPos;
 
 	PhysBody* pbody;

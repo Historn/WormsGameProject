@@ -65,7 +65,7 @@ update_status ModuleSceneIntro::Update()
 	if (app->scene_intro->player->isTurn == true) {
 		app->ui->BlitPlayerAngle();
 		app->ui->BlitPlayerVelocity();
-		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * -sin(player->projAngle))), 255, 0, 0);
+		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
 	}
 	if (app->physics->debug)
 	{
@@ -74,12 +74,19 @@ update_status ModuleSceneIntro::Update()
 
 	}
 
+	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
 	if (app->scene_intro->player->playershoots == true) {
 		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		projectile->pbody->x = player->pbody->x;
+		projectile->pbody->y = player->pbody->y;
+		projectile->pbody->vx = player->projVel * cos(DEGTORAD * player->projAngle);
+		projectile->pbody->vy = player->projVel * sin(DEGTORAD * player->projAngle);
+		app->scene_intro->player->playershoots = false;
 	}
 
-	if (app->scene_intro->player->isTurn == true) {
+	if (app->scene_intro->player->isTurn == true && app->scene_intro->player->showWeapon == true) {
 		weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
+		app->scene_intro->player->showWeapon = false;
 	}
 
 	return UPDATE_CONTINUE;

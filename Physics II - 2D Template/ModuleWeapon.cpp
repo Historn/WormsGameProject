@@ -19,9 +19,6 @@ bool ModuleWeapon::Start()
 {
 	LOG("Loading Weapon");
 
-	startPos.x = 2;
-	startPos.y = 1;
-
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
 
 	//Animations
@@ -66,7 +63,7 @@ bool ModuleWeapon::Start()
 	currentAnim = &idle;
 
 	LOG("CREATES Weapon");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::WEAPON);
+	pbody = app->physics->CreateCircle(app->scene_intro->player->pbody->x, app->scene_intro->player->pbody->y, 0.3f, ColliderType::WEAPON);
 	pbody->listener = this;
 
 	// Add ball to the collection
@@ -95,6 +92,8 @@ update_status ModuleWeapon::Update() {
 	currentAnim = &readying;
 
 	//Weapon Movement
+	pbody->x = app->scene_intro->player->pbody->x + 0.3f;
+	pbody->y = app->scene_intro->player->pbody->y;
 
 	/*SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);

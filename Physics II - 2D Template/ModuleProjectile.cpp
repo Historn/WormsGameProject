@@ -18,7 +18,6 @@ ModuleProjectile::~ModuleProjectile()
 bool ModuleProjectile::Start()
 {
 	LOG("Loading Projectile");
-	return true;
 
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
 	//startPos.x = app->player->position.x;
@@ -38,7 +37,7 @@ bool ModuleProjectile::Start()
 	startPos.y = app->scene_intro->player->position.y;
 
 	LOG("CREATES PROJECTILE");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PROJECTILE);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.1f, ColliderType::PROJECTILE);
 	pbody->listener = this;
 
 	// Add ball to the collection
@@ -68,11 +67,13 @@ update_status ModuleProjectile::Update() {
 
 	currentAnim = &proj0;
 
+
+
 	/*OnCollision();*/
 
-	//SDL_Rect rect = currentAnim->GetCurrentFrame();
-	//app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
-	//currentAnim->Update();
+	SDL_Rect rect = currentAnim->GetCurrentFrame();
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
+	currentAnim->Update();
 
 
 	return UPDATE_CONTINUE;

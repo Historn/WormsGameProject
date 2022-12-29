@@ -49,10 +49,6 @@ public:
 
 	//Turn bool to decide if is users shoot turn
 
-
-	int x;
-	int y;
-
 	Vec2D startPos;
 
 	PhysBody* pbody;

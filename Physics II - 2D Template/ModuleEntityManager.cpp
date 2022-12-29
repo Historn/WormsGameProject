@@ -95,6 +95,7 @@ void ModuleEntityManager::DestroyEntity(Entity* entity)
 void ModuleEntityManager::AddEntity(Entity* entity)
 {
 	if (entity != nullptr) entities.add(entity);
+	entity->Start();
 }
 
 update_status ModuleEntityManager::PreUpdate()

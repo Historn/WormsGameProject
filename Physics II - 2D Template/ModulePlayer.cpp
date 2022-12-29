@@ -153,8 +153,14 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		if (isTurn == false) {
+			showWeapon = true;
+		}
 		isTurn = true;
+		
+	}
+		
 
 	if (isTurn == true) {
 		ShootingFlow();
@@ -223,18 +229,18 @@ void ModulePlayer::ShootingFlow() {
 
 		//Projectile Inputs Horizontal = Velocity
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-			projAngle = projAngle + 5;
+			projAngle += 5.0f;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-			projAngle = projAngle - 5;
+			projAngle -= 5.0f;
 		}
 
 		//Projectile Inputs Vertical = Angle
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
-			projVel = projVel + 5;
+			projVel += 5;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
-			projVel = projVel - 5;
+			projVel -= 5;
 		}
 
 		//Projectile Limits
@@ -244,11 +250,11 @@ void ModulePlayer::ShootingFlow() {
 		if (projVel < 0) {
 			projVel = 0;
 		}
-		if (projAngle > 90) {
-			projAngle = 90;
+		if (projAngle > 90.0f) {
+			projAngle = 90.0f;
 		}
-		if (projAngle < -90) {
-			projAngle = -90;
+		if (projAngle < -90.0f) {
+			projAngle = -90.0f;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
@@ -256,8 +262,8 @@ void ModulePlayer::ShootingFlow() {
 			app->audio->PlayFx(RocketLaunchSFX);
 			attackrdyPlayer.Reset();
 			attackrdyPlayer.ResetLoopCount();
-			projAngle = 0;
-			projVel = 50;
+			/*projAngle = 0;
+			projVel = 50;*/
 			isTurn = false;
 		}
 	}
