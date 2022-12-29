@@ -240,14 +240,18 @@ update_status ModulePhysics::PreUpdate()
 					// Elastic bounce with ground
 					item->data->vy = -item->data->vy;
 				}
-
-				
+				//TP Under
+				if (item->data->x > ground->data->x && item->data->y < ground->data->y && item->data->x < ground->data->x + ground->data->w) {
+					item->data->y = ground->data->y - item->data->radius;
+					// Elastic bounce with ground
+					item->data->vy = -item->data->vy;
+				}
+				//TP Right
 				if (item->data->x >= ground->data->x + ground->data->w && item->data->y > ground->data->y) {
 					item->data->x = ground->data->x + ground->data->w + item->data->radius;
 					item->data->vx = -item->data->vx;
-				}
-					
-
+				}	
+				//TP LEFT
 				if (item->data->x <= ground->data->x && item->data->y > ground->data->y) {
 					item->data->x = ground->data->x - item->data->radius;
 					item->data->vx = -item->data->vx;

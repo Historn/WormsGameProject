@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleEntityManager.h"
 
 
 ModuleProjectile::ModuleProjectile() : Entity(EntityType::PROJECTILE) {
@@ -37,13 +38,15 @@ bool ModuleProjectile::Start()
 	startPos.y = app->scene_intro->player->position.y;
 
 	LOG("CREATES PROJECTILE");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.1f, ColliderType::PROJECTILE);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.2f, ColliderType::PROJECTILE);
 	pbody->listener = this;
 
 	// Add ball to the collection
 	app->physics->bodies.add(pbody);
 
 	currentAnim = &proj0;
+
+	life = 2;
 
 	return true;
 }
@@ -70,6 +73,7 @@ update_status ModuleProjectile::Update() {
 
 
 	/*OnCollision();*/
+	Collisions();
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
@@ -83,4 +87,35 @@ update_status ModuleProjectile::Update() {
 update_status ModuleProjectile::PostUpdate()
 {
 	return UPDATE_CONTINUE;
+}
+
+void ModuleProjectile::Collisions() {
+
+	p2List_item<Ground*>* ground = app->physics->grounds.getFirst();
+
+	while (ground != NULL)
+	{
+		// Solve collision between ball and ground
+		if (is_colliding_with_ground(pbody, ground->data))
+		{
+			--life;
+			if (life < 0)
+				app->entityManager->DestroyEntity(this);
+		}
+		ground = ground->next;
+	}
+	
+	p2List_item<Water*>* water = app->physics->waters.getFirst();
+
+	while (water != NULL)
+	{
+		// Solve collision between ball and ground
+		if (is_colliding_with_ground(pbody, water->data))
+		{
+			--life;
+			if (life < 0)
+				app->entityManager->DestroyEntity(this);
+		}
+		water = water->next;
+	}
 }

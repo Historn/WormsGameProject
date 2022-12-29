@@ -22,9 +22,9 @@ public:
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
-
-
 	bool CleanUp();
+
+	void Collisions();
 
 public:
 
@@ -52,6 +52,8 @@ public:
 	Vec2D startPos;
 
 	PhysBody* pbody;
+
+	int life;
 
 private:
 
