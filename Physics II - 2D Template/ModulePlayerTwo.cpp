@@ -103,7 +103,7 @@ bool ModulePlayerTwo::Start()
 	hp = 100;
 
 	LOG("CREATES PLAYER2");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER2);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.35f, ColliderType::PLAYER2);
 	pbody->listener = this;
 
 	// Add ball to the collection
@@ -205,7 +205,8 @@ update_status ModulePlayerTwo::Update()
 
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
+	//app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 2, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
@@ -229,10 +230,10 @@ void ModulePlayerTwo::ShootingFlow() {
 
 		//Projectile Inputs Horizontal = Velocity
 		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-			projAngle += 5.0f;
+			projAngle -= 5.0f;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-			projAngle -= 5.0f;
+			projAngle += 5.0f;
 		}
 
 		//Projectile Inputs Vertical = Angle

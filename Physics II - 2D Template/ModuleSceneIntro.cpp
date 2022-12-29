@@ -140,7 +140,7 @@ update_status ModuleSceneIntro::Update()
 	//Player2
 	if (app->scene_intro->playertwo->playershoots == true) {
 		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = playertwo->pbody->x;
+		projectile->pbody->x = player->pbody->x + (playertwo->pbody->radius * 2);
 		projectile->pbody->y = playertwo->pbody->y;
 		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
 		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);

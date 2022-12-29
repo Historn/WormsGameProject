@@ -83,7 +83,7 @@ public:
 
 	Vec2D velocity;
 	int projVel = 50;
-	float projAngle = 0.0f;
+	float projAngle = 180.0f;
 	Vec2D startPos;
 
 	PhysBody* pbody;
