@@ -6,6 +6,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "ModulePlayer.h"
+#include "ModulePlayerTwo.h"
 #include "ModuleWeapon.h"
 #include "ModuleProjectile.h"
 
@@ -63,6 +64,7 @@ public:
 
 	//Entities
 	ModulePlayer* player;
+	ModulePlayerTwo* playertwo;
 	ModuleWeapon* weapon;
 	ModuleProjectile* projectile;
 	

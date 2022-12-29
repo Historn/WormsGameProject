@@ -28,6 +28,12 @@ public:
 	void BlitPlayerAngle();
 	void BlitPlayerVelocity();
 
+	void BlitPlayer2XPos();
+	void BlitPlayer2YPos();
+	void BlitPlayer2HP();
+	void BlitPlayer2Angle();
+	void BlitPlayer2Velocity();
+
 
 	uint font1_id = -1;
 	uint font2_id = -1;

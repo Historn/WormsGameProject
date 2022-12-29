@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModulePlayer.h"
+#include "ModulePlayerTwo.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
@@ -9,21 +9,21 @@
 #include "FadeToBlack.h" 
 
 
-ModulePlayer::ModulePlayer() : Entity(EntityType::PLAYER){
-	name.Create("ModulePlayer");
+ModulePlayerTwo::ModulePlayerTwo() : Entity(EntityType::PLAYERTWO){
+	name.Create("ModulePlayer2");
 }
 
-ModulePlayer::~ModulePlayer()
+ModulePlayerTwo::~ModulePlayerTwo()
 {}
 
 // Load assets
-bool ModulePlayer::Start()
+bool ModulePlayerTwo::Start()
 {
-	LOG("Loading player");
-	
+	LOG("Loading player2");
+
 	//Cant use B2Vec2 cause no Box2D just do start pos as x,y
-	startPos.x = 2;
-	startPos.y = 1;
+	startPos.x = 34;
+	startPos.y = 20;
 
 	//Textures Load
 	texture = app->textures->Load("Assets/Textures/Worms_spritesheet_full.png");
@@ -50,13 +50,13 @@ bool ModulePlayer::Start()
 	attackrdyPlayer.loop = false;
 	attackrdyPlayer.speed = 0.05f;
 
-	attackoffPlayer.PushBack({ 126, 9, 14, 18}); //Bandana Off
+	attackoffPlayer.PushBack({ 126, 9, 14, 18 }); //Bandana Off
 	attackoffPlayer.PushBack({ 105, 9, 19, 18 });
 	attackoffPlayer.PushBack({ 81, 9, 19, 18 });
 	attackoffPlayer.PushBack({ 61, 9, 17, 18 });
 	attackoffPlayer.loop = false;
 	attackoffPlayer.speed = 0.05f;
-	
+
 	IdleBandanaPlayer.PushBack({ 126, 9, 14, 18 });
 	IdleBandanaPlayer.PushBack({ 143, 11, 14, 16 });
 	IdleBandanaPlayer.PushBack({ 159, 13, 14, 14 });
@@ -102,19 +102,19 @@ bool ModulePlayer::Start()
 	dead = false;
 	hp = 100;
 
-	LOG("CREATES PLAYER");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER1);
+	LOG("CREATES PLAYER2");
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER2);
 	pbody->listener = this;
-	
+
 	// Add ball to the collection
 	app->physics->bodies.add(pbody);
 
-	
+
 	return true;
 }
 
 // Unload assets
-bool ModulePlayer::CleanUp()
+bool ModulePlayerTwo::CleanUp()
 {
 	LOG("Unloading player");
 
@@ -122,13 +122,13 @@ bool ModulePlayer::CleanUp()
 }
 
 
-update_status ModulePlayer::PreUpdate()
+update_status ModulePlayerTwo::PreUpdate()
 {
 	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
-update_status ModulePlayer::Update()
+update_status ModulePlayerTwo::Update()
 {
 	currentAnim = &idlePlayer;
 
@@ -138,14 +138,14 @@ update_status ModulePlayer::Update()
 
 	// Player's movement
 	if (isTurn == false) {
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
 			isFliped = false;
 			pbody->x += 0.05f;
 			if (isFliped == false && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 			isFliped = true;
 			pbody->x -= 0.05f;
 			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
@@ -154,20 +154,20 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
 		if (isTurn == false) {
 			showWeapon = true;
 		}
 		isTurn = true;
-		
+
 	}
-		
+
 
 	if (isTurn == true) {
 		ShootingFlow();
 	}
 
-	if (hp <= 0 ) {
+	if (hp <= 0) {
 		dead == true;
 	}
 
@@ -205,20 +205,20 @@ update_status ModulePlayer::Update()
 
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
 }
 
 
-update_status ModulePlayer::PostUpdate()
+update_status ModulePlayerTwo::PostUpdate()
 {
 	return UPDATE_CONTINUE;
 }
 
 
-void ModulePlayer::ShootingFlow() {
+void ModulePlayerTwo::ShootingFlow() {
 
 	currentAnim = &attackrdyPlayer;
 	if (attackrdyPlayer.HasFinished() == false) {
@@ -228,18 +228,18 @@ void ModulePlayer::ShootingFlow() {
 		currentAnim = &IdleBandanaPlayer;
 
 		//Projectile Inputs Horizontal = Velocity
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
 			projAngle += 5.0f;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 			projAngle -= 5.0f;
 		}
 
 		//Projectile Inputs Vertical = Angle
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 			projVel += 5;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
 			projVel -= 5;
 		}
 
@@ -257,7 +257,7 @@ void ModulePlayer::ShootingFlow() {
 			projAngle = -90.0f;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) {
 			playershoots = true;
 			app->audio->PlayFx(RocketLaunchSFX);
 			attackrdyPlayer.Reset();
@@ -269,7 +269,7 @@ void ModulePlayer::ShootingFlow() {
 	}
 }
 
-void ModulePlayer::Collisions() {
+void ModulePlayerTwo::Collisions() {
 
 	// L07 DONE 7: Detect the type of collision 
 	if (is_colliding_with_water(this->pbody, app->physics->water1) == true) {
@@ -278,7 +278,7 @@ void ModulePlayer::Collisions() {
 			hp -= 10;
 			timeToDie = 75;
 		}
-		app->audio->PlayFx(DeathSFX,0);
+		app->audio->PlayFx(DeathSFX, 0);
 		if (hp <= 0) {
 			currentAnim = &deathPlayer;
 			dead = true;
@@ -302,7 +302,7 @@ void ModulePlayer::Collisions() {
 }
 
 
-		
+
 
 
 

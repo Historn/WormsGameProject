@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
+#include "ModulePlayerTwo.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleWindow.h"
 #include "ModulePhysics.h"
@@ -68,8 +69,15 @@ bool UI::CleanUp()
 void UI::BlitPlayerHP()
 {
 	char playerHP[25];
-	sprintf_s(playerHP, 25, "player hp: %d", app->scene_intro->player->hp);
+	sprintf_s(playerHP, 25, "player1 hp:%d", app->scene_intro->player->hp);
 	app->fonts->BlitText(20, 160, font1_id, playerHP);
+}
+
+void UI::BlitPlayer2HP()
+{
+	char playertwoHP[25];
+	sprintf_s(playertwoHP, 25, "player2 hp:%d", app->scene_intro->playertwo->hp);
+	app->fonts->BlitText(1040, 160, font1_id, playertwoHP);
 }
 
 void UI::BlitPlayerAngle()
@@ -80,11 +88,26 @@ void UI::BlitPlayerAngle()
 
 }
 
+void UI::BlitPlayer2Angle()
+{
+	char playertwoangle[25];
+	sprintf_s(playertwoangle, 25, "angle: %.1f", app->scene_intro->playertwo->projAngle);
+	app->fonts->BlitText(900, 180, font1_id, playertwoangle);
+
+}
+
 void UI::BlitPlayerVelocity()
 {
 	char playervel[15];
 	sprintf_s(playervel, 15, "velocity: %d", app->scene_intro->player->projVel);
 	app->fonts->BlitText(20, 200, font1_id, playervel);
+}
+
+void UI::BlitPlayer2Velocity()
+{
+	char playertwovel[15];
+	sprintf_s(playertwovel, 15, "velocity: %d", app->scene_intro->playertwo->projVel);
+	app->fonts->BlitText(900, 200, font1_id, playertwovel);
 }
 
 /* UI DEBUG INFO WITH FONT 2 */
@@ -95,9 +118,24 @@ void UI::BlitPlayerXPos()
 	app->fonts->BlitText(10, 620, font2_id, playerXPos);
 }
 
+void UI::BlitPlayer2XPos()
+{
+	char playertwoXPos[25];
+	sprintf_s(playertwoXPos, 25, "position x; %.2f", app->scene_intro->playertwo->pbody->x);
+	app->fonts->BlitText(985, 620, font2_id, playertwoXPos);
+}
+
+
 void UI::BlitPlayerYPos()
 {
 	char playerYPos[25];
 	sprintf_s(playerYPos, 25, "position y; %.2f", app->scene_intro->player->pbody->y);
 	app->fonts->BlitText(10, 630, font2_id, playerYPos);
+}
+
+void UI::BlitPlayer2YPos()
+{
+	char playertwoYPos[25];
+	sprintf_s(playertwoYPos, 25, "position y; %.2f", app->scene_intro->playertwo->pbody->y);
+	app->fonts->BlitText(985, 630, font2_id, playertwoYPos);
 }

@@ -79,6 +79,7 @@
     <ClInclude Include="ModuleEnding.h" />
     <ClInclude Include="ModuleEntityManager.h" />
     <ClInclude Include="ModulePhysics.h" />
+    <ClInclude Include="ModulePlayerTwo.h" />
     <ClInclude Include="ModuleProjectile.h" />
     <ClInclude Include="ModuleWeapon.h" />
     <ClInclude Include="p2List.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWeapon.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="ModulePlayerTwo.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
