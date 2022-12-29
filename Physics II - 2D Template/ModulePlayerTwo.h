@@ -76,6 +76,7 @@ public:
 
 	//Turn bool to decide if is users shoot turn
 	bool isTurn = false;
+	bool isAiming = false;
 	bool showWeapon = false;
 
 	int hp;
@@ -83,7 +84,7 @@ public:
 
 	Vec2D velocity;
 	int projVel = 50;
-	float projAngle = 0.0f;
+	float projAngle = 180.0f;
 	Vec2D startPos;
 
 	PhysBody* pbody;
@@ -93,7 +94,6 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	bool isFliped = true;
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 
 };

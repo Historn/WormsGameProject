@@ -136,7 +136,6 @@ public:
 	p2List<Water*> waters{};
 	p2List<Ground*> grounds{};
 	Atmosphere atmosphere{};
-	Screen screen{};
 
 	// Create a ball
 	PhysBody* ball = new PhysBody();
@@ -163,6 +162,8 @@ public:
 	// Misc
 	float dt = 1.0 / 30.0;
 
+	Vec2D gravity;
+	
 	bool debug;
 };
 
@@ -187,7 +188,13 @@ bool is_colliding_with_ground(const PhysBody* body, const Ground* ground);
 // Detect collision with water
 bool is_colliding_with_water(const PhysBody* body, const Water* water);
 
+//Detect collision with two physbodies
+bool is_colliding_with_physbody(const PhysBody* body, const PhysBody* body2);
+
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
+
+//Detect collision between two circles
+bool check_collision_circles(float cx, float cy, float cr, float c2x, float c2y, float c2r);
 
 #endif 

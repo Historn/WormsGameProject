@@ -106,7 +106,7 @@ bool ModulePlayer::Start()
 	hp = 100;
 
 	LOG("CREATES PLAYER");
-	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.5f, ColliderType::PLAYER1);
+	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.35f, ColliderType::PLAYER1);
 	pbody->listener = this;
 	
 	// Add ball to the collection
@@ -140,33 +140,37 @@ update_status ModulePlayer::Update()
 	Collisions();
 
 	// Player's movement
-	if (isTurn == false) {
+	if (isTurn == true && isAiming == false) {
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			isFliped = false;
 			pbody->x += 0.1f;
-			if (isFliped == false && fliped == SDL_FLIP_NONE) {
+			if (fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			isFliped = true;
 			pbody->x -= 0.1f;
-			if (isFliped == true && fliped == SDL_FLIP_HORIZONTAL) {
+			if (fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
 			}
 		}
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			if (isAiming == false) {
+				showWeapon = true;
+			}
+			isAiming = true;
+		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	/*if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		if (isTurn == false) {
 			showWeapon = true;
 		}
 		isTurn = true;
 		
-	}
+	}*/
 		
 
-	if (isTurn == true) {
+	if (isAiming == true) {
 		ShootingFlow();
 	}
 
@@ -208,7 +212,7 @@ update_status ModulePlayer::Update()
 
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/6, &rect, fliped);
+	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x)-rect.w/2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h/2, &rect, fliped);
 	currentAnim->Update();
 
 	return UPDATE_CONTINUE;
@@ -267,6 +271,7 @@ void ModulePlayer::ShootingFlow() {
 			attackrdyPlayer.ResetLoopCount();
 			/*projAngle = 0;
 			projVel = 50;*/
+			isAiming = false;
 			isTurn = false;
 		}
 	}
