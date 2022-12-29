@@ -69,7 +69,7 @@ bool UI::CleanUp()
 void UI::BlitPlayerHP()
 {
 	char playerHP[25];
-	sprintf_s(playerHP, 25, "player1 hp:%d", app->scene_intro->player->hp);
+	sprintf_s(playerHP, 25, "player1 hp: %d", app->scene_intro->player->hp);
 	app->fonts->BlitText(20, 160, font1_id, playerHP);
 }
 
@@ -77,7 +77,7 @@ void UI::BlitPlayer2HP()
 {
 	char playertwoHP[25];
 	sprintf_s(playertwoHP, 25, "player2 hp:%d", app->scene_intro->playertwo->hp);
-	app->fonts->BlitText(1040, 160, font1_id, playertwoHP);
+	app->fonts->BlitText(1040, 165, font1_id, playertwoHP);
 }
 
 void UI::BlitPlayerAngle()
@@ -90,9 +90,9 @@ void UI::BlitPlayerAngle()
 
 void UI::BlitPlayer2Angle()
 {
-	char playertwoangle[25];
-	sprintf_s(playertwoangle, 25, "angle: %.1f", app->scene_intro->playertwo->projAngle);
-	app->fonts->BlitText(900, 180, font1_id, playertwoangle);
+	char playertwoangle[30];
+	sprintf_s(playertwoangle, 30, "angle:%.1f degs", app->scene_intro->playertwo->projAngle);
+	app->fonts->BlitText(1040, 185, font1_id, playertwoangle);
 
 }
 
@@ -105,9 +105,9 @@ void UI::BlitPlayerVelocity()
 
 void UI::BlitPlayer2Velocity()
 {
-	char playertwovel[15];
-	sprintf_s(playertwovel, 15, "velocity: %d", app->scene_intro->playertwo->projVel);
-	app->fonts->BlitText(900, 200, font1_id, playertwovel);
+	char playertwovel[30];
+	sprintf_s(playertwovel, 30, "velocity:%d m/s", app->scene_intro->playertwo->projVel);
+	app->fonts->BlitText(1040, 205, font1_id, playertwovel);
 }
 
 /* UI DEBUG INFO WITH FONT 2 */
