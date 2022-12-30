@@ -30,6 +30,7 @@ The game finishes when both worms from a team are dead, then opposite team will 
 - {W/S} - Edit shot angle
 - {A/D} - Edit shot velocity
 - {Q} - Shoot
+- {SPACE} - Go up in the water
 
 ### Player 2 & Player 4
 - {IJKL} - Movement
@@ -37,6 +38,7 @@ The game finishes when both worms from a team are dead, then opposite team will 
 - {I/K} - Edit shot angle
 - {J/L} - Edit shot velocity
 - {U} - Shoot
+- {SPACE} - Go up in the water
 
 ## Debug Keys
 
