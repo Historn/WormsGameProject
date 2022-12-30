@@ -141,26 +141,45 @@ void ModuleProjectile::Collisions() {
 		{
 			if(body->data->cType == ColliderType::PLAYER1 || body->data->cType == ColliderType::PLAYER2)
 				pbody->listener->Disable();
+			//Player Health Down by 50 on Hit
+			if (body->data == app->scene_intro->player->pbody) {
+				LOG("Projectile Collision");
+				app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
+				app->audio->PlayFx(DeathSFX, 0);
+				app->scene_intro->player->isHit = true;
+				if (app->scene_intro->player->hp <= 0) {
+					app->scene_intro->player->dead = true;
+				}
+			}
+			if (body->data == app->scene_intro->playerthree->pbody) {
+				LOG("Projectile Collision");
+				app->scene_intro->playerthree->hp = app->scene_intro->playerthree->hp - 50;
+				app->audio->PlayFx(DeathSFX, 0);
+				app->scene_intro->playerthree->isHit = true;
+				if (app->scene_intro->playerthree->hp <= 0) {
+					app->scene_intro->playerthree->dead = true;
+				}
+			}
+			if (body->data == app->scene_intro->playertwo->pbody) {
+				LOG("Projectile Collision");
+				app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
+				app->audio->PlayFx(DeathSFX, 0);
+				app->scene_intro->playertwo->isHit = true;
+				if (app->scene_intro->playertwo->hp <= 0) {
+					app->scene_intro->playertwo->dead = true;
+				}
+			}
+			if (body->data == app->scene_intro->playerfour->pbody) {
+				LOG("Projectile Collision");
+				app->scene_intro->playerfour->hp = app->scene_intro->playerfour->hp - 50;
+				app->audio->PlayFx(DeathSFX, 0);
+				app->scene_intro->playerfour->isHit = true;
+				if (app->scene_intro->playerfour->hp <= 0) {
+					app->scene_intro->playerfour->dead = true;
+				}
+			}
+
 		}
 		body = body->next;
-	}
-	//Player Health Down by 50 on Hit
-	if (is_colliding_with_physbody(this->pbody, app->scene_intro->player->pbody) == true) {
-		LOG("Projectile Collision");
-		app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
-		app->audio->PlayFx(DeathSFX, 0);
-		app->scene_intro->player->isHit = true;
-		if (app->scene_intro->player->hp <= 0) {
-			app->scene_intro->player->dead = true;
-		}
-	}
-	if (is_colliding_with_physbody(this->pbody, app->scene_intro->playertwo->pbody) == true) {
-		LOG("Projectile Collision");
-		app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
-		app->audio->PlayFx(DeathSFX, 0);
-		app->scene_intro->playertwo->isHit = true;
-		if (app->scene_intro->playertwo->hp <= 0) {
-			app->scene_intro->playertwo->dead = true;
-		}
 	}
 }
