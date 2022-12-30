@@ -129,6 +129,7 @@ public:
 
 private:
 
+	uint windTime;
 
 public:
 

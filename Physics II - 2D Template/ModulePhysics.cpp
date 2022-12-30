@@ -151,6 +151,16 @@ bool ModulePhysics::Start()
 // 
 update_status ModulePhysics::PreUpdate()
 {
+	srand(rand());
+	windTime++;
+	/*Wind changes randomly (Event)*/
+	if (windTime > 500) {
+
+		atmosphere.windx = rand() % 20;
+		atmosphere.windy = rand() % 20;
+		windTime = 0;
+	}
+
 	p2List_item<PhysBody*>* item = bodies.getFirst();
 
 	// Process all balls in the scenario
