@@ -69,12 +69,12 @@ update_status ModuleEnding::Update()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		return UPDATE_STOP;
 
-	if(app->scene_intro->player->dead == true && app->scene_intro->playerthree->dead == false)
+	if(app->scene_intro->player->dead == true && app->scene_intro->playerthree->dead == true)
 	{
 		LOG("Team 2 wins!");
 		app->renderer->Blit(img_team2, 0, 0, NULL);
 	}
-	else if (app->scene_intro->playertwo->dead == true && app->scene_intro->playerfour->dead == false)
+	else if (app->scene_intro->playertwo->dead == true && app->scene_intro->playerfour->dead == true)
 	{
 		LOG("Team 1 wins!");
 		app->renderer->Blit(img_team1, 0, 0, NULL);
