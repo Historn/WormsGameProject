@@ -29,8 +29,6 @@ public:
 
 	int currentweapon = 0;
 
-	int launchDegree = 0;
-
 	//Textures
 
 	//Animations
@@ -51,26 +49,10 @@ public:
 	Animation aimUp90;
 	Animation launchSmoke;
 
-
-	//Collider Player
-	/*Collider* collider = nullptr;*/
-
-	bool godMode = false;
-
-	//bool isDefeated = false;
-	//bool isCelebrating = false;
-
 	bool active = false;
 
-	Vec2D velocity;
-	Vec2D startPos;
-
-	float angleholder1;
-
-	int x;
-	int y;
-
-	PhysBody* pbody;
+	Vec2D position;
+	float angle;
 
 
 private:

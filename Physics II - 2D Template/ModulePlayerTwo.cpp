@@ -109,6 +109,7 @@ bool ModulePlayerTwo::Start()
 	LOG("CREATES PLAYER2");
 	pbody = app->physics->CreateCircle(startPos.x, startPos.y, 0.35f, ColliderType::PLAYER2);
 	pbody->listener = this;
+	pbody->cd = 0;
 	pbody->coef_restitution = 0.0f;
 	// Add ball to the collection
 	app->physics->bodies.add(pbody);
@@ -137,8 +138,7 @@ update_status ModulePlayerTwo::Update()
 	if (isHit == false && dead == false) {
 		currentAnim = &idlePlayer;
 	}
-	
-	pbody->cd = 0;
+
 
 	Collisions();
 

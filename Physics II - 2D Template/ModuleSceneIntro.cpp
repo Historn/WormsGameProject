@@ -29,6 +29,7 @@ bool ModuleSceneIntro::Start()
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	playertwo = (ModulePlayerTwo*)app->entityManager->CreateEntity(EntityType::PLAYERTWO);
+	weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
@@ -61,19 +62,6 @@ update_status ModuleSceneIntro::Update()
 	app->ui->BlitPlayerHP();
 	app->ui->BlitPlayer2HP();
 
-
-	//Player1
-	if (player->isAiming == true) {
-		app->ui->BlitPlayerAngle();
-		app->ui->BlitPlayerVelocity();
-		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
-	}
-	// Player2
-	if (app->scene_intro->playertwo->isAiming == true) {
-		app->ui->BlitPlayer2Angle();
-		app->ui->BlitPlayer2Velocity();
-		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
-	}
 	// Debug UI info
 	if (app->physics->debug)
 	{
@@ -133,16 +121,17 @@ update_status ModuleSceneIntro::Update()
 			app->physics->dtValue += 10.0f;
 	}
 
+	//Player1
+	if (player->isAiming == true) {
+		app->ui->BlitPlayerAngle();
+		app->ui->BlitPlayerVelocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(player->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y), METERS_TO_PIXELS(player->pbody->x + (player->projVel * cos(DEGTORAD * player->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(player->pbody->y + (player->projVel * sin(DEGTORAD * player->projAngle))), 255, 0, 0);
+	}
 	//Player2
 	if (playertwo->isAiming == true) {
 		app->ui->BlitPlayer2Angle();
 		app->ui->BlitPlayer2Velocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
-	}
-	if (app->physics->debug)
-	{
-		app->ui->BlitPlayer2XPos();
-		app->ui->BlitPlayer2YPos();
 	}
 
 	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
@@ -168,15 +157,6 @@ update_status ModuleSceneIntro::Update()
 		app->scene_intro->player->isTurn = true;
 	}
 
-	
-	//Player1
-	if (app->scene_intro->player->isTurn == true) {
-		if (numhold == 0) {
-			weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
-			weapon->isDrawn = true;
-			numhold++;
-		}
-	}
 
 	if (app->scene_intro->player->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
