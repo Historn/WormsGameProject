@@ -287,22 +287,27 @@ void ModulePlayerTwo::Collisions() {
 
 	// L07 DONE 7: Detect the type of collision 
 	if (is_colliding_with_water(this->pbody, app->physics->water1) == true || is_colliding_with_water(this->pbody, app->physics->water2) == true) {
+		
 		LOG("Water Collision");
-		if (timeToDie <= 0) {
-			hp -= 10;
-			isHit = true;
-			timeToDie = 75;
-		}
-		app->audio->PlayFx(DeathSFX, 0);
-		if (hp <= 0) {
-			currentAnim = &deathPlayer;
-			dead = true;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-			pbody->y += 0.1f;
+		
+		if (app->scene_intro->godMode == false) {
+			if (timeToDie <= 0) {
+				hp -= 10;
+				isHit = true;
+				timeToDie = 75;
+			}
+			app->audio->PlayFx(DeathSFX, 0);
+			if (hp <= 0) {
+				currentAnim = &deathPlayer;
+				dead = true;
+			}
+
+			timeToDie--;
 		}
 
-		timeToDie--;
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+			pbody->y += 0.1f;
+		}		
 	}
 }
 
