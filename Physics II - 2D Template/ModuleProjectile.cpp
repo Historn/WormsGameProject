@@ -146,58 +146,61 @@ void ModuleProjectile::Collisions() {
 		}
 		water = water->next;
 	}
-	
-	p2List_item<PhysBody*>* body = app->physics->bodies.getFirst();
 
-	while (body != NULL)
+	if (app->scene_intro->godMode == false)
 	{
-		// Solve collision between ball and ground
-		if (is_colliding_with_physbody(pbody, body->data))
-		{
-			//Player Health Down by 50 on Hit
-			if (body->data == app->scene_intro->player->pbody && app->scene_intro->player->dead == false) {
-				LOG("Projectile Collision");
-				currentAnim = &projExplosion;
-				app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
-				app->audio->PlayFx(DeathSFX, 0);
-				app->scene_intro->player->isHit = true;
-				if (app->scene_intro->player->hp <= 0) {
-					app->scene_intro->player->dead = true;
-				}
-			}
-			if (body->data == app->scene_intro->playerthree->pbody && app->scene_intro->playerthree->dead == false) {
-				LOG("Projectile Collision");
-				currentAnim = &projExplosion;
-				app->scene_intro->playerthree->hp = app->scene_intro->playerthree->hp - 50;
-				app->audio->PlayFx(DeathSFX, 0);
-				app->scene_intro->playerthree->isHit = true;
-				if (app->scene_intro->playerthree->hp <= 0) {
-					app->scene_intro->playerthree->dead = true;
-				}
-			}
-			if (body->data == app->scene_intro->playertwo->pbody && app->scene_intro->playertwo->dead == false) {
-				LOG("Projectile Collision");
-				currentAnim = &projExplosion;
-				app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
-				app->audio->PlayFx(DeathSFX, 0);
-				app->scene_intro->playertwo->isHit = true;
-				if (app->scene_intro->playertwo->hp <= 0) {
-					app->scene_intro->playertwo->dead = true;
-				}
-			}
-			if (body->data == app->scene_intro->playerfour->pbody && app->scene_intro->playerfour->dead == false) {
-				LOG("Projectile Collision");
-				currentAnim = &projExplosion;
-				app->scene_intro->playerfour->hp = app->scene_intro->playerfour->hp - 50;
-				app->audio->PlayFx(DeathSFX, 0);
-				app->scene_intro->playerfour->isHit = true;
-				if (app->scene_intro->playerfour->hp <= 0) {
-					app->scene_intro->playerfour->dead = true;
-				}
-			}
+		p2List_item<PhysBody*>* body = app->physics->bodies.getFirst();
 
+		while (body != NULL)
+		{
+			// Solve collision between ball and ground
+			if (is_colliding_with_physbody(pbody, body->data))
+			{
+				//Player Health Down by 50 on Hit
+				if (body->data == app->scene_intro->player->pbody && app->scene_intro->player->dead == false) {
+					LOG("Projectile Collision");
+					currentAnim = &projExplosion;
+					app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
+					app->audio->PlayFx(DeathSFX, 0);
+					app->scene_intro->player->isHit = true;
+					if (app->scene_intro->player->hp <= 0) {
+						app->scene_intro->player->dead = true;
+					}
+				}
+				if (body->data == app->scene_intro->playerthree->pbody && app->scene_intro->playerthree->dead == false) {
+					LOG("Projectile Collision");
+					currentAnim = &projExplosion;
+					app->scene_intro->playerthree->hp = app->scene_intro->playerthree->hp - 50;
+					app->audio->PlayFx(DeathSFX, 0);
+					app->scene_intro->playerthree->isHit = true;
+					if (app->scene_intro->playerthree->hp <= 0) {
+						app->scene_intro->playerthree->dead = true;
+					}
+				}
+				if (body->data == app->scene_intro->playertwo->pbody && app->scene_intro->playertwo->dead == false) {
+					LOG("Projectile Collision");
+					currentAnim = &projExplosion;
+					app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
+					app->audio->PlayFx(DeathSFX, 0);
+					app->scene_intro->playertwo->isHit = true;
+					if (app->scene_intro->playertwo->hp <= 0) {
+						app->scene_intro->playertwo->dead = true;
+					}
+				}
+				if (body->data == app->scene_intro->playerfour->pbody && app->scene_intro->playerfour->dead == false) {
+					LOG("Projectile Collision");
+					currentAnim = &projExplosion;
+					app->scene_intro->playerfour->hp = app->scene_intro->playerfour->hp - 50;
+					app->audio->PlayFx(DeathSFX, 0);
+					app->scene_intro->playerfour->isHit = true;
+					if (app->scene_intro->playerfour->hp <= 0) {
+						app->scene_intro->playerfour->dead = true;
+					}
+				}
+
+			}
+			body = body->next;
 		}
-		body = body->next;
 	}
 	if(projExplosion.HasFinished())
 		pbody->listener->Disable();

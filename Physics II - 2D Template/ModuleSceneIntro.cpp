@@ -72,11 +72,17 @@ update_status ModuleSceneIntro::Update()
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		app->fullscreen = !app->fullscreen;
 
+	// Enable/Disable DebugMode (UI Physics values display)
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		debugUI = !debugUI;
 		app->audio->PlayFx(select_fx);
 	}
-		
+	
+	// Enable/Disable GodMode
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		godMode = !godMode;
+		app->audio->PlayFx(select_fx);
+	}
 
 	app->renderer->Blit(map_img, 0, 0, NULL);
 
@@ -110,6 +116,7 @@ update_status ModuleSceneIntro::Update()
 		app->ui->BlitAtmosphereDensity();
 		app->ui->BlitDeltaTime();
 		app->ui->BlitWindIsEnabled();
+		app->ui->BlitGodModeIsEnabled();
 
 		//Changes FPS
 		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {

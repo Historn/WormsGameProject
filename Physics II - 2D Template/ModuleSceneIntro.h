@@ -33,8 +33,6 @@ public:
 	void P1SelectByDeath();
 	void P2SelectByDeath();
 
-	bool debugUI = false;
-
 public:
 
 	SDL_Texture* map_img;
@@ -50,6 +48,10 @@ public:
 	uint player_die_fx;
 	uint select_fx;
 	uint selection_fx;
+
+	bool debugUI = false;
+
+	bool godMode = false;
 };
 
 #endif

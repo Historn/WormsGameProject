@@ -258,3 +258,9 @@ void UI::BlitWindIsEnabled()
 	sprintf_s(wind, 40, "wind is enabled? %s", app->physics->windEnabled ? "true" : "false");
 	app->fonts->BlitText(500, 675, font2_id, wind);
 }
+void UI::BlitGodModeIsEnabled()
+{
+	char godmode[40];
+	sprintf_s(godmode, 40, "godmode is enabled? %s", app->scene_intro->godMode ? "true" : "false");
+	app->fonts->BlitText(500, 695, font2_id, godmode);
+}

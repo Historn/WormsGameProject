@@ -58,6 +58,7 @@ public:
 	void BlitAtmosphereDensity();
 	void BlitDeltaTime();
 	void BlitWindIsEnabled();
+	void BlitGodModeIsEnabled();
 
 	uint font1_id = -1;
 	uint font2_id = -1;
