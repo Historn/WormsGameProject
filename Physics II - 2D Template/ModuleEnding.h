@@ -33,6 +33,8 @@ public:
 	bool CleanUp();
 
 public:
+	SDL_Texture* img_team1;
+	SDL_Texture* img_team2;
 	SDL_Texture* img;
 
 	uint click_sfx = -1;

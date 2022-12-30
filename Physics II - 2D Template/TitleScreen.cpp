@@ -53,6 +53,10 @@ bool TitleScreen::Start()
 // Called each loop iteration
 update_status TitleScreen::Update()
 {
+	// Enable/Disable Fullscreen Mode
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		app->fullscreen = !app->fullscreen;
+
 	//Pass next screen
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");

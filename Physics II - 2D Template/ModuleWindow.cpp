@@ -70,6 +70,21 @@ bool ModuleWindow::Start()
 	return ret;
 }
 
+update_status ModuleWindow::Update()
+{
+	if (app->fullscreen == true)
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_SHOWN);
+	}
+
+	return UPDATE_CONTINUE;
+}
+
+
 // Called before quitting
 bool ModuleWindow::CleanUp()
 {

@@ -22,16 +22,34 @@ public:
 
 
 	/* Blit UI graphics funtions */
+	// Player 1
 	void BlitPlayerXPos();
 	void BlitPlayerYPos();
 	void BlitPlayerHP();
 	void BlitPlayerAngle();
 	void BlitPlayerVelocity();
+	
+	// Player 2
 	void BlitPlayer2XPos();
 	void BlitPlayer2YPos();
 	void BlitPlayer2HP();
 	void BlitPlayer2Angle();
 	void BlitPlayer2Velocity();
+	
+	// Player 3
+	void BlitPlayer3XPos();
+	void BlitPlayer3YPos();
+	void BlitPlayer3HP();
+	void BlitPlayer3Angle();
+	void BlitPlayer3Velocity();
+
+	// Player 4
+	void BlitPlayer4XPos();
+	void BlitPlayer4YPos();
+	void BlitPlayer4HP();
+	void BlitPlayer4Angle();
+	void BlitPlayer4Velocity();
+
 	void BlitFPS();
 	void BlitGravityX();
 	void BlitGravityY();

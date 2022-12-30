@@ -161,14 +161,6 @@ update_status ModulePlayer::Update()
 			isAiming = true;
 		}
 	}
-
-	/*if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-		if (isTurn == false) {
-			showWeapon = true;
-		}
-		isTurn = true;
-		
-	}*/
 		
 
 	if (isAiming == true) {
