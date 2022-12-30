@@ -29,6 +29,9 @@ bool ModuleSceneIntro::Start()
 	/*INITIALIZE ENTITIES*/
 	player = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	playertwo = (ModulePlayerTwo*)app->entityManager->CreateEntity(EntityType::PLAYERTWO);
+	playerthree = (ModulePlayer*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	playerfour = (ModulePlayerTwo*)app->entityManager->CreateEntity(EntityType::PLAYERTWO);
+	
 	weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
 
 	app->renderer->camera.x = app->renderer->camera.y = 0;
@@ -40,6 +43,13 @@ bool ModuleSceneIntro::Start()
 	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg");
 
 	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
+
+
+	playerthree->pbody->y = 18;
+	playerthree->pbody->x = 6;
+	playerthree->isTurn = false;
+	playerfour->pbody->x = 34;
+	playerfour->pbody->y = 19;
 
 	return ret;
 }
@@ -160,6 +170,28 @@ update_status ModuleSceneIntro::Update()
 		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
 		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);
 		app->scene_intro->playertwo->playershoots = false;
+		app->scene_intro->playerthree->isTurn = true;
+	}
+	
+	//Player3
+	if (app->scene_intro->playerthree->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		projectile->pbody->x = playerthree->pbody->x - (playerthree->pbody->radius * 2);
+		projectile->pbody->y = playerthree->pbody->y;
+		projectile->pbody->vx = playerthree->projVel * cos(DEGTORAD * playerthree->projAngle);
+		projectile->pbody->vy = playerthree->projVel * sin(DEGTORAD * playerthree->projAngle);
+		app->scene_intro->playerthree->playershoots = false;
+		app->scene_intro->playerfour->isTurn = true;
+	}
+	
+	//Player4
+	if (app->scene_intro->playerfour->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		projectile->pbody->x = playerfour->pbody->x - (playerfour->pbody->radius * 2);
+		projectile->pbody->y = playerfour->pbody->y;
+		projectile->pbody->vx = playerfour->projVel * cos(DEGTORAD * playerfour->projAngle);
+		projectile->pbody->vy = playerfour->projVel * sin(DEGTORAD * playerfour->projAngle);
+		app->scene_intro->playerfour->playershoots = false;
 		app->scene_intro->player->isTurn = true;
 	}
 

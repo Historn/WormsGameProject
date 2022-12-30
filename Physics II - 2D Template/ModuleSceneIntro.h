@@ -64,7 +64,9 @@ public:
 
 	//Entities
 	ModulePlayer* player;
+	ModulePlayer* playerthree;
 	ModulePlayerTwo* playertwo;
+	ModulePlayerTwo* playerfour;
 	ModuleWeapon* weapon;
 	ModuleProjectile* projectile;
 	

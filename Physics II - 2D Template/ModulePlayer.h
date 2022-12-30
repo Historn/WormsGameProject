@@ -93,12 +93,12 @@ public:
 
 	Vec2D velocity;
 	int projVel = 50;
-	float projAngle = 180.0f;
+	float projAngle = 0.0f;
 	Vec2D startPos;
 
 	PhysBody* pbody;
 
-	SDL_RendererFlip fliped = SDL_FLIP_NONE;
+	SDL_RendererFlip fliped = SDL_FLIP_HORIZONTAL;
 
 private:
 
