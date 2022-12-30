@@ -214,8 +214,12 @@ void ModuleSceneIntro::ProjectileShot() {
 		projectile->pbody->y = player->pbody->y;
 		projectile->pbody->vx = player->projVel * cos(DEGTORAD * player->projAngle);
 		projectile->pbody->vy = player->projVel * sin(DEGTORAD * player->projAngle);
-		app->scene_intro->player->playershoots = false;
-		app->scene_intro->playertwo->isTurn = true;
+		player->playershoots = false;
+		
+		if(playertwo->dead == false)
+			playertwo->isTurn = true;
+		else if(playertwo->dead == true)
+			playerfour->isTurn = true;
 	}
 	//Player2
 	if (playertwo->playershoots == true) {
@@ -227,8 +231,12 @@ void ModuleSceneIntro::ProjectileShot() {
 		projectile->pbody->y = playertwo->pbody->y;
 		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
 		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);
-		app->scene_intro->playertwo->playershoots = false;
-		app->scene_intro->playerthree->isTurn = true;
+		playertwo->playershoots = false;
+
+		if(playerthree->dead == false)
+			playerthree->isTurn = true;
+		else if(playerthree->dead == true)
+			player->isTurn = true;
 	}
 	//Player3
 	if (playerthree->playershoots == true) {
@@ -240,8 +248,12 @@ void ModuleSceneIntro::ProjectileShot() {
 		projectile->pbody->y = playerthree->pbody->y;
 		projectile->pbody->vx = playerthree->projVel * cos(DEGTORAD * playerthree->projAngle);
 		projectile->pbody->vy = playerthree->projVel * sin(DEGTORAD * playerthree->projAngle);
-		app->scene_intro->playerthree->playershoots = false;
-		app->scene_intro->playerfour->isTurn = true;
+		playerthree->playershoots = false;
+
+		if (playerfour->dead == false)
+			playerfour->isTurn = true;
+		else if (playerfour->dead == true)
+			playertwo->isTurn = true;
 	}
 	//Player4
 	if (playerfour->playershoots == true) {
@@ -253,8 +265,12 @@ void ModuleSceneIntro::ProjectileShot() {
 		projectile->pbody->y = playerfour->pbody->y;
 		projectile->pbody->vx = playerfour->projVel * cos(DEGTORAD * playerfour->projAngle);
 		projectile->pbody->vy = playerfour->projVel * sin(DEGTORAD * playerfour->projAngle);
-		app->scene_intro->playerfour->playershoots = false;
-		app->scene_intro->player->isTurn = true;
+		playerfour->playershoots = false;
+
+		if (player->dead == false)
+			player->isTurn = true;
+		else if (player->dead == true)
+			playerthree->isTurn = true;
 	}
 
 
