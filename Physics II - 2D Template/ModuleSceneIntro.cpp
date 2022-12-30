@@ -172,6 +172,10 @@ update_status ModuleSceneIntro::Update()
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
 	}
 
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+	}
 	return UPDATE_CONTINUE;
 }
 
