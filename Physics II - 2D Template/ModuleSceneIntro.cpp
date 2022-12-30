@@ -62,7 +62,7 @@ update_status ModuleSceneIntro::PreUpdate()
 
 update_status ModuleSceneIntro::Update()
 {
-	
+	// Enable/Disable Fullscreen Mode
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		app->fullscreen = !app->fullscreen;
 
