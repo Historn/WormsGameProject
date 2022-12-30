@@ -182,11 +182,6 @@ update_status ModuleSceneIntro::Update()
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
 	}
 
-	//Player2
-	if (app->scene_intro->playertwo->isTurn == true && app->scene_intro->playertwo->showWeapon == true) {
-		weapon = (ModuleWeapon*)app->entityManager->CreateEntity(EntityType::WEAPON);
-		app->scene_intro->playertwo->showWeapon = false;
-	}
 
 	if (app->scene_intro->playertwo->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);

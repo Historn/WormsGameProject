@@ -66,8 +66,11 @@ bool ModuleWeapon::Start()
 	launchSmoke.PushBack({ 73, 313, 34, 35 });
 	launchSmoke.PushBack({ 107, 315, 20, 29 });
 	launchSmoke.PushBack({ 126, 319, 14, 19 });
+	launchSmoke.PushBack({ 73, 313, 34, 35 });
+	launchSmoke.PushBack({ 107, 315, 20, 29 });
+	launchSmoke.PushBack({ 126, 319, 14, 19 });
 	launchSmoke.loop = false;
-	launchSmoke.speed = 0.1f;
+	launchSmoke.speed = 0.05f;
 
 	currentAnim = &away;
 
@@ -100,108 +103,73 @@ update_status ModuleWeapon::Update() {
 
 	currentAnim = &away;
 	
-	//Weapon Movement
-	pbody->x = app->scene_intro->player->pbody->x + 0.2f;
-	pbody->y = app->scene_intro->player->pbody->y;
-
-	if (app->scene_intro->player->fliped == SDL_FLIP_NONE){
-		fliped = SDL_FLIP_NONE; 
-	}
-
-	if (app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) {
-		fliped = SDL_FLIP_HORIZONTAL;
-	}
-
+	//Weapon Movement P1
 	if (app->scene_intro->player->isTurn == true) {
 		
-		float angleholder1 = app->scene_intro->player->projAngle;
+		pbody->x = app->scene_intro->player->pbody->x + 0.2f;
+		pbody->y = app->scene_intro->player->pbody->y;
 
-		if ((app->scene_intro->player->fliped == SDL_FLIP_NONE) == true) {
+		if (app->scene_intro->player->fliped == SDL_FLIP_NONE) {
 			fliped = SDL_FLIP_NONE;
-			currentAnim = &readying;
-			if (readying.HasFinished()) {
-				if (angleholder1 == 90 || angleholder1 == 95 || angleholder1 == 100 || angleholder1 == 105 || angleholder1 == 110) {
-					currentAnim = &aimUp90;
-				}
-				if (angleholder1 == 115 || angleholder1 == 120 || angleholder1 == 125 || angleholder1 == 130 || angleholder1 == 135 || 
-					angleholder1 == 140 || angleholder1 == 145 || angleholder1 == 150 || angleholder1 == 155 || angleholder1 == 160){
-					currentAnim = &aimUp45;
-				}
-				if (angleholder1 == 165 || angleholder1 == 170 || angleholder1 == 175 || angleholder1 == 180 || angleholder1 == 185 ||
-					angleholder1 == 190 || angleholder1 == 195 || angleholder1 == 200 || angleholder1 == 205 || angleholder1 == 210) {
-					currentAnim = &idle;
-				}
-				if (angleholder1 == 215 || angleholder1 == 220 || angleholder1 == 225 || angleholder1 == 230 ||
-					angleholder1 == 235 || angleholder1 == 240 || angleholder1 == 245 || angleholder1 == 250) {
-					currentAnim = &aimDown45;
-				}
-				if (angleholder1 == 270 || angleholder1 == 265 || angleholder1 == 260 || angleholder1 == 255) {
-					currentAnim = &aimDown90;
-				}
-			}
 		}
 
-		if ((app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) == true) {
+		if (app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) {
 			fliped = SDL_FLIP_HORIZONTAL;
-			currentAnim = &readying;
-			if (readying.HasFinished()) {
-				if (angleholder1 == 90 || angleholder1 == 85 || angleholder1 == 80 || angleholder1 == 75 || angleholder1 == 70) {
-					currentAnim = &aimUp90;
+		}
+
+		if (app->scene_intro->player->isTurn == true) {
+
+			float angleholder1 = app->scene_intro->player->projAngle;
+
+			if ((app->scene_intro->player->fliped == SDL_FLIP_NONE) == true) {
+				fliped = SDL_FLIP_NONE;
+				currentAnim = &readying;
+				if (readying.HasFinished()) {
+					AngleHolds();
 				}
-				if (angleholder1 == 65 || angleholder1 == 60 || angleholder1 == 55 || angleholder1 == 50 || angleholder1 == 45 ||
-					angleholder1 == 40 || angleholder1 == 35 || angleholder1 == 30 || angleholder1 == 25 || angleholder1 == 20) {
-					currentAnim = &aimUp45;
-				}
-				if (angleholder1 == 15 || angleholder1 == 10 || angleholder1 == 5 || angleholder1 == 0 || angleholder1 == -5 ||
-					angleholder1 == -10 || angleholder1 == -15 || angleholder1 == -20 || angleholder1 == -25 || angleholder1 == -30) {
-					currentAnim = &idle;
-				}
-				if (angleholder1 == -35 || angleholder1 == -40 || angleholder1 == -45 || angleholder1 == -50 ||
-					angleholder1 == -55 || angleholder1 == -60 || angleholder1 == -65 || angleholder1 == -70) {
-					currentAnim = &aimDown45;
-				}
-				if (angleholder1 == -75 || angleholder1 == -80 || angleholder1 == -85 || angleholder1 == -90) {
-					currentAnim = &aimDown90;
+			}
+
+			if ((app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) == true) {
+				fliped = SDL_FLIP_HORIZONTAL;
+				currentAnim = &readying;
+				if (readying.HasFinished()) {
+					AngleHolds();
 				}
 			}
 		}
-		
-		/*if (readying.HasFinished()) {
-			float holder = app->scene_intro->player->projAngle;
-			if (app->scene_intro->player->fliped == SDL_FLIP_NONE) {
-				if (90 >= holder > 80) {
-					currentAnim = &aimUp90;
+	}
+
+	if (app->scene_intro->playertwo->isTurn == true) {
+		pbody->x = app->scene_intro->playertwo->pbody->x + 0.2f;
+		pbody->y = app->scene_intro->playertwo->pbody->y;
+		if (app->scene_intro->playertwo->fliped == SDL_FLIP_NONE) {
+			fliped = SDL_FLIP_NONE;
+		}
+
+		if (app->scene_intro->playertwo->fliped == SDL_FLIP_HORIZONTAL) {
+			fliped = SDL_FLIP_HORIZONTAL;
+		}
+
+		if (app->scene_intro->playertwo->isTurn == true) {
+
+			float angleholder1 = app->scene_intro->playertwo->projAngle;
+
+			if ((app->scene_intro->playertwo->fliped == SDL_FLIP_NONE) == true) {
+				fliped = SDL_FLIP_NONE;
+				currentAnim = &readying;
+				if (readying.HasFinished()) {
+					AngleHolds();
 				}
-				if (80 >= holder > 30) {
-					currentAnim = &aimUp45;
+			}
+
+			if ((app->scene_intro->playertwo->fliped == SDL_FLIP_HORIZONTAL) == true) {
+				fliped = SDL_FLIP_HORIZONTAL;
+				currentAnim = &readying;
+				if (readying.HasFinished()) {
+					AngleHolds();
 				}
-				if (30 >= holder > -30) {
-					currentAnim = &idle;
-				}
-				if (-30 >= holder > -80) {
-					currentAnim = &aimDown45;
-				}
-				if (-80 >= holder >= -90) {
-					currentAnim = &aimDown90;
-				}
-			}*/
-			/*if (app->scene_intro->player->fliped == SDL_FLIP_HORIZONTAL) {
-				if (90 >= holder > 100) {
-					currentAnim = &aimUp90;
-				}
-				if (100 >= holder > 150) {
-					currentAnim = &aimUp45;
-				}
-				if (150 >= holder > 210) {
-					currentAnim = &idle;
-				}
-				if (210 >= holder > 260) {
-					currentAnim = &aimDown45;
-				}
-				if (260 >= holder >= 270) {
-					currentAnim = &aimDown90;
-				}
-			}*/
+			}
+		}
 	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
@@ -218,20 +186,53 @@ update_status ModuleWeapon::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleWeapon::Drawn() {
+void ModuleWeapon::AngleHolds() {
 
-	//bool isDrawn to decide if is turn to shoot.
-	if (isDrawn == true)
-	{
-		//Attack Player has player put bandana On, then can shoot
-		currentAnim = &readying;
-
-		//Once bandana on enter attack mode
-		if (readying.HasFinished()) {
-
-			currentAnim = &idle;
-			readying.Reset();
-			readying.ResetLoopCount();
-		}
+	//P1
+	if (app->scene_intro->player->isTurn == true) {
+		angleholder1 = app->scene_intro->player->projAngle;
 	}
+	if (app->scene_intro->playertwo->isTurn == true) {
+		angleholder1 = app->scene_intro->playertwo->projAngle;
+	}
+
+	if (angleholder1 == 90 || angleholder1 == 85 || angleholder1 == 80 || angleholder1 == 75 || angleholder1 == 70) {
+		currentAnim = &aimUp90;
+	}
+	if (angleholder1 == 65 || angleholder1 == 60 || angleholder1 == 55 || angleholder1 == 50 || angleholder1 == 45 ||
+		angleholder1 == 40 || angleholder1 == 35 || angleholder1 == 30 || angleholder1 == 25 || angleholder1 == 20) {
+		currentAnim = &aimUp45;
+	}
+	if (angleholder1 == 15 || angleholder1 == 10 || angleholder1 == 5 || angleholder1 == 0 || angleholder1 == -5 ||
+		angleholder1 == -10 || angleholder1 == -15 || angleholder1 == -20 || angleholder1 == -25 || angleholder1 == -30) {
+		currentAnim = &idle;
+	}
+	if (angleholder1 == -35 || angleholder1 == -40 || angleholder1 == -45 || angleholder1 == -50 ||
+		angleholder1 == -55 || angleholder1 == -60 || angleholder1 == -65 || angleholder1 == -70) {
+		currentAnim = &aimDown45;
+	}
+	if (angleholder1 == -75 || angleholder1 == -80 || angleholder1 == -85 || angleholder1 == -90) {
+		currentAnim = &aimDown90;
+	}
+
+	if (angleholder1 == 90 || angleholder1 == 95 || angleholder1 == 100 || angleholder1 == 105 || angleholder1 == 110) {
+		currentAnim = &aimUp90;
+	}
+	if (angleholder1 == 115 || angleholder1 == 120 || angleholder1 == 125 || angleholder1 == 130 || angleholder1 == 135 ||
+		angleholder1 == 140 || angleholder1 == 145 || angleholder1 == 150 || angleholder1 == 155 || angleholder1 == 160) {
+		currentAnim = &aimUp45;
+	}
+	if (angleholder1 == 165 || angleholder1 == 170 || angleholder1 == 175 || angleholder1 == 180 || angleholder1 == 185 ||
+		angleholder1 == 190 || angleholder1 == 195 || angleholder1 == 200 || angleholder1 == 205 || angleholder1 == 210) {
+		currentAnim = &idle;
+	}
+	if (angleholder1 == 215 || angleholder1 == 220 || angleholder1 == 225 || angleholder1 == 230 ||
+		angleholder1 == 235 || angleholder1 == 240 || angleholder1 == 245 || angleholder1 == 250) {
+		currentAnim = &aimDown45;
+	}
+	if (angleholder1 == 270 || angleholder1 == 265 || angleholder1 == 260 || angleholder1 == 255) {
+		currentAnim = &aimDown90;
+	}
+
+	//P2
 }

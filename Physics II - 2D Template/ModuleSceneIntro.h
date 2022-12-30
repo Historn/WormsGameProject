@@ -66,12 +66,13 @@ public:
 	ModulePlayer* player;
 	ModulePlayerTwo* playertwo;
 	ModuleWeapon* weapon;
+	ModuleWeapon* weapon2;
 	ModuleProjectile* projectile;
 	
 	uint player_lose_fx;
 
 	int numhold = 0;
-
+	int numhold2 = 0;
 };
 
 #endif
