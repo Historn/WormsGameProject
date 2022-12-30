@@ -2,15 +2,15 @@
 
 ## Description
 
-Map Image: https://opengameart.org/sites/default/files/Preview2_0.jpg
-
-Worms like game created for Physics II subject.
+Worms like game created for Physics II subject. The main objective of the project is to learn how a physics engine works.
 
 ## Key Features
 
- - {F1} - Debug Mode 
- - {} - 
- - {} - 
+- {F1} - Debug Mode  
+- {} - 
+
+### Events
+- {Random Wind Generator} - Every 500 game ticks, Wind Force will change randomly between [-10, +10] m/s in X's axis and [-5, +5] m/s in Y's axis.
 
 ## Debug keys
 
@@ -57,7 +57,7 @@ Worms like game created for Physics II subject.
  - [Arnau Jiménez Gallego](https://github.com/Historn) - CODE 
  
  ![](https://github.com/Historn/PinBall_Game/blob/master/TeamPhotos/adriapons.jpg)
- - [Adrià Pons Mensa](https://github.com/AdriaPm) - CODE
+ - [Adrià Pons Mensa](https://github.com/AdriaPm) - CODE & ART
  
  ![](https://github.com/Historn/PinBall_Game/blob/master/TeamPhotos/rylangraham.jpg)
  - [Rylan Graham](https://github.com/RylanJGraham) - CODE
