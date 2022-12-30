@@ -68,9 +68,11 @@ update_status ModuleSceneIntro::Update()
 
 	app->renderer->Blit(map_img, 0, 0, NULL);
 
-	// UI blit
+	//UI Blit
 	app->ui->BlitPlayerHP();
 	app->ui->BlitPlayer2HP();
+	app->ui->BlitPlayer3HP();
+	app->ui->BlitPlayer4HP();
 
 	// Debug UI info
 	if (app->physics->debug)
@@ -81,6 +83,12 @@ update_status ModuleSceneIntro::Update()
 
 		app->ui->BlitPlayer2XPos();
 		app->ui->BlitPlayer2YPos();
+
+		app->ui->BlitPlayer3XPos();
+		app->ui->BlitPlayer3YPos();
+
+		app->ui->BlitPlayer4XPos();
+		app->ui->BlitPlayer4YPos();
 
 		app->ui->BlitFPS();
 		app->ui->BlitGravityX();
@@ -151,13 +159,14 @@ update_status ModuleSceneIntro::Update()
 	}
 	//Player3
 	if (playerthree->isAiming == true) {
-		app->ui->BlitPlayerAngle(); //->Cambiar dentro crear un if para p1 y p3
-		app->ui->BlitPlayerVelocity();
+		app->ui->BlitPlayer3Angle(); //->Cambiar dentro crear un if para p1 y p3
+		app->ui->BlitPlayer3Velocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(playerthree->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playerthree->pbody->y), METERS_TO_PIXELS(playerthree->pbody->x + (playerthree->projVel * cos(DEGTORAD * playerthree->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playerthree->pbody->y + (playerthree->projVel * sin(DEGTORAD * playerthree->projAngle))), 255, 0, 0);
 	}
+	//Player4
 	if (playerfour->isAiming == true) {
-		app->ui->BlitPlayer2Angle();//->Cambiar dentro crear un if para p2 y p4
-		app->ui->BlitPlayer2Velocity();
+		app->ui->BlitPlayer4Angle();//->Cambiar dentro crear un if para p2 y p4
+		app->ui->BlitPlayer4Velocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(playerfour->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y), METERS_TO_PIXELS(playerfour->pbody->x + (playerfour->projVel * cos(DEGTORAD * playerfour->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y + (playerfour->projVel * sin(DEGTORAD * playerfour->projAngle))), 255, 0, 0);
 	}
 
