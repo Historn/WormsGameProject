@@ -187,3 +187,10 @@ void UI::BlitDeltaTime()
 	sprintf_s(deltaTime, 40, "delta time scheme; %.6f ms", app->physics->dt);
 	app->fonts->BlitText(510, 615, font2_id, deltaTime);
 }
+
+void UI::BlitWindIsEnabled()
+{
+	char wind[40];
+	sprintf_s(wind, 40, "wind is enabled? %s", app->physics->windEnabled ? "true" : "false");
+	app->fonts->BlitText(770, 555, font2_id, wind);
+}

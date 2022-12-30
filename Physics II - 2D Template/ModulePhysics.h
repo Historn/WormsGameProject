@@ -166,6 +166,8 @@ public:
 
 	Vec2D gravity;
 	
+	bool windEnabled = true;
+
 	bool debug;
 };
 

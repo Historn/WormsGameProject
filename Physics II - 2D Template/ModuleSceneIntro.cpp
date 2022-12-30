@@ -79,6 +79,7 @@ update_status ModuleSceneIntro::Update()
 		app->ui->BlitWindY();
 		app->ui->BlitAtmosphereDensity();
 		app->ui->BlitDeltaTime();
+		app->ui->BlitWindIsEnabled();
 
 		//Changes FPS
 		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
@@ -120,6 +121,11 @@ update_status ModuleSceneIntro::Update()
 		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
 			app->physics->dtValue += 10.0f;
 	}
+	
+	// Enable/Disable WIND force
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		app->physics->windEnabled = !app->physics->windEnabled;
+
 
 	//Player1
 	if (player->isAiming == true) {

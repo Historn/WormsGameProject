@@ -151,14 +151,21 @@ bool ModulePhysics::Start()
 // 
 update_status ModulePhysics::PreUpdate()
 {
-	srand(rand());
-	windTime++;
-	/*Wind changes randomly (Event)*/
-	if (windTime > 500) {
+	if (windEnabled == true) {
+		srand(rand());
+		windTime++;
+		/*Wind changes randomly (Event)*/
+		if (windTime > 500) {
 
-		atmosphere.windx = rand() % 20;
-		atmosphere.windy = rand() % 20;
-		windTime = 0;
+			atmosphere.windx = rand() % 20;
+			atmosphere.windy = rand() % 20;
+			windTime = 0;
+		}
+	}
+	else
+	{
+		atmosphere.windx = 0.0001f;
+		atmosphere.windy = 0.0001f;
 	}
 
 	p2List_item<PhysBody*>* item = bodies.getFirst();

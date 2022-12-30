@@ -8,7 +8,7 @@ Worms like game created for Physics II subject.
 
 ## Key Features
 
- - {F1} - View colliders/logic 
+ - {F1} - Debug Mode 
  - {} - 
  - {} - 
 
@@ -34,6 +34,8 @@ Worms like game created for Physics II subject.
 
 - {UP ARROW} - Increases the Delta Time Scheme value
 - {UP ARROW} - Decreases the Delta Time Scheme value
+
+- {P} - Enable/Disable Wind force
 
 ## Controls
 
