@@ -6,9 +6,11 @@ Worms like game created for Physics II subject. The main objective of the projec
 
 ## Game Flow
 
-There are 4 different worms in the game. Each worm has its turn to shoot the others and try to kill them. You will only be able to move when it's your turn. Once you have shot, you won't be able to move until your next turn. 
+There are 4 different worms and 2 teams in the game (players 1 & 3 and players 2 & 4). Each worm has its turn to shoot the other team's worms and try to kill them.
 
-The last worm standing will win the game.
+You will only be able to move when it's your turn. Once you have shot, you won't be able to move until your next turn. 
+
+The game finishes when both worms from a team are dead, then opposite team will win the game.
 
 ## Key Features
 
