@@ -36,6 +36,14 @@ bool ModuleProjectile::Start()
 	proj0.loop = true;
 	proj0.speed = 0.05f;
 
+	projExplosion.PushBack({ 211, 312, 30, 32 });
+	projExplosion.PushBack({ 241, 285, 61, 61 });
+	projExplosion.PushBack({ 73, 313, 34, 35 });
+	projExplosion.PushBack({ 107, 315, 20, 29 });
+	projExplosion.PushBack({ 126, 319, 14, 19 });
+	projExplosion.loop = false;
+	projExplosion.speed = 0.05f;
+
 	// Add ball to the collection
 	startPos.x = app->scene_intro->player->position.x;
 	startPos.y = app->scene_intro->player->position.y;

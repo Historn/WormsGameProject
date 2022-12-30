@@ -35,6 +35,7 @@ public:
 	Animation* currentAnim = nullptr;
 
 	Animation proj0;
+	Animation projExplosion;
 
 	uint DeathSFX = 0;
 
