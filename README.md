@@ -16,6 +16,7 @@ The game finishes when both worms from a team are dead, then opposite team will 
 
 - {F1} - Debug Mode  
 - {F2} - Insta win/lose
+- {F11} - Fullscreen Mode
 
 ### Events
 - {Random Wind Generator} - Every 500 game ticks, Wind Force will change randomly between [-10, +10] m/s in X's axis and [-5, +5] m/s in Y's axis.
