@@ -108,25 +108,6 @@ bool ModulePhysics::Start()
 
 	gravity.y = -10.0f;
 
-	// Set static properties of the ball
-	ball->mass = 10.0f; // [kg]
-	ball->surface = 1.0f; // [m^2]
-	ball->radius = 0.5f; // [m]
-	ball->cd = 0.4f; // [-]
-	ball->cl = 1.2f; // [-]
-	ball->b = 10.0f; // [...]
-	ball->coef_friction = 0.9f; // [-]
-	ball->coef_restitution = 0.8f; // [-]
-
-	// Set initial position and velocity of the ball
-	ball->x = 2.0f;
-	ball->y = 4.0f;
-	ball->vx = 5.0f;
-	ball->vy = 10.0f;
-
-	// Add ball to the collection
-	bodies.add(ball);
-
 	// Add ground to the collection
 	grounds.add(ground1);
 	grounds.add(ground2);

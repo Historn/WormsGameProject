@@ -138,9 +138,6 @@ public:
 	p2List<Ground*> grounds{};
 	Atmosphere atmosphere{};
 
-	// Create a ball
-	PhysBody* ball = new PhysBody();
-
 	// Create a water
 	Water* water1 = new Water();
 	Water* water2 = new Water(); 

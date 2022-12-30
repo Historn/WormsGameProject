@@ -99,7 +99,7 @@ void ModuleEntityManager::DestroyEntity(Entity* entity)
 void ModuleEntityManager::AddEntity(Entity* entity)
 {
 	if (entity != nullptr) entities.add(entity);
-	if(entity != nullptr && entity->type != EntityType::PLAYER)
+	if(entity != nullptr && entity->type != EntityType::PLAYER && entity->type != EntityType::PLAYERTWO)
 		entity->Start();
 }
 
