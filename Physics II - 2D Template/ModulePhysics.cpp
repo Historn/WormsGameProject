@@ -155,10 +155,10 @@ update_status ModulePhysics::PreUpdate()
 		srand(rand());
 		windTime++;
 		/*Wind changes randomly (Event)*/
-		if (windTime > 500) {
-
-			atmosphere.windx = rand() % 20;
-			atmosphere.windy = rand() % 20;
+		if (windTime > 500) 
+		{	
+			atmosphere.windx = (rand() % 21) - 10;	// Range: -10 to +10
+			atmosphere.windy = (rand() % 11) - 5;	// Range: -5 to + 5
 			windTime = 0;
 		}
 	}
