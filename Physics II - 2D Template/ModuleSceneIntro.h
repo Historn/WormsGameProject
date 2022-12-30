@@ -30,6 +30,8 @@ public:
 
 
 	void ProjectileShot();
+	void P1SelectByDeath();
+	void P2SelectByDeath();
 
 public:
 

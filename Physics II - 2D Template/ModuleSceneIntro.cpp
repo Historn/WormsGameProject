@@ -208,6 +208,8 @@ update_status ModuleSceneIntro::Update()
 		app->renderer->DrawLine(METERS_TO_PIXELS(playerfour->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y), METERS_TO_PIXELS(playerfour->pbody->x + (playerfour->projVel * cos(DEGTORAD * playerfour->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y + (playerfour->projVel * sin(DEGTORAD * playerfour->projAngle))), 255, 0, 0);
 	}
 
+	P1SelectByDeath();
+	P2SelectByDeath();
 	ProjectileShot();
 
 	if (app->scene_intro->player->dead == true && app->scene_intro->playerthree->dead == true) {
@@ -268,7 +270,7 @@ void ModuleSceneIntro::ProjectileShot() {
 		
 		if(playertwo->dead == false)
 			playertwo->isTurn = true;
-		else if(playertwo->dead == true)
+		if(playertwo->dead == true)
 			playerfour->isTurn = true;
 	}
 	//Player2
@@ -285,7 +287,7 @@ void ModuleSceneIntro::ProjectileShot() {
 
 		if(playerthree->dead == false)
 			playerthree->isTurn = true;
-		else if(playerthree->dead == true)
+		if(playerthree->dead == true)
 			player->isTurn = true;
 	}
 	//Player3
@@ -302,7 +304,7 @@ void ModuleSceneIntro::ProjectileShot() {
 
 		if (playerfour->dead == false)
 			playerfour->isTurn = true;
-		else if (playerfour->dead == true)
+		if (playerfour->dead == true)
 			playertwo->isTurn = true;
 	}
 	//Player4
@@ -319,9 +321,50 @@ void ModuleSceneIntro::ProjectileShot() {
 
 		if (player->dead == false)
 			player->isTurn = true;
-		else if (player->dead == true)
+		if (player->dead == true)
 			playerthree->isTurn = true;
 	}
 
+}
+
+void ModuleSceneIntro::P1SelectByDeath() {
+
+	if (playertwo->isTurn == true && playertwo->dead == true) {
+		playertwo->isTurn = false;
+		playerthree->isTurn = true;
+		if (playerthree->isTurn == true && playerthree->dead == true) {
+			playerthree->isTurn = false;
+			player->isTurn = true;
+		}
+	}
+	if (playerfour->isTurn == true && playerfour->dead == true) {
+		playerfour->isTurn = false;
+		player->isTurn = true;
+		if (player->isTurn == true && player->dead == true) {
+			player->isTurn = false;
+			playerthree->isTurn = true;
+		}
+	}
+
+}
+
+void ModuleSceneIntro::P2SelectByDeath() {
+
+	if (playerthree->isTurn == true && playerthree->dead == true) {
+		playerthree->isTurn = false;
+		playerfour->isTurn = true;
+		if (playerfour->isTurn == true && playerfour->dead == true) {
+			playerfour->isTurn = false;
+			playertwo->isTurn = true;
+		}
+	}
+	if (player->isTurn == true && player->dead == true) {
+		player->isTurn = false;
+		playertwo->isTurn = true;
+		if (playertwo->isTurn == true && playertwo->dead == true) {
+			playertwo->isTurn = false;
+			playerfour->isTurn = true;
+		}
+	}
 
 }
