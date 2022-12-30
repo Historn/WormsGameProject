@@ -192,26 +192,6 @@ update_status ModulePlayerTwo::Update()
 		}
 	}
 
-	//if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-	//  currentAnim = &jumpPlayer;
-	//	if (onGround == true) {
-	//		jumping = true;
-	//		jumpingTime = 0;
-	//	}
-	//	onGround = false;
-	//}
-
-	////Jumping Function
-	//if (jumping == true) {
-	//	velocity.y = +jumpVel;
-
-	//	jumpVel += 1.0f;
-
-	//	jumpingTime++;
-	//}
-
-
-
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	//app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 2, &rect, fliped);
@@ -306,7 +286,7 @@ void ModulePlayerTwo::ShootingFlow() {
 void ModulePlayerTwo::Collisions() {
 
 	// L07 DONE 7: Detect the type of collision 
-	if (is_colliding_with_water(this->pbody, app->physics->water1) == true) {
+	if (is_colliding_with_water(this->pbody, app->physics->water1) == true || is_colliding_with_water(this->pbody, app->physics->water2) == true) {
 		LOG("Water Collision");
 		if (timeToDie <= 0) {
 			hp -= 10;
@@ -318,19 +298,8 @@ void ModulePlayerTwo::Collisions() {
 			currentAnim = &deathPlayer;
 			dead = true;
 		}
-
-		timeToDie--;
-	}
-	if (is_colliding_with_water(this->pbody, app->physics->water2) == true) {
-		LOG("Water Collision");
-		if (timeToDie <= 0) {
-			hp -= 10;
-			isHit = true;
-			timeToDie = 75;
-		}
-		app->audio->PlayFx(DeathSFX, 0);
-		if (hp <= 0) {
-			dead = true;
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+			pbody->y += 0.1f;
 		}
 
 		timeToDie--;
