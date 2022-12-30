@@ -56,6 +56,7 @@ public:
 	PhysBody* pbody;
 
 	int life;
+	int lifeTime;
 
 private:
 

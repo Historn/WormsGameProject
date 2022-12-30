@@ -58,6 +58,7 @@ bool ModuleProjectile::Start()
 	currentAnim = &proj0;
 
 	life = 2;
+	lifeTime = 0;
 
 	return true;
 }
@@ -81,10 +82,24 @@ update_status ModuleProjectile::Update() {
 
 	currentAnim = &proj0;
 
+	lifeTime++;
 
+	if (lifeTime > 150) {
+		currentAnim = &projExplosion;
+		if (lifeTime > 200) {
+			pbody->listener->Disable();
+			lifeTime = 0;
+		}
+		
+	}
 
 	/*OnCollision();*/
 	Collisions();
+
+	if (pbody->vx > 0)
+		fliped = SDL_FLIP_HORIZONTAL;
+	if (pbody->vx < 0)
+		fliped = SDL_FLIP_NONE;
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(pbody->x) - rect.w / 2, SCREEN_HEIGHT - METERS_TO_PIXELS(pbody->y) - rect.h / 6, &rect, fliped);
@@ -111,7 +126,7 @@ void ModuleProjectile::Collisions() {
 		{
 			--life;
 			if (life < 0) {
-				pbody->listener->Disable();
+				currentAnim = &projExplosion;
 			}
 		}
 		ground = ground->next;
@@ -126,7 +141,7 @@ void ModuleProjectile::Collisions() {
 		{
 			--life;
 			if (life < 0) {
-				pbody->listener->Disable();
+				currentAnim = &projExplosion;
 			}
 		}
 		water = water->next;
@@ -139,11 +154,10 @@ void ModuleProjectile::Collisions() {
 		// Solve collision between ball and ground
 		if (is_colliding_with_physbody(pbody, body->data))
 		{
-			if(body->data->cType == ColliderType::PLAYER1 || body->data->cType == ColliderType::PLAYER2)
-				pbody->listener->Disable();
 			//Player Health Down by 50 on Hit
-			if (body->data == app->scene_intro->player->pbody) {
+			if (body->data == app->scene_intro->player->pbody && app->scene_intro->player->dead == false) {
 				LOG("Projectile Collision");
+				currentAnim = &projExplosion;
 				app->scene_intro->player->hp = app->scene_intro->player->hp - 50;
 				app->audio->PlayFx(DeathSFX, 0);
 				app->scene_intro->player->isHit = true;
@@ -151,8 +165,9 @@ void ModuleProjectile::Collisions() {
 					app->scene_intro->player->dead = true;
 				}
 			}
-			if (body->data == app->scene_intro->playerthree->pbody) {
+			if (body->data == app->scene_intro->playerthree->pbody && app->scene_intro->playerthree->dead == false) {
 				LOG("Projectile Collision");
+				currentAnim = &projExplosion;
 				app->scene_intro->playerthree->hp = app->scene_intro->playerthree->hp - 50;
 				app->audio->PlayFx(DeathSFX, 0);
 				app->scene_intro->playerthree->isHit = true;
@@ -160,8 +175,9 @@ void ModuleProjectile::Collisions() {
 					app->scene_intro->playerthree->dead = true;
 				}
 			}
-			if (body->data == app->scene_intro->playertwo->pbody) {
+			if (body->data == app->scene_intro->playertwo->pbody && app->scene_intro->playertwo->dead == false) {
 				LOG("Projectile Collision");
+				currentAnim = &projExplosion;
 				app->scene_intro->playertwo->hp = app->scene_intro->playertwo->hp - 50;
 				app->audio->PlayFx(DeathSFX, 0);
 				app->scene_intro->playertwo->isHit = true;
@@ -169,8 +185,9 @@ void ModuleProjectile::Collisions() {
 					app->scene_intro->playertwo->dead = true;
 				}
 			}
-			if (body->data == app->scene_intro->playerfour->pbody) {
+			if (body->data == app->scene_intro->playerfour->pbody && app->scene_intro->playerfour->dead == false) {
 				LOG("Projectile Collision");
+				currentAnim = &projExplosion;
 				app->scene_intro->playerfour->hp = app->scene_intro->playerfour->hp - 50;
 				app->audio->PlayFx(DeathSFX, 0);
 				app->scene_intro->playerfour->isHit = true;
@@ -182,4 +199,6 @@ void ModuleProjectile::Collisions() {
 		}
 		body = body->next;
 	}
+	if(projExplosion.HasFinished())
+		pbody->listener->Disable();
 }
