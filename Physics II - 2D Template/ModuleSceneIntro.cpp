@@ -149,59 +149,26 @@ update_status ModuleSceneIntro::Update()
 		app->ui->BlitPlayer2Velocity();
 		app->renderer->DrawLine(METERS_TO_PIXELS(playertwo->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y), METERS_TO_PIXELS(playertwo->pbody->x + (playertwo->projVel * cos(DEGTORAD * playertwo->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playertwo->pbody->y + (playertwo->projVel * sin(DEGTORAD * playertwo->projAngle))), 255, 0, 0);
 	}
-
-	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
-	//Player1
-	if (app->scene_intro->player->playershoots == true) {
-		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = player->pbody->x + (player->pbody->radius * 2);
-		projectile->pbody->y = player->pbody->y;
-		projectile->pbody->vx = player->projVel * cos(DEGTORAD * player->projAngle);
-		projectile->pbody->vy = player->projVel * sin(DEGTORAD * player->projAngle);
-		app->scene_intro->player->playershoots = false;
-		app->scene_intro->playertwo->isTurn = true;
-	}
-
-	//Player2
-	if (app->scene_intro->playertwo->playershoots == true) {
-		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = playertwo->pbody->x - (playertwo->pbody->radius * 2);
-		projectile->pbody->y = playertwo->pbody->y;
-		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
-		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);
-		app->scene_intro->playertwo->playershoots = false;
-		app->scene_intro->playerthree->isTurn = true;
-	}
-	
 	//Player3
-	if (app->scene_intro->playerthree->playershoots == true) {
-		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = playerthree->pbody->x - (playerthree->pbody->radius * 2);
-		projectile->pbody->y = playerthree->pbody->y;
-		projectile->pbody->vx = playerthree->projVel * cos(DEGTORAD * playerthree->projAngle);
-		projectile->pbody->vy = playerthree->projVel * sin(DEGTORAD * playerthree->projAngle);
-		app->scene_intro->playerthree->playershoots = false;
-		app->scene_intro->playerfour->isTurn = true;
+	if (playerthree->isAiming == true) {
+		app->ui->BlitPlayerAngle(); //->Cambiar dentro crear un if para p1 y p3
+		app->ui->BlitPlayerVelocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(playerthree->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playerthree->pbody->y), METERS_TO_PIXELS(playerthree->pbody->x + (playerthree->projVel * cos(DEGTORAD * playerthree->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playerthree->pbody->y + (playerthree->projVel * sin(DEGTORAD * playerthree->projAngle))), 255, 0, 0);
 	}
-	
-	//Player4
-	if (app->scene_intro->playerfour->playershoots == true) {
-		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
-		projectile->pbody->x = playerfour->pbody->x - (playerfour->pbody->radius * 2);
-		projectile->pbody->y = playerfour->pbody->y;
-		projectile->pbody->vx = playerfour->projVel * cos(DEGTORAD * playerfour->projAngle);
-		projectile->pbody->vy = playerfour->projVel * sin(DEGTORAD * playerfour->projAngle);
-		app->scene_intro->playerfour->playershoots = false;
-		app->scene_intro->player->isTurn = true;
+	if (playerfour->isAiming == true) {
+		app->ui->BlitPlayer2Angle();//->Cambiar dentro crear un if para p2 y p4
+		app->ui->BlitPlayer2Velocity();
+		app->renderer->DrawLine(METERS_TO_PIXELS(playerfour->pbody->x), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y), METERS_TO_PIXELS(playerfour->pbody->x + (playerfour->projVel * cos(DEGTORAD * playerfour->projAngle))), SCREEN_HEIGHT - METERS_TO_PIXELS(playerfour->pbody->y + (playerfour->projVel * sin(DEGTORAD * playerfour->projAngle))), 255, 0, 0);
 	}
 
+	ProjectileShot();
 
-	if (app->scene_intro->player->dead == true) {
+	if (app->scene_intro->player->dead == true && app->scene_intro->playerthree->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
 	}
 
 
-	if (app->scene_intro->playertwo->dead == true) {
+	if (app->scene_intro->playertwo->dead == true && app->scene_intro->playerfour->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
 	}
 
@@ -230,3 +197,61 @@ bool ModuleSceneIntro::CleanUp()
 }
 
 
+void ModuleSceneIntro::ProjectileShot() {
+
+	/*Projectile Shot --> Sets here the momentum initial Pos and Vel*/
+	//Player1
+	if (player->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		if(player->fliped == SDL_FLIP_HORIZONTAL)
+			projectile->pbody->x = player->pbody->x + (player->pbody->radius * 2);
+		if(player->fliped == SDL_FLIP_NONE)
+			projectile->pbody->x = player->pbody->x - (player->pbody->radius * 2);
+		projectile->pbody->y = player->pbody->y;
+		projectile->pbody->vx = player->projVel * cos(DEGTORAD * player->projAngle);
+		projectile->pbody->vy = player->projVel * sin(DEGTORAD * player->projAngle);
+		app->scene_intro->player->playershoots = false;
+		app->scene_intro->playertwo->isTurn = true;
+	}
+	//Player2
+	if (playertwo->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		if (playertwo->fliped == SDL_FLIP_HORIZONTAL)
+			projectile->pbody->x = playertwo->pbody->x + (playertwo->pbody->radius * 2);
+		if (playertwo->fliped == SDL_FLIP_NONE)
+			projectile->pbody->x = playertwo->pbody->x - (playertwo->pbody->radius * 2);
+		projectile->pbody->y = playertwo->pbody->y;
+		projectile->pbody->vx = playertwo->projVel * cos(DEGTORAD * playertwo->projAngle);
+		projectile->pbody->vy = playertwo->projVel * sin(DEGTORAD * playertwo->projAngle);
+		app->scene_intro->playertwo->playershoots = false;
+		app->scene_intro->playerthree->isTurn = true;
+	}
+	//Player3
+	if (playerthree->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		if (playerthree->fliped == SDL_FLIP_HORIZONTAL)
+			projectile->pbody->x = playerthree->pbody->x + (playerthree->pbody->radius * 2);
+		if (playerthree->fliped == SDL_FLIP_NONE)
+			projectile->pbody->x = playerthree->pbody->x - (playerthree->pbody->radius * 2);
+		projectile->pbody->y = playerthree->pbody->y;
+		projectile->pbody->vx = playerthree->projVel * cos(DEGTORAD * playerthree->projAngle);
+		projectile->pbody->vy = playerthree->projVel * sin(DEGTORAD * playerthree->projAngle);
+		app->scene_intro->playerthree->playershoots = false;
+		app->scene_intro->playerfour->isTurn = true;
+	}
+	//Player4
+	if (playerfour->playershoots == true) {
+		projectile = (ModuleProjectile*)app->entityManager->CreateEntity(EntityType::PROJECTILE);
+		if (playerfour->fliped == SDL_FLIP_HORIZONTAL)
+			projectile->pbody->x = playerfour->pbody->x + (playerfour->pbody->radius * 2);
+		if (playerfour->fliped == SDL_FLIP_NONE)
+			projectile->pbody->x = playerfour->pbody->x - (playerfour->pbody->radius * 2);
+		projectile->pbody->y = playerfour->pbody->y;
+		projectile->pbody->vx = playerfour->projVel * cos(DEGTORAD * playerfour->projAngle);
+		projectile->pbody->vy = playerfour->projVel * sin(DEGTORAD * playerfour->projAngle);
+		app->scene_intro->playerfour->playershoots = false;
+		app->scene_intro->player->isTurn = true;
+	}
+
+
+}

@@ -48,6 +48,9 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
+
+	void ProjectileShot();
+
 public:
 
 	SDL_Texture* map_img;

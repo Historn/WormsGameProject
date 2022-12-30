@@ -133,6 +133,40 @@ update_status ModuleWeapon::Update() {
 		}
 
 	}
+	//Weapon Movement P3
+	if (app->scene_intro->playerthree->isTurn == true) {
+
+		if (app->scene_intro->playerthree->fliped == SDL_FLIP_NONE) {
+			position.x = app->scene_intro->playerthree->pbody->x - app->scene_intro->playertwo->pbody->radius * 2;
+			position.y = app->scene_intro->playerthree->pbody->y + app->scene_intro->playertwo->pbody->radius / 3;
+			angle = -app->scene_intro->playerthree->projAngle + 180.0f;
+			fliped = SDL_FLIP_NONE;
+		}
+		if (app->scene_intro->playerthree->fliped == SDL_FLIP_HORIZONTAL) {
+			position.x = app->scene_intro->playerthree->pbody->x;
+			position.y = app->scene_intro->playerthree->pbody->y + app->scene_intro->playerthree->pbody->radius / 3;
+			angle = -app->scene_intro->playerthree->projAngle;
+			fliped = SDL_FLIP_HORIZONTAL;
+		}
+
+	}
+	//Weapon Movement P4
+	if (app->scene_intro->playerfour->isTurn == true) {
+
+		if (app->scene_intro->playerfour->fliped == SDL_FLIP_NONE) {
+			position.x = app->scene_intro->playerfour->pbody->x - app->scene_intro->playerfour->pbody->radius * 2;
+			position.y = app->scene_intro->playerfour->pbody->y + app->scene_intro->playerfour->pbody->radius / 3;
+			angle = -app->scene_intro->playerfour->projAngle + 180.0f;
+			fliped = SDL_FLIP_NONE;
+		}
+		if (app->scene_intro->playerfour->fliped == SDL_FLIP_HORIZONTAL) {
+			position.x = app->scene_intro->playerfour->pbody->x;
+			position.y = app->scene_intro->playerfour->pbody->y + app->scene_intro->playerfour->pbody->radius / 3;
+			angle = -app->scene_intro->playerfour->projAngle;
+			fliped = SDL_FLIP_HORIZONTAL;
+		}
+
+	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->renderer->Blit(texture, METERS_TO_PIXELS(position.x), SCREEN_HEIGHT - METERS_TO_PIXELS(position.y), &rect, fliped, angle);
