@@ -174,6 +174,7 @@ update_status ModulePlayer::Update()
 	if (dead == true) {
 		if (deathPlayer.HasFinished()) {
 			pbody->listener->Disable();
+			app->audio->PlayFx(app->scene_intro->player_die_fx);
 		}
 	}
 

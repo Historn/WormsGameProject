@@ -13,28 +13,8 @@
 
 #define BOUNCER_TIME 200
 
-enum LightTypes
-{
-	TINY,
-	MEDIUM,
-	BIG
-};
-
 class ModuleSceneIntro;
 
-struct Light
-{
-	Light() : texture(NULL), on(false), fx(0)
-	{}
-
-	Light(ModuleSceneIntro* physics, int x, int y, LightTypes type);
-
-	LightTypes type;
-	SDL_Texture* texture;
-	bool on;
-	uint fx;
-	int x, y;
-};
 
 class ModuleSceneIntro : public Module
 {
@@ -55,16 +35,6 @@ public:
 
 	SDL_Texture* map_img;
 
-	SDL_Texture* tex_light_tiny;
-	SDL_Texture* tex_light_medium;
-	SDL_Texture* tex_light_big;
-	
-	uint fx_light_tiny;
-	uint fx_light_medium;
-	uint fx_light_big;
-
-	p2DynArray<Light> lights;
-
 	//Entities
 	ModulePlayer* player;
 	ModulePlayer* playerthree;
@@ -73,8 +43,9 @@ public:
 	ModuleWeapon* weapon;
 	ModuleProjectile* projectile;
 	
-	uint player_lose_fx;
-
+	uint player_die_fx;
+	uint select_fx;
+	uint selection_fx;
 };
 
 #endif

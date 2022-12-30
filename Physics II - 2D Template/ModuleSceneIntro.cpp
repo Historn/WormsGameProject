@@ -40,10 +40,16 @@ bool ModuleSceneIntro::Start()
 	app->physics->Enable();
 	app->entityManager->Enable();
 
+	// Play music
 	app->audio->PlayMusic("Assets/Audio/Music/MainScreen.ogg");
 
-	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
+	// Load fx
+	player_die_fx = app->audio->LoadFx("Assets/Audio/Fx/die.wav");
+	select_fx = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
+	selection_fx = app->audio->LoadFx("Assets/Audio/Fx/menu_select.wav");
 
+	// Load map tex
+	map_img = app->textures->Load("Assets/Textures/PotentialMap.png");
 
 	playerthree->pbody->y = 18;
 	playerthree->pbody->x = 6;
@@ -100,50 +106,82 @@ update_status ModuleSceneIntro::Update()
 		app->ui->BlitWindIsEnabled();
 
 		//Changes FPS
-		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 			app->fps++;
-		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 			app->fps--;
+			app->audio->PlayFx(selection_fx);
+		}
 
 		//Changes GRAVITY X
-		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
 			app->physics->gravity.x += .5f;
-		if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}	
+		if (app->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {
 			app->physics->gravity.x -= .5f;
+			app->audio->PlayFx(selection_fx);
+		}
+			
 		//Changes GRAVITY Y
-		if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
 			app->physics->gravity.y += .5f;
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}	
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 			app->physics->gravity.y -= .5f;
+			app->audio->PlayFx(selection_fx);
+		}
 
 		//Changes WIND X
-		if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 			app->physics->atmosphere.windx -= .5f;
-		if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) {
 			app->physics->atmosphere.windx += .5f;
+			app->audio->PlayFx(selection_fx);
+		}
+
 		//Changes WIND Y
-		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
 			app->physics->atmosphere.windy -= .5f;
-		if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) {
 			app->physics->atmosphere.windy += .5f;
-
+			app->audio->PlayFx(selection_fx);
+		}
+		
 		//Changes ATMOSPHERE DENSITY
-		if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
 			app->physics->atmosphere.density -= .5f;
-		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
 			app->physics->atmosphere.density += .5f;
-
+			app->audio->PlayFx(selection_fx);
+		}
+			
 		//Changes DELTA TIME SCHEME
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 			app->physics->dtValue -= 10.0f;
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+			app->audio->PlayFx(selection_fx);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 			app->physics->dtValue += 10.0f;
+			app->audio->PlayFx(selection_fx);
+		}
 	}
 	
 	// Enable/Disable WIND force
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		app->physics->windEnabled = !app->physics->windEnabled;
-
+		app->audio->PlayFx(select_fx);
+	}
+		
 
 	//Player1
 	if (player->isAiming == true) {
@@ -174,17 +212,20 @@ update_status ModuleSceneIntro::Update()
 
 	if (app->scene_intro->player->dead == true && app->scene_intro->playerthree->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+		app->audio->PlayFx(player_die_fx);
 	}
-
 
 	if (app->scene_intro->playertwo->dead == true && app->scene_intro->playerfour->dead == true) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+		app->audio->PlayFx(player_die_fx);
 	}
 
-	
+
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
+		app->audio->PlayFx(player_die_fx);
 	}
+
 	return UPDATE_CONTINUE;
 }
 

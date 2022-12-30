@@ -4,6 +4,8 @@
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include "ModuleRender.h"
+#include "ModuleAudio.h"
+#include "ModuleSceneIntro.h"
 #include "math.h"
 #include <cmath>
 
@@ -126,6 +128,8 @@ bool ModulePhysics::Start()
 	waters.add(water1);
 	waters.add(water2);
 
+	wind_fx = app->audio->LoadFx("Assets/Audio/Fx/wind.wav");
+
 	return true;
 }
 
@@ -141,6 +145,7 @@ update_status ModulePhysics::PreUpdate()
 			atmosphere.windx = (rand() % 21) - 10;	// Range: -10 to +10
 			atmosphere.windy = (rand() % 11) - 5;	// Range: -5 to + 5
 			windTime = 0;
+			app->audio->PlayFx(wind_fx);
 		}
 	}
 	else
@@ -274,9 +279,11 @@ update_status ModulePhysics::PreUpdate()
 // 
 update_status ModulePhysics::PostUpdate()
 {
-	if(app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		debug = !debug;
-
+		app->audio->PlayFx(app->scene_intro->select_fx);
+	}
+		
 	if(!debug)
 		return UPDATE_CONTINUE;
 

@@ -181,6 +181,7 @@ update_status ModulePlayerTwo::Update()
 		currentAnim = &deathPlayer;
 		if (deathPlayer.HasFinished()) {
 			pbody->listener->Disable();
+			app->audio->PlayFx(app->scene_intro->player_die_fx);
 		}
 	}
 

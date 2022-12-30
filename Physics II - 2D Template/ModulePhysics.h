@@ -131,6 +131,8 @@ private:
 
 	uint windTime;
 
+	uint wind_fx;
+
 public:
 
 	p2List<PhysBody*> bodies{};
