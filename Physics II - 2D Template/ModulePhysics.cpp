@@ -12,7 +12,7 @@
 ModulePhysics::ModulePhysics(bool start_enabled) : Module(start_enabled)
 {
 	name.Create("ModulePhysics");
-	debug = true;
+	debug = false;
 }
 
 // Destructor

@@ -72,6 +72,12 @@ update_status ModuleSceneIntro::Update()
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		app->fullscreen = !app->fullscreen;
 
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		debugUI = !debugUI;
+		app->audio->PlayFx(select_fx);
+	}
+		
+
 	app->renderer->Blit(map_img, 0, 0, NULL);
 
 	//UI Blit
@@ -81,7 +87,7 @@ update_status ModuleSceneIntro::Update()
 	app->ui->BlitPlayer4HP();
 
 	// Debug UI info
-	if (app->physics->debug)
+	if (debugUI)
 	{
 		// Blit UI
 		app->ui->BlitPlayerXPos();
@@ -223,7 +229,7 @@ update_status ModuleSceneIntro::Update()
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		app->fade->FadeBlack(this, (Module*)app->ending_screen, 90);
 		app->audio->PlayFx(player_die_fx);
 	}

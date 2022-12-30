@@ -33,6 +33,8 @@ public:
 	void P1SelectByDeath();
 	void P2SelectByDeath();
 
+	bool debugUI = false;
+
 public:
 
 	SDL_Texture* map_img;
