@@ -14,8 +14,9 @@ The game finishes when both worms from a team are dead, then opposite team will 
 
 ## Key Features
 
-- {F1} - Debug Mode  
-- {F2} - Insta win/lose
+- {F1} - View colliders
+- {F2} - Debug Mode    
+- {F3} - Insta win/lose
 - {F11} - Fullscreen Mode
 
 ### Events
@@ -37,6 +38,9 @@ The game finishes when both worms from a team are dead, then opposite team will 
 - {U} - Shoot
 
 ## Debug Keys
+
+**IMPORTANT**: Values will only be modified if Debug Mode (F2) is enabled.
+
 ### FPS
 - {R} - Adds +1 FPS
 - {F} - Reduces -1 FPS
